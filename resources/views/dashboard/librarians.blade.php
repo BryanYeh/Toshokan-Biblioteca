@@ -7,7 +7,7 @@
 
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            <x-button-link :href="route('librarians')">
+            <x-button-link :href="route('librarian.create')">
                 Add Librarian
             </x-button-link>
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">

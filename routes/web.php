@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Library\LibrarianController;
 
 /*
 |--------------------------------------------------------------------------
@@ -26,3 +27,11 @@ require __DIR__.'/auth.php';
 Route::get('/librarians', function () {
     return view('dashboard.librarians');
 })->middleware(['auth'])->name('librarians');
+
+Route::get('/librarians/create', [LibrarianController::class,'create'])
+            ->middleware('auth')
+            ->name('librarian.create');
+
+Route::post('/librarians/create', [LibrarianController::class, 'store'])
+            ->middleware('auth')
+            ->name('librarian.create.store');
