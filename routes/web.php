@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Library\LibrariansListController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Library\LibrarianController;
 
@@ -24,9 +25,9 @@ Route::get('/dashboard', function () {
 
 require __DIR__.'/auth.php';
 
-Route::get('/librarians', function () {
-    return view('dashboard.librarians');
-})->middleware(['auth'])->name('librarians');
+Route::get('/librarians', [LibrariansListController::class, 'view'])
+        ->middleware(['auth'])
+        ->name('librarians');
 
 Route::get('/librarians/create', [LibrarianController::class,'create'])
             ->middleware('auth')
@@ -35,3 +36,7 @@ Route::get('/librarians/create', [LibrarianController::class,'create'])
 Route::post('/librarians/create', [LibrarianController::class, 'store'])
             ->middleware('auth')
             ->name('librarian.create.store');
+
+Route::get('/librarians/edit/{id}', [LibrarianController::class,'edit'])
+            ->middleware('auth')
+            ->name('librarian.edit');

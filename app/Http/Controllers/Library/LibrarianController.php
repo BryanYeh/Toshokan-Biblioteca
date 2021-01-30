@@ -45,4 +45,8 @@ class LibrarianController extends Controller
         return redirect()->route('librarians');
     }
 
+    public function edit(Request $request)
+    {
+        return 'editing '. $request->id;
+    }
 }
