@@ -5,7 +5,21 @@
         </h2>
     </x-slot>
 
+
+
     <div class="min-h-screen flex flex-col sm:justify-center items-center sm:pt-0 bg-gray-100">
+        @if (count($errors) > 0)
+            <div class="md:w-7/12 pt-12 w-10/12">
+                <div class="border border-red-800 bg-red-700 text-white p-6 shadow-md rounded-lg">
+                    <ul>
+                        @foreach ($errors->all() as $error)
+                            <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
+                </div>
+            </div>
+        @endif
+
         <div class="md:w-7/12 py-12 w-10/12">
             <div class="w-full p-4 bg-white shadow-md overflow-hidden sm:rounded-lg">
                 <div class="p-6 bg-white">
@@ -33,7 +47,12 @@
                         </div>
 
                         <div class="mt-4">
-                            <x-label for="password" :value="__('Password')" />
+                            <x-label for="password_confirmation" :value="__('Password')" />
+                            <x-input id="password_confirmation" class="block mt-1 w-full" type="password" name="password_confirmation" required/>
+                        </div>
+
+                        <div class="mt-4">
+                            <x-label for="password" :value="__('Confirm Password')" />
                             <x-input id="password" class="block mt-1 w-full" type="password" name="password" required/>
                         </div>
 

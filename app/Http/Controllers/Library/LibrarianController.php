@@ -16,6 +16,15 @@ class LibrarianController extends Controller
 
     public function store(Request $request)
     {
+        $request->validate([
+            'first_name' => 'required|string|max:255',
+            'last_name' => 'required|string|max:255',
+            'password' => 'required|string|confirmed|min:8',
+            'username' => 'required|string|min:5|max:255|unique:users',
+            'email' => 'email|nullable',
+            'dob' => 'date|nullable'
+        ]);
+
         User::create([
             'user_type' => 'librarian',
             'first_name' => $request->first_name,
