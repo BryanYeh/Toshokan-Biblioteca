@@ -53,6 +53,14 @@ class LibrarianController extends Controller
 
     public function update(Request $request)
     {
+        $request->validate([
+            'first_name' => 'required|string|max:255',
+            'last_name' => 'required|string|max:255',
+            'email' => 'email|nullable',
+            'dob' => 'date|nullable'
+        ]);
+
+        User::find($request->id)->update($request->all());
         return redirect()->route('librarians');
     }
 }
