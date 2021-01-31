@@ -36,4 +36,14 @@
             </div>
         </div>
     </div>
+
+    @if ($librarians->links()->paginator->hasPages())
+        <div class="pb-12">
+            <div class="lg:px-8 max-w-min mx-auto sm:px-6">
+                <div class="bg-white px-6 py-4 shadow-lg rounded-lg">
+                    {{ $librarians->onEachSide(3)->links() }}
+                </div>
+            </div>
+        </div>
+    @endif
 </x-app-layout>
