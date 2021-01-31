@@ -22,7 +22,6 @@ class LibrarianController extends Controller
             'password' => 'required|string|confirmed|min:8',
             'username' => 'required|string|min:5|max:255|unique:users',
             'email' => 'email|nullable',
-            'dob' => 'date|nullable'
         ]);
 
         User::create([
@@ -31,15 +30,7 @@ class LibrarianController extends Controller
             'last_name' => $request->last_name,
             'username' => $request->username,
             'email' => $request->email,
-            'password' => Hash::make($request->password),
-            'dob' => $request->dob,
-            'address1' => $request->address1,
-            'address2' => $request->address2,
-            'city' => $request->city,
-            'state' => $request->state,
-            'postal_code' => $request->postal_code,
-            'country' => $request->country,
-            'phone' => $request->phone,
+            'password' => Hash::make($request->password)
         ]);
 
         return redirect()->route('librarians');
