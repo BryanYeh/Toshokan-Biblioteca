@@ -40,3 +40,7 @@ Route::post('/librarians/create', [LibrarianController::class, 'store'])
 Route::get('/librarians/edit/{id}', [LibrarianController::class,'edit'])
             ->middleware('auth')
             ->name('librarian.edit');
+
+Route::post('/librarians/edit/{id}', [LibrarianController::class,'update'])
+            ->middleware('auth')
+            ->name('librarian.update');

@@ -47,6 +47,12 @@ class LibrarianController extends Controller
 
     public function edit(Request $request)
     {
-        return 'editing '. $request->id;
+        $librarian = User::where('id',$request->id)->first();
+        return view('dashboard.librarian_edit',['librarian' => $librarian]);
+    }
+
+    public function update(Request $request)
+    {
+        return redirect()->route('librarians');
     }
 }
