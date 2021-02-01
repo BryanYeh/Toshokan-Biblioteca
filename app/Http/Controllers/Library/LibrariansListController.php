@@ -11,7 +11,6 @@ class LibrariansListController extends Controller
     public function view()
     {
         $librarians = User::where('user_type', 'librarian')->select('first_name','last_name','username','id')->paginate(25);
-        // dd($librarians);
         return view('dashboard.librarians', ['librarians' => $librarians]);
     }
 }

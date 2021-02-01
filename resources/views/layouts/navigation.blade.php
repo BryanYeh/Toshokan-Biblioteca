@@ -18,7 +18,7 @@
                     <x-nav-link :href="route('librarians')" :active="request()->routeIs('librarians')">
                         {{ __('Librarians') }}
                     </x-nav-link>
-                    <x-nav-link :href="route('librarians')" :active="request()->routeIs('librarians')">
+                    <x-nav-link :href="route('patrons')" :active="request()->routeIs('patrons')">
                         {{ __('Patrons') }}
                     </x-nav-link>
                     <x-nav-link :href="route('librarians')" :active="request()->routeIs('librarians')">
@@ -80,6 +80,9 @@
             </x-responsive-nav-link>
             <x-responsive-nav-link :href="route('librarians')" :active="request()->routeIs('librarians')">
                 {{ __('Librarians') }}
+            </x-responsive-nav-link>
+            <x-responsive-nav-link :href="route('patrons')" :active="request()->routeIs('patrons')">
+                {{ __('Patrons') }}
             </x-responsive-nav-link>
             <x-responsive-nav-link :href="route('librarians')" :active="request()->routeIs('librarians')">
                 {{ __('Books') }}

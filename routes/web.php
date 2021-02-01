@@ -3,6 +3,7 @@
 use App\Http\Controllers\Library\LibrariansListController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Library\LibrarianController;
+use App\Http\Controllers\Library\PatronController;
 
 /*
 |--------------------------------------------------------------------------
@@ -44,3 +45,23 @@ Route::get('/librarians/edit/{id}', [LibrarianController::class,'edit'])
 Route::post('/librarians/edit/{id}', [LibrarianController::class,'update'])
             ->middleware('auth')
             ->name('librarian.update');
+// patrons
+Route::get('/patrons', [PatronController::class, 'viewList'])
+            ->middleware(['auth'])
+            ->name('patrons');
+
+Route::get('/patrons/create', [PatronController::class,'viewList'])
+            ->middleware('auth')
+            ->name('patron.create');
+
+Route::post('/patrons/create', [PatronController::class, 'viewList'])
+            ->middleware('auth')
+            ->name('patron.create.store');
+
+Route::get('/patrons/edit/{id}', [PatronController::class,'viewList'])
+            ->middleware('auth')
+            ->name('patron.edit');
+
+Route::post('/patrons/edit/{id}', [PatronController::class,'viewList'])
+            ->middleware('auth')
+            ->name('patron.update');
