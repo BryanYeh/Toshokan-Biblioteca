@@ -50,11 +50,11 @@ Route::get('/patrons', [PatronController::class, 'viewList'])
             ->middleware(['auth'])
             ->name('patrons');
 
-Route::get('/patrons/create', [PatronController::class,'viewList'])
+Route::get('/patrons/create', [PatronController::class,'create'])
             ->middleware('auth')
             ->name('patron.create');
 
-Route::post('/patrons/create', [PatronController::class, 'viewList'])
+Route::post('/patrons/create', [PatronController::class, 'store'])
             ->middleware('auth')
             ->name('patron.create.store');
 
