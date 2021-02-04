@@ -55,4 +55,29 @@ class PatronController extends Controller
 
         return redirect()->route('patrons');
     }
+
+    public function edit(Request $request)
+    {
+        $patron = User::where('id',$request->id)->first();
+        return view('dashboard.patron_edit',['patron' => $patron]);
+    }
+
+    public function update(Request $request)
+    {
+        $request->validate([
+            'first_name' => 'required|string|max:255',
+            'last_name' => 'required|string|max:255',
+            'username' => 'required|numeric|unique:users',
+            'email' => 'email|nullable',
+            'dob' => 'date|nullable',
+            'address1' => 'required',
+            'city' => 'required',
+            'state' => 'required',
+            'postal_code' => 'required',
+            'country' => 'required',
+        ]);
+
+        User::find($request->id)->update($request->all());
+        return redirect()->route('patrons');
+    }
 }

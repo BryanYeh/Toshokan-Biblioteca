@@ -58,10 +58,10 @@ Route::post('/patrons/create', [PatronController::class, 'store'])
             ->middleware('auth')
             ->name('patron.create.store');
 
-Route::get('/patrons/edit/{id}', [PatronController::class,'viewList'])
+Route::get('/patrons/edit/{id}', [PatronController::class,'edit'])
             ->middleware('auth')
             ->name('patron.edit');
 
-Route::post('/patrons/edit/{id}', [PatronController::class,'viewList'])
+Route::post('/patrons/edit/{id}', [PatronController::class,'update'])
             ->middleware('auth')
             ->name('patron.update');
