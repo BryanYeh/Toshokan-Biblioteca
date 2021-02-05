@@ -4,6 +4,7 @@ use App\Http\Controllers\Library\LibrariansListController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Library\LibrarianController;
 use App\Http\Controllers\Library\PatronController;
+use App\Http\Controllers\Library\BookController;
 
 /*
 |--------------------------------------------------------------------------
@@ -26,6 +27,7 @@ Route::get('/dashboard', function () {
 
 require __DIR__.'/auth.php';
 
+// librarians
 Route::get('/librarians', [LibrariansListController::class, 'view'])
         ->middleware(['auth'])
         ->name('librarians');
@@ -65,3 +67,24 @@ Route::get('/patrons/edit/{id}', [PatronController::class,'edit'])
 Route::post('/patrons/edit/{id}', [PatronController::class,'update'])
             ->middleware('auth')
             ->name('patron.update');
+
+// books
+Route::get('/books', [BookController::class, 'viewList'])
+            ->middleware(['auth'])
+            ->name('books');
+
+Route::get('/books/create', [BookController::class,'create'])
+            ->middleware('auth')
+            ->name('book.create');
+
+Route::post('/books/create', [BookController::class, 'store'])
+            ->middleware('auth')
+            ->name('book.create.store');
+
+Route::get('/books/edit/{id}', [BookController::class,'edit'])
+            ->middleware('auth')
+            ->name('book.edit');
+
+Route::post('/books/edit/{id}', [BookController::class,'update'])
+            ->middleware('auth')
+            ->name('book.update');
