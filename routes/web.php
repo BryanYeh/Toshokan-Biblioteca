@@ -1,6 +1,5 @@
 <?php
 
-use App\Http\Controllers\Library\LibrariansListController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Library\LibrarianController;
 use App\Http\Controllers\Library\PatronController;
@@ -28,7 +27,7 @@ Route::get('/dashboard', function () {
 require __DIR__.'/auth.php';
 
 // librarians
-Route::get('/librarians', [LibrariansListController::class, 'view'])
+Route::get('/librarians', [LibrarianController::class, 'viewList'])
         ->middleware(['auth'])
         ->name('librarians');
 

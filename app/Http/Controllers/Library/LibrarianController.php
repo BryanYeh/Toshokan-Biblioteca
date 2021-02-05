@@ -9,6 +9,12 @@ use Illuminate\Support\Facades\Hash;
 
 class LibrarianController extends Controller
 {
+    public function viewList()
+    {
+        $librarians = User::where('user_type', 'librarian')->select('first_name','last_name','username','id')->paginate(25);
+        return view('dashboard.librarians', ['librarians' => $librarians]);
+    }
+
     public function create()
     {
         return view('dashboard.librarian_create');
