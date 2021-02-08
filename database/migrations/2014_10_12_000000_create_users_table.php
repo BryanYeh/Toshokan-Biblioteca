@@ -32,8 +32,6 @@ class CreateUsersTable extends Migration
             $table->string('country')->nullable();
             $table->string('phone')->nullable();
             $table->timestamp('address_confirmed_at')->useCurrent();
-            $table->string('invitation_token', 32)->unique()->nullable();
-            $table->timestamp('invited_at')->nullable();
             $table->timestamp('registered_at')->nullable();
             $table->rememberToken();
             $table->timestamps();
