@@ -3,6 +3,7 @@
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
+use App\Http\Controllers\Admin\LibrariansController;
 
 /*
 |--------------------------------------------------------------------------
@@ -27,3 +28,9 @@ Route::get('/', function () {
 Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
     return Inertia::render('Dashboard');
 })->name('dashboard');
+
+Route::middleware(['auth:sanctum', 'verified'])->get('/invite', LibrariansController::class)->name('invite');
+
+Route::middleware(['auth:sanctum', 'verified'])->post('/invite', [LibrariansController::class,'send'])->name('inviteLibrarian');
+
+Route::get('/invitation/{code}/email/{email}',function(){dd($this->code);})->name('invitation');
