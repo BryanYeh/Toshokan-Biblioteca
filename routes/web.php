@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\InvitationController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -33,4 +34,4 @@ Route::middleware(['auth:sanctum', 'verified'])->get('/invite', LibrariansContro
 
 Route::middleware(['auth:sanctum', 'verified'])->post('/invite', [LibrariansController::class,'send'])->name('inviteLibrarian');
 
-Route::get('/invitation/{code}/email/{email}',function(){dd($this->code);})->name('invitation');
+Route::get('/invitation/{code}/email/{email}', InvitationController::class)->whereAlphaNumeric('code')->where('email','^([a-z0-9\+_\-]+)(\.[a-z0-9\+_\-]+)*@([a-z0-9\-]+\.)+[a-z]{2,6}$')->name('invitation');

@@ -40,7 +40,7 @@ class LibrariansController extends Controller
                 'first_name' => $request->first_name,
                 'last_name' => $request->last_name,
                 'email' => $request->email,
-                'invitation_token' => Str::random(32),
+                'invitation_token' => Str::randomAlpha(32),
                 'invited_at' => Carbon::now()
             ]
         );
