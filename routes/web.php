@@ -34,6 +34,6 @@ Route::middleware(['auth:sanctum', 'verified'])->get('/invite', LibrariansContro
 
 Route::middleware(['auth:sanctum', 'verified'])->post('/invite', [LibrariansController::class,'send'])->name('inviteLibrarian');
 
-Route::get('/invitation/{code}/email/{email}', InvitationController::class)->whereAlphaNumeric('code')->where('email','^([a-z0-9\+_\-]+)(\.[a-z0-9\+_\-]+)*@([a-z0-9\-]+\.)+[a-z]{2,6}$')->name('invitation');
+Route::get('/invitation/{code}/email/{email}', InvitationController::class)->whereAlphaNumeric('code')->where('email','^([a-z0-9\+_\-]+)(\.[a-z0-9\+_\-]+)*@([a-z0-9\-]+\.)+[a-z]{2,6}$')->middleware(['guest'])->name('invitation');
 
-Route::post('/invitation/accept',[InvitationController::class,'accept'])->name('accept');
+Route::post('/invitation/accept',[InvitationController::class,'accept'])->middleware(['guest'])->name('accept');
