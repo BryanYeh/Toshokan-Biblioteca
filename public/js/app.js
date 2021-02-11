@@ -4930,7 +4930,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
   data: function data() {
     return {
       form: this.$inertia.form({
-        email: '',
+        username: '',
         password: '',
         remember: false
       })
@@ -32594,22 +32594,25 @@ var render = function() {
           _c(
             "div",
             [
-              _c("jet-label", { attrs: { for: "email", value: "Email" } }),
+              _c("jet-label", {
+                attrs: { for: "username", value: "Username" }
+              }),
               _vm._v(" "),
               _c("jet-input", {
                 staticClass: "mt-1 block w-full",
                 attrs: {
-                  id: "email",
-                  type: "email",
+                  id: "username",
+                  name: "username",
+                  type: "text",
                   required: "",
                   autofocus: ""
                 },
                 model: {
-                  value: _vm.form.email,
+                  value: _vm.form.username,
                   callback: function($$v) {
-                    _vm.$set(_vm.form, "email", $$v)
+                    _vm.$set(_vm.form, "username", $$v)
                   },
-                  expression: "form.email"
+                  expression: "form.username"
                 }
               })
             ],
@@ -32628,6 +32631,7 @@ var render = function() {
                 staticClass: "mt-1 block w-full",
                 attrs: {
                   id: "password",
+                  name: "password",
                   type: "password",
                   required: "",
                   autocomplete: "current-password"

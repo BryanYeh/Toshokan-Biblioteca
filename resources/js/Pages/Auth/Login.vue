@@ -12,13 +12,13 @@
 
         <form @submit.prevent="submit">
             <div>
-                <jet-label for="email" value="Email" />
-                <jet-input id="email" type="email" class="mt-1 block w-full" v-model="form.email" required autofocus />
+                <jet-label for="username" value="Username" />
+                <jet-input id="username" name="username" type="text" class="mt-1 block w-full" v-model="form.username" required autofocus />
             </div>
 
             <div class="mt-4">
                 <jet-label for="password" value="Password" />
-                <jet-input id="password" type="password" class="mt-1 block w-full" v-model="form.password" required autocomplete="current-password" />
+                <jet-input id="password" name="password" type="password" class="mt-1 block w-full" v-model="form.password" required autocomplete="current-password" />
             </div>
 
             <div class="block mt-4">
@@ -69,7 +69,7 @@
         data() {
             return {
                 form: this.$inertia.form({
-                    email: '',
+                    username: '',
                     password: '',
                     remember: false
                 })
