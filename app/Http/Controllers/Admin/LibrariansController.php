@@ -49,4 +49,15 @@ class LibrariansController extends Controller
 
         return back()->with('message', 'Successfully invited ' . $request->first_name . ' to be a librarian');
     }
+
+    public function view()
+    {
+        $librarians = User::where('user_type', 'librarian')->select('first_name','last_name','username','id')->paginate(25);
+        return Inertia::render('Admin/Owner/Librarians', ['librarians' => $librarians]);
+    }
+
+    public function edit(Request $request)
+    {
+
+    }
 }
