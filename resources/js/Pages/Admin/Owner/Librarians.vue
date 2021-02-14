@@ -26,6 +26,7 @@
                         </td>
                     </tr>
                 </table>
+                <Pagination v-bind:obj="librarians"></Pagination>
             </div>
         </div>
     </app-layout>
@@ -33,6 +34,7 @@
 
 <script>
 import AppLayout from '@/Layouts/AppLayout'
+import Pagination from '@/Jetstream/Pagination'
 
 export default {
     props: {
@@ -42,6 +44,7 @@ export default {
     },
     components :{
         AppLayout,
+        Pagination
     }
 }
 </script>
