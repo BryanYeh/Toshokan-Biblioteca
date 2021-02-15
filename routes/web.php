@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 use App\Http\Controllers\Admin\LibrariansController;
 use App\Http\Controllers\Admin\PatronsController;
+use App\Http\Controllers\Admin\VisitorsController;
 
 /*
 |--------------------------------------------------------------------------
@@ -46,4 +47,7 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
 
     Route::get('/patrons', PatronsController::class)->name('patrons');
     Route::get('/patrons/edit/{id}', [PatronsController::class,'edit'])->name('edit.patron');
+
+    Route::get('/visitors', VisitorsController::class)->name('visitors');
+    Route::get('/visitors/edit/{id}', [VisitorsController::class,'edit'])->name('edit.visitor');
 });
