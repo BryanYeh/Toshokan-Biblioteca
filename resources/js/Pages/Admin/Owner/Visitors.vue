@@ -26,7 +26,7 @@
                         </td>
                     </tr>
                 </table>
-                <Pagination v-bind:obj="vistors"></Pagination>
+                <Pagination v-bind:obj="visitors"></Pagination>
             </div>
         </div>
     </app-layout>
