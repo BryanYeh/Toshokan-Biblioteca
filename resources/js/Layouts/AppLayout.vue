@@ -224,6 +224,11 @@
                 </div>
             </header>
 
+            <div v-if="$page.props.success" class="green">
+                {{ $page.props.success }}
+            </div>
+
+
             <!-- Page Content -->
             <main>
                 <slot></slot>

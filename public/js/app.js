@@ -4271,6 +4271,11 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
 
 
 
@@ -33048,6 +33053,16 @@ var render = function() {
                   },
                   [_vm._t("header")],
                   2
+                )
+              ])
+            : _vm._e(),
+          _vm._v(" "),
+          _vm.$page.props.success
+            ? _c("div", { staticClass: "green" }, [
+                _vm._v(
+                  "\n            " +
+                    _vm._s(_vm.$page.props.success) +
+                    "\n        "
                 )
               ])
             : _vm._e(),
