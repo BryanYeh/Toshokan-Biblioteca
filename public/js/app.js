@@ -34229,7 +34229,7 @@ var render = function() {
               2
             ),
             _vm._v(" "),
-            _c("Pagination", { attrs: { obj: _vm.vistors } })
+            _c("Pagination", { attrs: { obj: _vm.visitors } })
           ],
           1
         )
