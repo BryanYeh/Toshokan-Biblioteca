@@ -20,9 +20,14 @@
                         <td class="py-2">{{ patron.card_number }}</td>
                         <td class="py-2">{{ patron.address_confirmed_at | fromNow }}</td>
                         <td class="py-2">
-                            <a v-bind:href="route('edit.patron',{id:patron.id})" class="inline-block">
+                            <a v-bind:href="route('patron.edit',{id:patron.id})" class="inline-block">
                                 <svg class="h-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
+                                </svg>
+                            </a>
+                            <a v-on:click="downgrade(patron.id)" class="inline-block">
+                                <svg class="h-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 13l-7 7-7-7m14-8l-7 7-7-7" />
                                 </svg>
                             </a>
                         </td>
@@ -59,6 +64,12 @@ export default {
                 return null;
             }
             return dayjs(date).fromNow();
+        }
+    },
+    methods: {
+        downgrade: function (id) {
+            // TODO: post to downgrade and redirect after successful
+            alert(id)
         }
     }
 }

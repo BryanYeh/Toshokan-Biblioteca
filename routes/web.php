@@ -46,7 +46,10 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
     Route::get('/librarian/edit/{id}', [LibrariansController::class,'edit'])->name('edit.librarian');
 
     Route::get('/patrons', PatronsController::class)->name('patrons');
-    Route::get('/patrons/edit/{id}', [PatronsController::class,'edit'])->name('edit.patron');
+    Route::get('/patrons/profile/{id}', [PatronsController::class,'view'])->name('patron.profile');
+    Route::get('/patrons/edit/{id}', [PatronsController::class,'edit'])->name('patron.edit');
+    Route::post('/patrons/edit/{id}', [PatronsController::class,'update'])->name('patron.update');
+    Route::post('/patrons/downgrade/{id}', [PatronsController::class,'downgrade'])->name('patron.downgrade');
 
     Route::get('/visitors', VisitorsController::class)->name('visitors');
     Route::get('/visitors/profile/{id}', [VisitorsController::class,'view'])->name('visitor.profile');
