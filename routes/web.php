@@ -28,7 +28,11 @@ Route::get('/', function () {
     ]);
 });
 
-Route::get('/invitation/{code}/email/{email}', InvitationController::class)->whereAlphaNumeric('code')->where('email','^([a-z0-9\+_\-]+)(\.[a-z0-9\+_\-]+)*@([a-z0-9\-]+\.)+[a-z]{2,6}$')->middleware(['guest'])->name('invitation');
+Route::get('/invitation/{code}/email/{email}', InvitationController::class)
+    ->whereAlphaNumeric('code')
+    ->where('email','^([a-z0-9\+_\-]+)(\.[a-z0-9\+_\-]+)*@([a-z0-9\-]+\.)+[a-z]{2,6}$')
+    ->middleware(['guest'])
+    ->name('invitation');
 
 Route::post('/invitation/accept',[InvitationController::class,'accept'])->middleware(['guest'])->name('accept');
 
@@ -39,11 +43,11 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
         return Inertia::render('Dashboard');
     })->name('dashboard');
 
-    Route::get('/invite', LibrariansController::class)->name('invite');
-    Route::post('/invite', [LibrariansController::class,'send'])->name('inviteLibrarian');
-
-    Route::get('/librarians', [LibrariansController::class,'view'])->name('view');
-    Route::get('/librarian/edit/{id}', [LibrariansController::class,'edit'])->name('edit.librarian');
+    Route::get('/librarians', LibrariansController::class)->name('librarians');
+    Route::get('/librarians/profile/{id}', [LibrariansController::class,'view'])->name('librarian.profile');
+    Route::post('/librarians/delete/{id}', [LibrariansController::class,'remove'])->name('librarian.delete');
+    Route::get('/invite', [LibrariansController::class,'invite'])->name('librarian.invitation');
+    Route::post('/invite', [LibrariansController::class,'send'])->name('librarian.invitation.send');
 
     Route::get('/patrons', PatronsController::class)->name('patrons');
     Route::get('/patrons/profile/{id}', [PatronsController::class,'view'])->name('patron.profile');

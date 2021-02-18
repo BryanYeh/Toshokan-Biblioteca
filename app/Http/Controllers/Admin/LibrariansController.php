@@ -14,17 +14,36 @@ use App\Mail\LibrarianInvitation;
 
 class LibrariansController extends Controller
 {
-    /**
-     * Handle the incoming request.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function __invoke(Request $request)
+    // list of librarians
+    public function __invoke()
     {
-        return Inertia::render('Admin/Owner/LibrarianInvite');
+        $librarians = User::where('user_type', 'librarian')->select('first_name','last_name','username','id')->paginate(25);
+        return Inertia::render('Admin/Librarians/List', ['librarians' => $librarians]);
     }
 
+    // view librarian profile
+    public function view(Request $request)
+    {
+        $librarian = User::where('id',$request->id)->first();
+        return Inertia::render('Admin/Librarians/Profile',['librarian' => $librarian]);
+    }
+
+    // delete librarian
+    public function remove(Request $request)
+    {
+        $librarian = User::where('id',$request->id)->delete();
+        return response()->json([
+            'success' => 'Successfully deleted librarian'
+        ]);
+    }
+
+    // view librarian invitation page
+    public function invite(Request $request)
+    {
+        return Inertia::render('Admin/Librarians/Invitation');
+    }
+
+    // send librarian invitation
     public function send(Request $request)
     {
         $request->validate([
@@ -48,16 +67,5 @@ class LibrariansController extends Controller
         Mail::to($request->user())->send(new LibrarianInvitation($invitation));
 
         return back()->with('message', 'Successfully invited ' . $request->first_name . ' to be a librarian');
-    }
-
-    public function view()
-    {
-        $librarians = User::where('user_type', 'librarian')->select('first_name','last_name','username','id')->paginate(25);
-        return Inertia::render('Admin/Owner/Librarians', ['librarians' => $librarians]);
-    }
-
-    public function edit(Request $request)
-    {
-
     }
 }

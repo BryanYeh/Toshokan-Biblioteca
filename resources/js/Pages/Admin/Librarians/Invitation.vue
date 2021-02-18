@@ -73,7 +73,7 @@
 
         methods: {
             submit() {
-                this.form.post(this.route('inviteLibrarian'), {
+                this.form.post(this.route('librarian.invitation.send'), {
                     onFinish: () => this.form.reset('first_name','last_name','email'),
                 })
             }
