@@ -13,17 +13,31 @@ use Illuminate\Support\Facades\Hash;
 
 class InvitationController extends Controller
 {
+    // page of invitation acceptance
     public function __invoke(Request $request,$email,$code)
     {
-        $invitation = Invitation::where(['email'=>$request->email,'invitation_token'=>$request->code])->whereNull('accepted_at')->whereDate('invited_at','>',Carbon::now()->subDays(30))->first();
+        $invitation = Invitation::where([
+            'email'=>$request->email,
+            'invitation_token'=>$request->code
+            ])
+            ->whereNull('accepted_at')
+            ->whereDate('invited_at','>',Carbon::now()->subDays(30))
+            ->first();
+
         if($invitation){
-            return Inertia::render('InvitationAccept',['first_name'=>$invitation->first_name,'last_name'=>$invitation->last_name,'email'=>$invitation->email,'token'=>$invitation->invitation_token]);
+            return Inertia::render('Invitations/Accept',[
+                'first_name'=>$invitation->first_name,
+                'last_name'=>$invitation->last_name,
+                'email'=>$invitation->email,
+                'token'=>$invitation->invitation_token
+                ]);
         }
         else{
-            return Inertia::render('InvitationLate');
+            return Inertia::render('Invitations/Expired');
         }
     }
 
+    // accept the invitation
     public function accept(Request $request)
     {
         $request->validate([
@@ -33,7 +47,13 @@ class InvitationController extends Controller
             'email' => 'required|email|unique:users'
         ]);
 
-        $invitation = Invitation::where(['email'=>$request->email,'invitation_token'=>$request->invitation_token])->whereNull('accepted_at')->whereDate('invited_at','>',Carbon::now()->subDays(30))->first();
+        $invitation = Invitation::where([
+            'email'=>$request->email,
+            'invitation_token'=>$request->invitation_token
+            ])
+            ->whereNull('accepted_at')
+            ->whereDate('invited_at','>',Carbon::now()->subDays(30))
+            ->first();
         $invitation->accepted_at = Carbon::now();
         $invitation->save();
 

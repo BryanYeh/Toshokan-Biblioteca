@@ -34,9 +34,9 @@ Route::get('/invitation/{code}/email/{email}', InvitationController::class)
     ->middleware(['guest'])
     ->name('invitation');
 
-Route::post('/invitation/accept',[InvitationController::class,'accept'])->middleware(['guest'])->name('accept');
-
-
+Route::post('/invitation/accept',[InvitationController::class,'accept'])
+    ->middleware(['guest'])
+    ->name('accept');
 
 Route::middleware(['auth:sanctum', 'verified'])->group(function () {
     Route::get('/dashboard', function () {
