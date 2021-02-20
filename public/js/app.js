@@ -4794,19 +4794,28 @@ __webpack_require__.r(__webpack_exports__);
 
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
-  props: {
-    librarians: {
-      type: Object
-    }
+  props: ['librarians'],
+  data: function data() {
+    return {
+      localLibrarians: this.librarians
+    };
   },
   components: {
     AppLayout: _Layouts_AppLayout__WEBPACK_IMPORTED_MODULE_0__.default,
     Pagination: _Jetstream_Pagination__WEBPACK_IMPORTED_MODULE_1__.default
   },
   methods: {
-    del: function del(id) {
-      // TODO: post to downgrade and redirect after successful
-      alert(id);
+    del: function del(id, index) {
+      // TODO: delete librarian then update the list
+      axios["delete"](route('librarian.delete', {
+        id: id
+      })).then(function (response) {
+        // getting TypeError: Cannot read property 'localLibrarians' of undefined
+        // this.localLibrarians.data.splice(a,1);
+        console.log(response);
+      })["catch"](function (error) {
+        console.log(error);
+      });
     }
   }
 });
@@ -34123,8 +34132,8 @@ var render = function() {
                   _c("th", [_vm._v("Actions")])
                 ]),
                 _vm._v(" "),
-                _vm._l(_vm.librarians.data, function(librarian) {
-                  return _c("tr", [
+                _vm._l(_vm.localLibrarians.data, function(librarian, index) {
+                  return _c("tr", { attrs: { index: index } }, [
                     _c("td", { staticClass: "py-2" }, [
                       _vm._v(
                         _vm._s(librarian.first_name) +
@@ -34181,7 +34190,7 @@ var render = function() {
                           staticClass: "inline-block",
                           on: {
                             click: function($event) {
-                              return _vm.del(librarian.id)
+                              return _vm.del(librarian.id, index)
                             }
                           }
                         },
@@ -34217,7 +34226,7 @@ var render = function() {
               2
             ),
             _vm._v(" "),
-            _c("Pagination", { attrs: { obj: _vm.librarians } })
+            _c("Pagination", { attrs: { obj: _vm.localLibrarians } })
           ],
           1
         )

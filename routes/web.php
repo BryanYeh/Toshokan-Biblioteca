@@ -45,7 +45,7 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
 
     Route::get('/librarians', LibrariansController::class)->name('librarians');
     Route::get('/librarians/profile/{id}', [LibrariansController::class,'view'])->name('librarian.profile');
-    Route::post('/librarians/delete/{id}', [LibrariansController::class,'remove'])->name('librarian.delete');
+    Route::delete('/librarians/delete/{id}', [LibrariansController::class,'remove'])->name('librarian.delete');
     Route::get('/invite', [LibrariansController::class,'invite'])->name('librarian.invitation');
     Route::post('/invite', [LibrariansController::class,'send'])->name('librarian.invitation.send');
 

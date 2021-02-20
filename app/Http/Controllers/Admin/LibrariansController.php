@@ -31,7 +31,7 @@ class LibrariansController extends Controller
     // delete librarian
     public function remove(Request $request)
     {
-        $librarian = User::where('id',$request->id)->delete();
+        $librarian = User::destroy($request->id);
         return response()->json([
             'success' => 'Successfully deleted librarian'
         ]);
