@@ -8,6 +8,14 @@
 
         <div>
             <div class="max-w-7xl mx-auto py-10 sm:px-6 lg:px-8">
+                <div class="bg-white border-t-4 border-green-500 rounded-b text-green-900 px-4 py-3 shadow-md mb-6" role="alert" v-if="flash.message">
+                    <div class="flex">
+                        <div>
+                            <p class="text-sm">{{ flash.message }}</p>
+                        </div>
+                    </div>
+                </div>
+
                 <table class="table w-full text-center">
                     <tr>
                         <th>Name</th>
@@ -46,11 +54,7 @@ import dayjs from 'dayjs';
 import relativeTime from 'dayjs/plugin/relativeTime';
 
 export default {
-    props: {
-        patrons: {
-            type: Object
-        }
-    },
+    props: ['patrons','errors','flash'],
     components :{
         AppLayout,
         Pagination
@@ -68,8 +72,7 @@ export default {
     },
     methods: {
         downgrade: function (id) {
-            // TODO: post to downgrade and redirect after successful
-            alert(id)
+            this.$inertia.post(route('patron.downgrade',{id:id}))
         }
     }
 }

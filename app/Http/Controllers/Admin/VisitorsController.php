@@ -27,7 +27,6 @@ class VisitorsController extends Controller
     public function edit(Request $request)
     {
         $visitor = User::where('id',$request->id)->first();
-        return $visitor;
         return Inertia::render('Admin/Visitors/Upgrade',['visitor' => $visitor]);
     }
 
@@ -51,6 +50,6 @@ class VisitorsController extends Controller
         ]);
 
         User::find($request->id)->update($request->all());
-        return redirect()->route('patron.view',['id'=>$request->id])->with('success', "$request->first_name $request->last_name is now a patron.");
+        return redirect()->route('patron.view',['id'=>$request->id])->with('message', "$request->first_name $request->last_name is now a patron.");
     }
 }

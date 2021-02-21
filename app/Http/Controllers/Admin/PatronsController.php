@@ -71,8 +71,7 @@ class PatronsController extends Controller
             'address_confirmed_at' => null
         ]);
 
-        return response()->json([
-            'success' => "$patron->first_name $patron->last_name has been downgraded to a visitor"
-        ]);
+        return redirect()->back()
+            ->with('message', "$patron->first_name $patron->last_name has been downgraded to a visitor");
     }
 }

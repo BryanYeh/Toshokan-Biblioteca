@@ -4791,31 +4791,27 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
-  props: ['librarians'],
-  data: function data() {
-    return {
-      localLibrarians: this.librarians
-    };
-  },
+  props: ['librarians', 'errors', 'flash'],
   components: {
     AppLayout: _Layouts_AppLayout__WEBPACK_IMPORTED_MODULE_0__.default,
     Pagination: _Jetstream_Pagination__WEBPACK_IMPORTED_MODULE_1__.default
   },
   methods: {
-    del: function del(id, index) {
-      // TODO: delete librarian then update the list
-      axios["delete"](route('librarian.delete', {
+    del: function del(id) {
+      this.$inertia["delete"](route('librarian.delete', {
         id: id
-      })).then(function (response) {
-        // getting TypeError: Cannot read property 'localLibrarians' of undefined
-        // this.localLibrarians.data.splice(a,1);
-        console.log(response);
-      })["catch"](function (error) {
-        console.log(error);
-      });
+      }));
     }
   }
 });
@@ -4880,16 +4876,20 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
-  props: {
-    patrons: {
-      type: Object
-    }
-  },
+  props: ['patrons', 'errors', 'flash'],
   components: {
     AppLayout: _Layouts_AppLayout__WEBPACK_IMPORTED_MODULE_0__.default,
     Pagination: _Jetstream_Pagination__WEBPACK_IMPORTED_MODULE_1__.default
@@ -4908,8 +4908,9 @@ __webpack_require__.r(__webpack_exports__);
   },
   methods: {
     downgrade: function downgrade(id) {
-      // TODO: post to downgrade and redirect after successful
-      alert(id);
+      this.$inertia.post(route('patron.downgrade', {
+        id: id
+      }));
     }
   }
 });
@@ -34120,6 +34121,26 @@ var render = function() {
           "div",
           { staticClass: "max-w-7xl mx-auto py-10 sm:px-6 lg:px-8" },
           [
+            _vm.flash.message
+              ? _c(
+                  "div",
+                  {
+                    staticClass:
+                      "bg-white border-t-4 border-green-500 rounded-b text-green-900 px-4 py-3 shadow-md mb-6",
+                    attrs: { role: "alert" }
+                  },
+                  [
+                    _c("div", { staticClass: "flex" }, [
+                      _c("div", [
+                        _c("p", { staticClass: "text-sm" }, [
+                          _vm._v(_vm._s(_vm.flash.message))
+                        ])
+                      ])
+                    ])
+                  ]
+                )
+              : _vm._e(),
+            _vm._v(" "),
             _c(
               "table",
               { staticClass: "table w-full text-center" },
@@ -34132,8 +34153,8 @@ var render = function() {
                   _c("th", [_vm._v("Actions")])
                 ]),
                 _vm._v(" "),
-                _vm._l(_vm.localLibrarians.data, function(librarian, index) {
-                  return _c("tr", { attrs: { index: index } }, [
+                _vm._l(_vm.librarians.data, function(librarian) {
+                  return _c("tr", [
                     _c("td", { staticClass: "py-2" }, [
                       _vm._v(
                         _vm._s(librarian.first_name) +
@@ -34190,7 +34211,7 @@ var render = function() {
                           staticClass: "inline-block",
                           on: {
                             click: function($event) {
-                              return _vm.del(librarian.id, index)
+                              return _vm.del(librarian.id)
                             }
                           }
                         },
@@ -34226,7 +34247,7 @@ var render = function() {
               2
             ),
             _vm._v(" "),
-            _c("Pagination", { attrs: { obj: _vm.localLibrarians } })
+            _c("Pagination", { attrs: { obj: _vm.librarians } })
           ],
           1
         )
@@ -34286,6 +34307,26 @@ var render = function() {
           "div",
           { staticClass: "max-w-7xl mx-auto py-10 sm:px-6 lg:px-8" },
           [
+            _vm.flash.message
+              ? _c(
+                  "div",
+                  {
+                    staticClass:
+                      "bg-white border-t-4 border-green-500 rounded-b text-green-900 px-4 py-3 shadow-md mb-6",
+                    attrs: { role: "alert" }
+                  },
+                  [
+                    _c("div", { staticClass: "flex" }, [
+                      _c("div", [
+                        _c("p", { staticClass: "text-sm" }, [
+                          _vm._v(_vm._s(_vm.flash.message))
+                        ])
+                      ])
+                    ])
+                  ]
+                )
+              : _vm._e(),
+            _vm._v(" "),
             _c(
               "table",
               { staticClass: "table w-full text-center" },

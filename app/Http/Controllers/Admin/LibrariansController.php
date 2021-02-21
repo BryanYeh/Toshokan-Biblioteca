@@ -31,10 +31,10 @@ class LibrariansController extends Controller
     // delete librarian
     public function remove(Request $request)
     {
-        $librarian = User::destroy($request->id);
-        return response()->json([
-            'success' => 'Successfully deleted librarian'
-        ]);
+        User::destroy($request->id);
+
+        return redirect()->back()
+            ->with('message', 'Successfully deleted librarian');
     }
 
     // view librarian invitation page
@@ -66,6 +66,7 @@ class LibrariansController extends Controller
 
         Mail::to($request->user())->send(new LibrarianInvitation($invitation));
 
-        return back()->with('message', 'Successfully invited ' . $request->first_name . ' to be a librarian');
+        return redirect()->back()
+            ->with('message', "Successfully invited $request->first_name to be a librarian");
     }
 }
