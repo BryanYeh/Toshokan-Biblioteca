@@ -20,8 +20,8 @@ class CreateInvitationsTable extends Migration
             $table->string('last_name');
             $table->string('email');
             $table->string('invitation_token', 32)->unique()->nullable();
-            $table->timestamp('invited_at')->nullable();
-            $table->timestamp('accepted_at')->nullable();
+            $table->dateTime('invited_at')->nullable();
+            $table->dateTime('accepted_at')->nullable();
             $table->timestamps();
         });
     }
