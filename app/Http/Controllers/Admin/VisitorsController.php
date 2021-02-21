@@ -50,6 +50,7 @@ class VisitorsController extends Controller
         ]);
 
         User::find($request->id)->update($request->all());
+        User::find($request->id)->update(['user_type'=>'patron']);
         return redirect()->route('patron.view',['id'=>$request->id])->with('message', "$request->first_name $request->last_name is now a patron.");
     }
 }
