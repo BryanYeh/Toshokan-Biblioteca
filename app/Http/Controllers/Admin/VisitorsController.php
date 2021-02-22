@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\User;
 use Inertia\Inertia;
+use Illuminate\Support\Carbon;
 
 class VisitorsController extends Controller
 {
@@ -39,18 +40,20 @@ class VisitorsController extends Controller
             'last_name' => 'required|string|max:255',
             'email' => 'required|email',
             'dob' => 'required|date',
-            'address_1' => 'required|string|max:255',
-            'address_2' => 'required|string|max:255',
+            'address1' => 'required|string|max:255',
             'city' => 'required|string|max:255',
             'state' => 'required|string|max:255',
             'postal_code' => 'required|string|max:255',
             'country' => 'required|string|max:255',
-            'phone' => 'required|string|max:255',
-            'address_confirmed_at' => 'required|date'
+            'phone' => 'required|string|max:255'
         ]);
 
-        User::find($request->id)->update($request->all());
-        User::find($request->id)->update(['user_type'=>'patron']);
-        return redirect()->route('patron.view',['id'=>$request->id])->with('message', "$request->first_name $request->last_name is now a patron.");
+        $visitor = User::find($request->id);
+        $data = $request->all();
+        $data['user_type'] = 'patron';
+        $data['address_confirmed_at'] = Carbon::now();
+        $visitor->update($data);
+
+        return redirect()->back()->with('message', "$request->first_name $request->last_name is now a patron.");
     }
 }
