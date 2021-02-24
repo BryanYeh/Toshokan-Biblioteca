@@ -23,7 +23,7 @@ class CreateBooksTable extends Migration
             $table->string('image')->nullable();
             $table->string('author');
             $table->string('publisher');
-            $table->timestamp('publication_date');
+            $table->dateTime('publication_date');
             $table->string('dewey_decimal')->nullable();
             $table->timestamps();
         });
