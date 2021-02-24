@@ -17,7 +17,7 @@ class LocationSeeder extends Seeder
     {
         $faker = Factory::create();
 
-        for ($i = 0; $i < $faker->numberBetween(1, 10); $i++) {
+        for ($i = 0; $i < 3; $i++) {
             DB::table('locations')->insert([
                 'name' => $faker->unique()->company(),
                 'address1' => $faker->streetAddress(),
