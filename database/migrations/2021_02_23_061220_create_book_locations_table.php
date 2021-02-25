@@ -17,7 +17,7 @@ class CreateBookLocationsTable extends Migration
             $table->id();
             $table->unsignedBigInteger('book_id');
             $table->unsignedBigInteger('location_id');
-            $table->string('barcode');
+            $table->string('barcode')->unique();
             $table->string('call_number')->comment('Which shelf in the library?');
             $table->string('location')->comment('What section of the library?');
             $table->decimal('price', $precision = 8, $scale = 2);
