@@ -25,7 +25,7 @@ class BookLocationSeeder extends Seeder
                 'barcode' => $faker->unique()->numerify('0000################'),
                 'call_number' => $faker->bothify('?????-#####'),
                 'location' => $faker->randomElement(['children','young adult','adult','non-fiction']),
-                'price' => $faker->randomFloat(2)
+                'price' => $faker->randomFloat(2,1,999)
             ]);
         }
     }
