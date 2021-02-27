@@ -32078,15 +32078,15 @@ var render = function() {
             { staticClass: "relative z-0 inline-flex rounded-lg" },
             _vm._l(_vm.obj.links, function(link, index) {
               return _c("span", [
-                typeof link == "string"
+                link.label === "..."
                   ? _c("span", { attrs: { "aria-disabled": "true" } }, [
                       _c(
                         "span",
                         {
                           staticClass:
-                            "relative inline-flex items-center px-4 py-2 ml-px text-sm font-medium text-gray-700 bg-white cursor-default leading-5"
+                            "relative inline-flex items-center px-4 py-2 ml-1.5 text-sm font-medium text-gray-700 bg-white cursor-default leading-5 rounded-lg "
                         },
-                        [_vm._v(_vm._s(link))]
+                        [_vm._v(_vm._s(link.label))]
                       )
                     ])
                   : _c("span", [
@@ -32096,7 +32096,7 @@ var render = function() {
                               "span",
                               {
                                 staticClass:
-                                  "relative inline-flex items-center px-4 py-2 ml-px text-sm font-medium cursor-default leading-5 bg-gray-800 text-white rounded-lg"
+                                  "relative inline-flex items-center px-4 py-2 ml-1.5 text-sm font-medium cursor-default leading-5 bg-gray-800 text-white rounded-lg"
                               },
                               [_vm._v(_vm._s(_vm.page))]
                             )
@@ -32107,7 +32107,7 @@ var render = function() {
                             "a",
                             {
                               staticClass:
-                                "relative inline-flex items-center px-4 py-2 ml-px text-sm font-medium text-gray-800 bg-white leading-5 rounded-lg border border-transparent hover:border-gray-700 hover:text-gray-600 focus:z-10 focus:outline-none focus:ring-2 ring-gray-300 focus:border-blue-300 active:bg-gray-100 active:text-gray-700 transition ease-in-out duration-150",
+                                "relative inline-flex items-center p-2 ml-1.5 text-sm font-medium text-gray-800 bg-white leading-5 rounded-lg border border-transparent hover:border-gray-700 hover:text-gray-600 focus:z-10 focus:outline-none focus:ring-2 ring-gray-300 focus:border-blue-300 active:bg-gray-100 active:text-gray-700 transition ease-in-out duration-150",
                               attrs: { href: link.url }
                             },
                             [
@@ -32139,7 +32139,7 @@ var render = function() {
                             "a",
                             {
                               staticClass:
-                                "relative inline-flex items-center px-4 py-2 ml-px text-sm font-medium text-gray-800 bg-white leading-5 rounded-lg border border-transparent hover:border-gray-700 hover:text-gray-600 focus:z-10 focus:outline-none focus:ring-2 ring-gray-300 focus:border-blue-300 active:bg-gray-100 active:text-gray-700 transition ease-in-out duration-150",
+                                "relative inline-flex items-center p-2 ml-1.5 text-sm font-medium text-gray-800 bg-white leading-5 rounded-lg border border-transparent hover:border-gray-700 hover:text-gray-600 focus:z-10 focus:outline-none focus:ring-2 ring-gray-300 focus:border-blue-300 active:bg-gray-100 active:text-gray-700 transition ease-in-out duration-150",
                               attrs: { href: link.url }
                             },
                             [
@@ -32170,7 +32170,7 @@ var render = function() {
                             "a",
                             {
                               staticClass:
-                                "relative inline-flex items-center px-4 py-2 ml-px text-sm font-medium text-gray-800 bg-white leading-5 rounded-lg border border-transparent hover:border-gray-700 hover:text-gray-600 focus:z-10 focus:outline-none focus:ring-2 ring-gray-300 focus:border-blue-300 active:bg-gray-100 active:text-gray-700 transition ease-in-out duration-150",
+                                "relative inline-flex items-center px-4 py-2 ml-1.5 text-sm font-medium text-gray-800 bg-white leading-5 rounded-lg border border-transparent hover:border-gray-700 hover:text-gray-600 focus:z-10 focus:outline-none focus:ring-2 ring-gray-300 focus:border-blue-300 active:bg-gray-100 active:text-gray-700 transition ease-in-out duration-150",
                               attrs: { href: link.url }
                             },
                             [
