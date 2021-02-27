@@ -7,6 +7,7 @@ use Inertia\Inertia;
 use App\Http\Controllers\Admin\LibrariansController;
 use App\Http\Controllers\Admin\PatronsController;
 use App\Http\Controllers\Admin\VisitorsController;
+use App\Http\Controllers\Admin\BooksController;
 
 /*
 |--------------------------------------------------------------------------
@@ -59,4 +60,9 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
     Route::get('/visitors/profile/{id}', [VisitorsController::class,'view'])->name('visitor.profile');
     Route::get('/visitors/upgrade/{id}', [VisitorsController::class,'edit'])->name('visitor.edit');
     Route::post('/visitors/upgrade/{id}', [VisitorsController::class,'upgrade'])->name('visitor.upgrade');
+
+    Route::get('/books', BooksController::class)->name('books');
+    Route::get('/books/details/{id}', [BooksController::class,'view'])->name('book.detail');
+    Route::get('/books/edit/{id}', [BooksController::class,'edit'])->name('book.edit');
+    Route::post('/books/update/{id}', [BooksController::class,'update'])->name('book.update');
 });
