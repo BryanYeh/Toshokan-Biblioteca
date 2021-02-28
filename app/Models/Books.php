@@ -21,4 +21,9 @@ class Books extends Model
         'publication_date',
         'dewey_decimal'
     ];
+
+    public function locations()
+    {
+        return $this->hasMany(BookLocation::class,'book_id','id');
+    }
 }
