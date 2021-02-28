@@ -65,4 +65,6 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
     Route::get('/books/details/{id}', [BooksController::class,'view'])->name('book.detail');
     Route::get('/books/edit/{id}', [BooksController::class,'edit'])->name('book.edit');
     Route::post('/books/update/{id}', [BooksController::class,'update'])->name('book.update');
+    Route::get('/books/create', [BooksController::class,'create'])->name('book.create');
+    Route::post('/books/create', [BooksController::class,'save'])->name('book.save');
 });
