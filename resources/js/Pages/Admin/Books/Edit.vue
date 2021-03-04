@@ -60,6 +60,13 @@
                 </div>
                 <div v-for="(location,counter) in form.locations">
                     <div>
+                        <jet-label for="library" value="Library" />
+                        <jet-select name="library"
+                            :options="libraries"
+                            :default="location.library.id"
+                            v-on:select:change="location.location_id = $event" />
+                    </div>
+                    <div>
                         <jet-label for="barcode" value="Barcode" />
                         <jet-input name="barcode" type="text" class="mt-1 block w-full" v-model="location.barcode"/>
                     </div>
@@ -100,9 +107,10 @@
     import JetValidationErrors from '@/Jetstream/ValidationErrors'
     import AppLayout from '@/Layouts/AppLayout'
     import JetActionMessage from '@/Jetstream/ActionMessage'
+    import JetSelect from '@/Jetstream/Select'
 
     export default {
-        props: ['book','errors','flash'],
+        props: ['book','errors','flash','libraries'],
         components: {
             AppLayout,
             JetAuthenticationCard,
@@ -112,7 +120,8 @@
             JetCheckbox,
             JetLabel,
             JetValidationErrors,
-            JetActionMessage
+            JetActionMessage,
+            JetSelect
         },
 
         data() {
@@ -128,15 +137,15 @@
                     publication_date: this.book.publication_date,
                     dewey_decimal: this.book.dewey_decimal,
                     locations: this.book.locations
-                })
+                }),
             }
         },
         methods: {
             submit() {
-                // this.form
-                //     .post(this.route('visitor.upgrade', {id:this.visitor.id}), {
-                //         onSuccess: () => window.location.href=this.route('patron.profile',{id:this.visitor.id}),
-                //     })
+                this.form
+                    .post(this.route('book.update', {id:this.book.id}), {
+                        onSuccess: () => window.location.href=this.route('book.detail',{id:this.book.id}),
+                    })
             }
         }
     }

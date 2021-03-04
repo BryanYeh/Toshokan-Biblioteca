@@ -1,5 +1,9 @@
 <template>
-    <select v-model="selected" class="border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md shadow-sm">
+    <select
+        v-model="selected"
+        class="border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md shadow-sm"
+        @change="select"
+    >
         <option v-for="option in options" v-bind:value="option.id">
             {{ option.name }}
         </option>
@@ -10,7 +14,7 @@
 export default {
     props: {
         options: {
-            type: Object,
+            type: Array,
             required: true
         },
         default: {
@@ -26,8 +30,17 @@ export default {
     },
     data() {
         return {
-            selected: this.default ? this.default : this.options.length > 0 ? this.options[0] : null
+            selected: this.default
+                ? this.default
+                : this.options.length > 0
+                ? this.options[0]
+                : null
         };
-    }
+    },
+    methods: {
+        select(evt) {
+            this.$emit('select:change', evt.target.value);
+        }
+    },
 };
 </script>
