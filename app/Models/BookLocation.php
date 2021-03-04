@@ -16,4 +16,9 @@ class BookLocation extends Model
         'barcode',
         'location'
     ];
+
+    public function library()
+    {
+        return $this->belongsTo(Location::class,'location_id','id');
+    }
 }
