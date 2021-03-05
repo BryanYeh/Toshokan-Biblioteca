@@ -55,10 +55,13 @@
                     <jet-input id="dewey_decimal" name="dewey_decimal" type="text" class="mt-1 block w-full" v-model="form.dewey_decimal"/>
                 </div>
 
-                <div>
-                    <jet-label value="Copies" />
+                <div class="flex items-center justify-end mt-4">
+                    <button type="button" v-on:click="addCopy" class="inline-flex items-center px-4 py-2 bg-gray-800 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-gray-700 active:bg-gray-900 focus:outline-none focus:border-gray-900 focus:shadow-outline-gray transition ease-in-out duration-150">
+                        Add a copy
+                    </button>
                 </div>
-                <div v-for="(location,counter) in form.locations">
+
+                <div v-for="(location,counter) in form.locations" class="border border-gray-500 p-2">
                     <div>
                         <jet-label for="library" value="Library" />
                         <jet-select name="library"
@@ -83,6 +86,7 @@
                         <jet-input name="price" type="text" class="mt-1 block w-full" v-model="location.price"/>
                     </div>
                 </div>
+
 
                 <div class="flex items-center justify-end mt-4">
                     <jet-action-message :on="form.recentlySuccessful" class="mr-3">
@@ -146,6 +150,20 @@
                     .post(this.route('book.update', {id:this.book.id}), {
                         onSuccess: () => window.location.href=this.route('book.detail',{id:this.book.id}),
                     })
+            },
+            addCopy() {
+                this.form.locations.push({
+                    barcode :'',
+                    book_id : '',
+                    call_number : '',
+                    location : '',
+                    location_id: this.libraries[0]['id'],
+                    price : '',
+                    library: {
+                        id: this.libraries[0]['id'],
+                        name: this.libraries[0]['name']
+                    }
+                })
             }
         }
     }

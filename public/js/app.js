@@ -3896,7 +3896,7 @@ __webpack_require__.r(__webpack_exports__);
       required: true
     },
     "default": {
-      type: String,
+      type: [String, Number],
       required: false,
       "default": null
     },
@@ -4810,6 +4810,10 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
 
 
 
@@ -4861,6 +4865,20 @@ __webpack_require__.r(__webpack_exports__);
           return window.location.href = _this.route('book.detail', {
             id: _this.book.id
           });
+        }
+      });
+    },
+    addCopy: function addCopy() {
+      this.form.locations.push({
+        barcode: '',
+        book_id: '',
+        call_number: '',
+        location: '',
+        location_id: this.libraries[0]['id'],
+        price: '',
+        library: {
+          id: this.libraries[0]['id'],
+          name: this.libraries[0]['name']
         }
       });
     }
@@ -35038,10 +35056,21 @@ var render = function() {
               1
             ),
             _vm._v(" "),
-            _c("div", [_c("jet-label", { attrs: { value: "Copies" } })], 1),
+            _c("div", { staticClass: "flex items-center justify-end mt-4" }, [
+              _c(
+                "button",
+                {
+                  staticClass:
+                    "inline-flex items-center px-4 py-2 bg-gray-800 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-gray-700 active:bg-gray-900 focus:outline-none focus:border-gray-900 focus:shadow-outline-gray transition ease-in-out duration-150",
+                  attrs: { type: "button" },
+                  on: { click: _vm.addCopy }
+                },
+                [_vm._v("\n                    Add a copy\n                ")]
+              )
+            ]),
             _vm._v(" "),
             _vm._l(_vm.form.locations, function(location, counter) {
-              return _c("div", [
+              return _c("div", { staticClass: "border border-gray-500 p-2" }, [
                 _c(
                   "div",
                   [

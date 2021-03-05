@@ -18,7 +18,7 @@ export default {
             required: true
         },
         default: {
-            type: String,
+            type: [String,Number],
             required: false,
             default: null
         },
