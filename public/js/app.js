@@ -5142,9 +5142,7 @@ __webpack_require__.r(__webpack_exports__);
     submit: function submit() {
       var _this = this;
 
-      this.form.post(this.route('book.save', {
-        id: this.book.id
-      }), {
+      this.form.post(this.route('book.save'), {
         onSuccess: function onSuccess() {
           return window.location.href = _this.route('books');
         }

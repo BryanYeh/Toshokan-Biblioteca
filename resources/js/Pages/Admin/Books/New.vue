@@ -150,7 +150,7 @@
         methods: {
             submit() {
                 this.form
-                    .post(this.route('book.save', {id:this.book.id}), {
+                    .post(this.route('book.save'), {
                         onSuccess: () => window.location.href=this.route('books'),
                     })
             },
