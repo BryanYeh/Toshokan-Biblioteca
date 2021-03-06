@@ -96,7 +96,8 @@ class BooksController extends Controller
     // show create book form
     public function create(Request $request)
     {
-        return Inertia::render('Admin/Books/New');
+        $libraries = Location::select(['id','name'])->get();
+        return Inertia::render('Admin/Books/New',['libraries' => $libraries]);
     }
 
     // save the book

@@ -5106,7 +5106,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
-  props: ['book', 'errors', 'flash', 'libraries'],
+  props: ['errors', 'flash', 'libraries'],
   components: {
     AppLayout: _Layouts_AppLayout__WEBPACK_IMPORTED_MODULE_7__.default,
     JetAuthenticationCard: _Jetstream_AuthenticationCard__WEBPACK_IMPORTED_MODULE_0__.default,
@@ -5122,16 +5122,16 @@ __webpack_require__.r(__webpack_exports__);
   data: function data() {
     return {
       form: this.$inertia.form({
-        title: this.book.title,
-        isbn: this.book.isbn,
-        edition: this.book.edition,
-        summary: this.book.summary,
-        language: this.book.language,
-        author: this.book.author,
-        publisher: this.book.publisher,
-        publication_date: this.book.publication_date,
-        dewey_decimal: this.book.dewey_decimal,
-        locations: this.book.locations
+        title: '',
+        isbn: '',
+        edition: '',
+        summary: '',
+        language: '',
+        author: '',
+        publisher: '',
+        publication_date: '',
+        dewey_decimal: '',
+        locations: []
       })
     };
   },
@@ -5142,13 +5142,11 @@ __webpack_require__.r(__webpack_exports__);
     submit: function submit() {
       var _this = this;
 
-      this.form.post(this.route('book.update', {
+      this.form.post(this.route('book.save', {
         id: this.book.id
       }), {
         onSuccess: function onSuccess() {
-          return window.location.href = _this.route('book.detail', {
-            id: _this.book.id
-          });
+          return window.location.href = _this.route('books');
         }
       });
     },
@@ -36132,7 +36130,7 @@ var render = function() {
                   },
                   [
                     _vm._v(
-                      "\n                    Successfully Updated!\n                "
+                      "\n                    Successfully Added Book!\n                "
                     )
                   ]
                 ),
@@ -36144,7 +36142,7 @@ var render = function() {
                     class: { "opacity-25": _vm.form.processing },
                     attrs: { disabled: _vm.form.processing }
                   },
-                  [_vm._v("\n                    Update\n                ")]
+                  [_vm._v("\n                    Add\n                ")]
                 )
               ],
               1
