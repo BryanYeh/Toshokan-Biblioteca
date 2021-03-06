@@ -48,7 +48,7 @@
                 </div>
                 <div>
                     <jet-label for="publication_date" value="Publication Date" />
-                    <jet-input id="publication_date" publication_date="publication_date" type="date" class="mt-1 block w-full" v-model="form.publication_date" required/>
+                    <jet-input id="publication_date" name="publication_date" type="date" class="mt-1 block w-full" v-model="form.publication_date" required/>
                 </div>
                 <div>
                     <jet-label for="dewey_decimal" value="Dewey Decimal" />
@@ -112,6 +112,7 @@
     import AppLayout from '@/Layouts/AppLayout'
     import JetActionMessage from '@/Jetstream/ActionMessage'
     import JetSelect from '@/Jetstream/Select'
+    import dayjs from 'dayjs';
 
     export default {
         props: ['book','errors','flash','libraries'],
@@ -138,7 +139,7 @@
                     language: this.book.language,
                     author: this.book.author,
                     publisher: this.book.publisher,
-                    publication_date: this.book.publication_date,
+                    publication_date: dayjs(this.book.publication_date).format('YYYY-MM-DD'),
                     dewey_decimal: this.book.dewey_decimal,
                     locations: this.book.locations
                 }),

@@ -4711,6 +4711,287 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _Layouts_AppLayout__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @/Layouts/AppLayout */ "./resources/js/Layouts/AppLayout.vue");
 /* harmony import */ var _Jetstream_ActionMessage__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! @/Jetstream/ActionMessage */ "./resources/js/Jetstream/ActionMessage.vue");
 /* harmony import */ var _Jetstream_Select__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! @/Jetstream/Select */ "./resources/js/Jetstream/Select.vue");
+/* harmony import */ var dayjs__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! dayjs */ "./node_modules/dayjs/dayjs.min.js");
+/* harmony import */ var dayjs__WEBPACK_IMPORTED_MODULE_10___default = /*#__PURE__*/__webpack_require__.n(dayjs__WEBPACK_IMPORTED_MODULE_10__);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+
+
+
+
+
+
+
+
+
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
+  props: ['book', 'errors', 'flash', 'libraries'],
+  components: {
+    AppLayout: _Layouts_AppLayout__WEBPACK_IMPORTED_MODULE_7__.default,
+    JetAuthenticationCard: _Jetstream_AuthenticationCard__WEBPACK_IMPORTED_MODULE_0__.default,
+    JetAuthenticationCardLogo: _Jetstream_AuthenticationCardLogo__WEBPACK_IMPORTED_MODULE_1__.default,
+    JetButton: _Jetstream_Button__WEBPACK_IMPORTED_MODULE_2__.default,
+    JetInput: _Jetstream_Input__WEBPACK_IMPORTED_MODULE_3__.default,
+    JetCheckbox: _Jetstream_Checkbox__WEBPACK_IMPORTED_MODULE_4__.default,
+    JetLabel: _Jetstream_Label__WEBPACK_IMPORTED_MODULE_5__.default,
+    JetValidationErrors: _Jetstream_ValidationErrors__WEBPACK_IMPORTED_MODULE_6__.default,
+    JetActionMessage: _Jetstream_ActionMessage__WEBPACK_IMPORTED_MODULE_8__.default,
+    JetSelect: _Jetstream_Select__WEBPACK_IMPORTED_MODULE_9__.default
+  },
+  data: function data() {
+    return {
+      form: this.$inertia.form({
+        title: this.book.title,
+        isbn: this.book.isbn,
+        edition: this.book.edition,
+        summary: this.book.summary,
+        language: this.book.language,
+        author: this.book.author,
+        publisher: this.book.publisher,
+        publication_date: dayjs__WEBPACK_IMPORTED_MODULE_10___default()(this.book.publication_date).format('YYYY-MM-DD'),
+        dewey_decimal: this.book.dewey_decimal,
+        locations: this.book.locations
+      })
+    };
+  },
+  methods: {
+    submit: function submit() {
+      var _this = this;
+
+      this.form.post(this.route('book.update', {
+        id: this.book.id
+      }), {
+        onSuccess: function onSuccess() {
+          return window.location.href = _this.route('book.detail', {
+            id: _this.book.id
+          });
+        }
+      });
+    },
+    addCopy: function addCopy() {
+      this.form.locations.push({
+        barcode: '',
+        book_id: '',
+        call_number: '',
+        location: '',
+        location_id: this.libraries[0]['id'],
+        price: '',
+        library: {
+          id: this.libraries[0]['id'],
+          name: this.libraries[0]['name']
+        }
+      });
+    }
+  }
+});
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/Pages/Admin/Books/List.vue?vue&type=script&lang=js&":
+/*!******************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/Pages/Admin/Books/List.vue?vue&type=script&lang=js& ***!
+  \******************************************************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => __WEBPACK_DEFAULT_EXPORT__
+/* harmony export */ });
+/* harmony import */ var _Layouts_AppLayout__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @/Layouts/AppLayout */ "./resources/js/Layouts/AppLayout.vue");
+/* harmony import */ var _Jetstream_Pagination__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/Jetstream/Pagination */ "./resources/js/Jetstream/Pagination.vue");
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
+  props: ['books', 'errors', 'flash'],
+  components: {
+    AppLayout: _Layouts_AppLayout__WEBPACK_IMPORTED_MODULE_0__.default,
+    Pagination: _Jetstream_Pagination__WEBPACK_IMPORTED_MODULE_1__.default
+  },
+  methods: {
+    del: function del(id) {
+      this.$inertia["delete"](route('librarian.delete', {
+        id: id
+      }));
+    }
+  }
+});
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/Pages/Admin/Books/New.vue?vue&type=script&lang=js&":
+/*!*****************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/Pages/Admin/Books/New.vue?vue&type=script&lang=js& ***!
+  \*****************************************************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => __WEBPACK_DEFAULT_EXPORT__
+/* harmony export */ });
+/* harmony import */ var _Jetstream_AuthenticationCard__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @/Jetstream/AuthenticationCard */ "./resources/js/Jetstream/AuthenticationCard.vue");
+/* harmony import */ var _Jetstream_AuthenticationCardLogo__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/Jetstream/AuthenticationCardLogo */ "./resources/js/Jetstream/AuthenticationCardLogo.vue");
+/* harmony import */ var _Jetstream_Button__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @/Jetstream/Button */ "./resources/js/Jetstream/Button.vue");
+/* harmony import */ var _Jetstream_Input__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @/Jetstream/Input */ "./resources/js/Jetstream/Input.vue");
+/* harmony import */ var _Jetstream_Checkbox__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @/Jetstream/Checkbox */ "./resources/js/Jetstream/Checkbox.vue");
+/* harmony import */ var _Jetstream_Label__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @/Jetstream/Label */ "./resources/js/Jetstream/Label.vue");
+/* harmony import */ var _Jetstream_ValidationErrors__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @/Jetstream/ValidationErrors */ "./resources/js/Jetstream/ValidationErrors.vue");
+/* harmony import */ var _Layouts_AppLayout__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @/Layouts/AppLayout */ "./resources/js/Layouts/AppLayout.vue");
+/* harmony import */ var _Jetstream_ActionMessage__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! @/Jetstream/ActionMessage */ "./resources/js/Jetstream/ActionMessage.vue");
+/* harmony import */ var _Jetstream_Select__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! @/Jetstream/Select */ "./resources/js/Jetstream/Select.vue");
 //
 //
 //
@@ -4854,6 +5135,9 @@ __webpack_require__.r(__webpack_exports__);
       })
     };
   },
+  mounted: function mounted() {
+    this.addCopy();
+  },
   methods: {
     submit: function submit() {
       var _this = this;
@@ -4881,87 +5165,6 @@ __webpack_require__.r(__webpack_exports__);
           name: this.libraries[0]['name']
         }
       });
-    }
-  }
-});
-
-/***/ }),
-
-/***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/Pages/Admin/Books/List.vue?vue&type=script&lang=js&":
-/*!******************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/Pages/Admin/Books/List.vue?vue&type=script&lang=js& ***!
-  \******************************************************************************************************************************************************************************************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => __WEBPACK_DEFAULT_EXPORT__
-/* harmony export */ });
-/* harmony import */ var _Layouts_AppLayout__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @/Layouts/AppLayout */ "./resources/js/Layouts/AppLayout.vue");
-/* harmony import */ var _Jetstream_Pagination__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/Jetstream/Pagination */ "./resources/js/Jetstream/Pagination.vue");
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-
-
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
-  props: ['books', 'errors', 'flash'],
-  components: {
-    AppLayout: _Layouts_AppLayout__WEBPACK_IMPORTED_MODULE_0__.default,
-    Pagination: _Jetstream_Pagination__WEBPACK_IMPORTED_MODULE_1__.default
-  },
-  methods: {
-    del: function del(id) {
-      this.$inertia["delete"](route('librarian.delete', {
-        id: id
-      }));
     }
   }
 });
@@ -28135,6 +28338,45 @@ component.options.__file = "resources/js/Pages/Admin/Books/List.vue"
 
 /***/ }),
 
+/***/ "./resources/js/Pages/Admin/Books/New.vue":
+/*!************************************************!*\
+  !*** ./resources/js/Pages/Admin/Books/New.vue ***!
+  \************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => __WEBPACK_DEFAULT_EXPORT__
+/* harmony export */ });
+/* harmony import */ var _New_vue_vue_type_template_id_61fd3cbc___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./New.vue?vue&type=template&id=61fd3cbc& */ "./resources/js/Pages/Admin/Books/New.vue?vue&type=template&id=61fd3cbc&");
+/* harmony import */ var _New_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./New.vue?vue&type=script&lang=js& */ "./resources/js/Pages/Admin/Books/New.vue?vue&type=script&lang=js&");
+/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! !../../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+;
+var component = (0,_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__.default)(
+  _New_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__.default,
+  _New_vue_vue_type_template_id_61fd3cbc___WEBPACK_IMPORTED_MODULE_0__.render,
+  _New_vue_vue_type_template_id_61fd3cbc___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns,
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/Pages/Admin/Books/New.vue"
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (component.exports);
+
+/***/ }),
+
 /***/ "./resources/js/Pages/Admin/Librarians/Invitation.vue":
 /*!************************************************************!*\
   !*** ./resources/js/Pages/Admin/Librarians/Invitation.vue ***!
@@ -29657,6 +29899,22 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./resources/js/Pages/Admin/Books/New.vue?vue&type=script&lang=js&":
+/*!*************************************************************************!*\
+  !*** ./resources/js/Pages/Admin/Books/New.vue?vue&type=script&lang=js& ***!
+  \*************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => __WEBPACK_DEFAULT_EXPORT__
+/* harmony export */ });
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_0_rules_0_use_0_node_modules_vue_loader_lib_index_js_vue_loader_options_New_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!../../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./New.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/Pages/Admin/Books/New.vue?vue&type=script&lang=js&");
+ /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_babel_loader_lib_index_js_clonedRuleSet_5_0_rules_0_use_0_node_modules_vue_loader_lib_index_js_vue_loader_options_New_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__.default); 
+
+/***/ }),
+
 /***/ "./resources/js/Pages/Admin/Librarians/Invitation.vue?vue&type=script&lang=js&":
 /*!*************************************************************************************!*\
   !*** ./resources/js/Pages/Admin/Librarians/Invitation.vue?vue&type=script&lang=js& ***!
@@ -30628,6 +30886,23 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "staticRenderFns": () => /* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_List_vue_vue_type_template_id_11e7bc0c___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns
 /* harmony export */ });
 /* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_List_vue_vue_type_template_id_11e7bc0c___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./List.vue?vue&type=template&id=11e7bc0c& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/Pages/Admin/Books/List.vue?vue&type=template&id=11e7bc0c&");
+
+
+/***/ }),
+
+/***/ "./resources/js/Pages/Admin/Books/New.vue?vue&type=template&id=61fd3cbc&":
+/*!*******************************************************************************!*\
+  !*** ./resources/js/Pages/Admin/Books/New.vue?vue&type=template&id=61fd3cbc& ***!
+  \*******************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "render": () => /* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_New_vue_vue_type_template_id_61fd3cbc___WEBPACK_IMPORTED_MODULE_0__.render,
+/* harmony export */   "staticRenderFns": () => /* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_New_vue_vue_type_template_id_61fd3cbc___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns
+/* harmony export */ });
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_New_vue_vue_type_template_id_61fd3cbc___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./New.vue?vue&type=template&id=61fd3cbc& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/Pages/Admin/Books/New.vue?vue&type=template&id=61fd3cbc&");
 
 
 /***/ }),
@@ -35014,7 +35289,7 @@ var render = function() {
                   staticClass: "mt-1 block w-full",
                   attrs: {
                     id: "publication_date",
-                    publication_date: "publication_date",
+                    name: "publication_date",
                     type: "date",
                     required: ""
                   },
@@ -35400,6 +35675,482 @@ var render = function() {
             _c("Pagination", { attrs: { obj: _vm.books } })
           ],
           1
+        )
+      ])
+    ]
+  )
+}
+var staticRenderFns = []
+render._withStripped = true
+
+
+
+/***/ }),
+
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/Pages/Admin/Books/New.vue?vue&type=template&id=61fd3cbc&":
+/*!**********************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/Pages/Admin/Books/New.vue?vue&type=template&id=61fd3cbc& ***!
+  \**********************************************************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "render": () => /* binding */ render,
+/* harmony export */   "staticRenderFns": () => /* binding */ staticRenderFns
+/* harmony export */ });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c(
+    "app-layout",
+    {
+      scopedSlots: _vm._u([
+        {
+          key: "header",
+          fn: function() {
+            return [
+              _c(
+                "h2",
+                {
+                  staticClass:
+                    "font-semibold text-xl text-gray-800 leading-tight"
+                },
+                [_vm._v("\n            Add Book\n        ")]
+              )
+            ]
+          },
+          proxy: true
+        }
+      ])
+    },
+    [
+      _vm._v(" "),
+      _c("div", [
+        _c("div", { staticClass: "max-w-7xl mx-auto py-10 sm:px-6 lg:px-8" }, [
+          _vm.flash.message
+            ? _c(
+                "div",
+                {
+                  staticClass:
+                    "bg-white border-t-4 border-green-500 rounded-b text-green-900 px-4 py-3 shadow-md mb-6",
+                  attrs: { role: "alert" }
+                },
+                [
+                  _c("div", { staticClass: "flex" }, [
+                    _c("div", [
+                      _c("p", { staticClass: "text-sm" }, [
+                        _vm._v(_vm._s(_vm.flash.message))
+                      ])
+                    ])
+                  ])
+                ]
+              )
+            : _vm._e()
+        ]),
+        _vm._v(" "),
+        _c(
+          "form",
+          {
+            on: {
+              submit: function($event) {
+                $event.preventDefault()
+                return _vm.submit($event)
+              }
+            }
+          },
+          [
+            _c(
+              "div",
+              [
+                _c("jet-label", { attrs: { for: "title", value: "Title" } }),
+                _vm._v(" "),
+                _c("jet-input", {
+                  staticClass: "mt-1 block w-full",
+                  attrs: {
+                    id: "title",
+                    name: "title",
+                    type: "text",
+                    required: ""
+                  },
+                  model: {
+                    value: _vm.form.title,
+                    callback: function($$v) {
+                      _vm.$set(_vm.form, "title", $$v)
+                    },
+                    expression: "form.title"
+                  }
+                })
+              ],
+              1
+            ),
+            _vm._v(" "),
+            _c(
+              "div",
+              [
+                _c("jet-label", { attrs: { for: "isbn", value: "ISBN" } }),
+                _vm._v(" "),
+                _c("jet-input", {
+                  staticClass: "mt-1 block w-full",
+                  attrs: {
+                    id: "isbn",
+                    name: "isbn",
+                    type: "text",
+                    required: ""
+                  },
+                  model: {
+                    value: _vm.form.isbn,
+                    callback: function($$v) {
+                      _vm.$set(_vm.form, "isbn", $$v)
+                    },
+                    expression: "form.isbn"
+                  }
+                })
+              ],
+              1
+            ),
+            _vm._v(" "),
+            _c(
+              "div",
+              [
+                _c("jet-label", {
+                  attrs: { for: "edition", value: "Edition" }
+                }),
+                _vm._v(" "),
+                _c("jet-input", {
+                  staticClass: "mt-1 block w-full",
+                  attrs: { id: "edition", name: "edition", type: "text" },
+                  model: {
+                    value: _vm.form.edition,
+                    callback: function($$v) {
+                      _vm.$set(_vm.form, "edition", $$v)
+                    },
+                    expression: "form.edition"
+                  }
+                })
+              ],
+              1
+            ),
+            _vm._v(" "),
+            _c(
+              "div",
+              [
+                _c("jet-label", {
+                  attrs: { for: "summary", value: "Summary" }
+                }),
+                _vm._v(" "),
+                _c("jet-input", {
+                  staticClass: "mt-1 block w-full",
+                  attrs: {
+                    id: "summary",
+                    name: "summary",
+                    type: "text",
+                    required: ""
+                  },
+                  model: {
+                    value: _vm.form.summary,
+                    callback: function($$v) {
+                      _vm.$set(_vm.form, "summary", $$v)
+                    },
+                    expression: "form.summary"
+                  }
+                })
+              ],
+              1
+            ),
+            _vm._v(" "),
+            _c(
+              "div",
+              [
+                _c("jet-label", {
+                  attrs: { for: "language", value: "Language" }
+                }),
+                _vm._v(" "),
+                _c("jet-input", {
+                  staticClass: "mt-1 block w-full",
+                  attrs: {
+                    id: "language",
+                    name: "language",
+                    type: "text",
+                    required: ""
+                  },
+                  model: {
+                    value: _vm.form.language,
+                    callback: function($$v) {
+                      _vm.$set(_vm.form, "language", $$v)
+                    },
+                    expression: "form.language"
+                  }
+                })
+              ],
+              1
+            ),
+            _vm._v(" "),
+            _c(
+              "div",
+              [
+                _c("jet-label", { attrs: { for: "author", value: "Author" } }),
+                _vm._v(" "),
+                _c("jet-input", {
+                  staticClass: "mt-1 block w-full",
+                  attrs: {
+                    id: "author",
+                    name: "author",
+                    type: "text",
+                    required: ""
+                  },
+                  model: {
+                    value: _vm.form.author,
+                    callback: function($$v) {
+                      _vm.$set(_vm.form, "author", $$v)
+                    },
+                    expression: "form.author"
+                  }
+                })
+              ],
+              1
+            ),
+            _vm._v(" "),
+            _c(
+              "div",
+              [
+                _c("jet-label", {
+                  attrs: { for: "publisher", value: "Publisher" }
+                }),
+                _vm._v(" "),
+                _c("jet-input", {
+                  staticClass: "mt-1 block w-full",
+                  attrs: {
+                    id: "publisher",
+                    name: "publisher",
+                    type: "text",
+                    required: ""
+                  },
+                  model: {
+                    value: _vm.form.publisher,
+                    callback: function($$v) {
+                      _vm.$set(_vm.form, "publisher", $$v)
+                    },
+                    expression: "form.publisher"
+                  }
+                })
+              ],
+              1
+            ),
+            _vm._v(" "),
+            _c(
+              "div",
+              [
+                _c("jet-label", {
+                  attrs: { for: "publication_date", value: "Publication Date" }
+                }),
+                _vm._v(" "),
+                _c("jet-input", {
+                  staticClass: "mt-1 block w-full",
+                  attrs: {
+                    id: "publication_date",
+                    publication_date: "publication_date",
+                    type: "date",
+                    required: ""
+                  },
+                  model: {
+                    value: _vm.form.publication_date,
+                    callback: function($$v) {
+                      _vm.$set(_vm.form, "publication_date", $$v)
+                    },
+                    expression: "form.publication_date"
+                  }
+                })
+              ],
+              1
+            ),
+            _vm._v(" "),
+            _c(
+              "div",
+              [
+                _c("jet-label", {
+                  attrs: { for: "dewey_decimal", value: "Dewey Decimal" }
+                }),
+                _vm._v(" "),
+                _c("jet-input", {
+                  staticClass: "mt-1 block w-full",
+                  attrs: {
+                    id: "dewey_decimal",
+                    name: "dewey_decimal",
+                    type: "text"
+                  },
+                  model: {
+                    value: _vm.form.dewey_decimal,
+                    callback: function($$v) {
+                      _vm.$set(_vm.form, "dewey_decimal", $$v)
+                    },
+                    expression: "form.dewey_decimal"
+                  }
+                })
+              ],
+              1
+            ),
+            _vm._v(" "),
+            _c("div", { staticClass: "flex items-center justify-end mt-4" }, [
+              _c(
+                "button",
+                {
+                  staticClass:
+                    "inline-flex items-center px-4 py-2 bg-gray-800 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-gray-700 active:bg-gray-900 focus:outline-none focus:border-gray-900 focus:shadow-outline-gray transition ease-in-out duration-150",
+                  attrs: { type: "button" },
+                  on: { click: _vm.addCopy }
+                },
+                [_vm._v("\n                    Add a copy\n                ")]
+              )
+            ]),
+            _vm._v(" "),
+            _vm._l(_vm.form.locations, function(location, counter) {
+              return _c("div", { staticClass: "border border-gray-500 p-2" }, [
+                _c(
+                  "div",
+                  [
+                    _c("jet-label", {
+                      attrs: { for: "library", value: "Library" }
+                    }),
+                    _vm._v(" "),
+                    _c("jet-select", {
+                      attrs: {
+                        name: "library",
+                        options: _vm.libraries,
+                        default: location.library.id
+                      },
+                      on: {
+                        "select:change": function($event) {
+                          location.location_id = $event
+                        }
+                      }
+                    })
+                  ],
+                  1
+                ),
+                _vm._v(" "),
+                _c(
+                  "div",
+                  [
+                    _c("jet-label", {
+                      attrs: { for: "barcode", value: "Barcode" }
+                    }),
+                    _vm._v(" "),
+                    _c("jet-input", {
+                      staticClass: "mt-1 block w-full",
+                      attrs: { name: "barcode", type: "text" },
+                      model: {
+                        value: location.barcode,
+                        callback: function($$v) {
+                          _vm.$set(location, "barcode", $$v)
+                        },
+                        expression: "location.barcode"
+                      }
+                    })
+                  ],
+                  1
+                ),
+                _vm._v(" "),
+                _c(
+                  "div",
+                  [
+                    _c("jet-label", {
+                      attrs: { for: "call_number", value: "Call Number" }
+                    }),
+                    _vm._v(" "),
+                    _c("jet-input", {
+                      staticClass: "mt-1 block w-full",
+                      attrs: { name: "call_number", type: "text" },
+                      model: {
+                        value: location.call_number,
+                        callback: function($$v) {
+                          _vm.$set(location, "call_number", $$v)
+                        },
+                        expression: "location.call_number"
+                      }
+                    })
+                  ],
+                  1
+                ),
+                _vm._v(" "),
+                _c(
+                  "div",
+                  [
+                    _c("jet-label", {
+                      attrs: { for: "location", value: "Location" }
+                    }),
+                    _vm._v(" "),
+                    _c("jet-input", {
+                      staticClass: "mt-1 block w-full",
+                      attrs: { name: "location", type: "text" },
+                      model: {
+                        value: location.location,
+                        callback: function($$v) {
+                          _vm.$set(location, "location", $$v)
+                        },
+                        expression: "location.location"
+                      }
+                    })
+                  ],
+                  1
+                ),
+                _vm._v(" "),
+                _c(
+                  "div",
+                  [
+                    _c("jet-label", {
+                      attrs: { for: "price", value: "Price" }
+                    }),
+                    _vm._v(" "),
+                    _c("jet-input", {
+                      staticClass: "mt-1 block w-full",
+                      attrs: { name: "price", type: "text" },
+                      model: {
+                        value: location.price,
+                        callback: function($$v) {
+                          _vm.$set(location, "price", $$v)
+                        },
+                        expression: "location.price"
+                      }
+                    })
+                  ],
+                  1
+                )
+              ])
+            }),
+            _vm._v(" "),
+            _c(
+              "div",
+              { staticClass: "flex items-center justify-end mt-4" },
+              [
+                _c(
+                  "jet-action-message",
+                  {
+                    staticClass: "mr-3",
+                    attrs: { on: _vm.form.recentlySuccessful }
+                  },
+                  [
+                    _vm._v(
+                      "\n                    Successfully Updated!\n                "
+                    )
+                  ]
+                ),
+                _vm._v(" "),
+                _c(
+                  "jet-button",
+                  {
+                    staticClass: "ml-4",
+                    class: { "opacity-25": _vm.form.processing },
+                    attrs: { disabled: _vm.form.processing }
+                  },
+                  [_vm._v("\n                    Update\n                ")]
+                )
+              ],
+              1
+            )
+          ],
+          2
         )
       ])
     ]
@@ -52210,6 +52961,8 @@ var map = {
 	"./Admin/Books/Edit.vue": "./resources/js/Pages/Admin/Books/Edit.vue",
 	"./Admin/Books/List": "./resources/js/Pages/Admin/Books/List.vue",
 	"./Admin/Books/List.vue": "./resources/js/Pages/Admin/Books/List.vue",
+	"./Admin/Books/New": "./resources/js/Pages/Admin/Books/New.vue",
+	"./Admin/Books/New.vue": "./resources/js/Pages/Admin/Books/New.vue",
 	"./Admin/Librarians/Invitation": "./resources/js/Pages/Admin/Librarians/Invitation.vue",
 	"./Admin/Librarians/Invitation.vue": "./resources/js/Pages/Admin/Librarians/Invitation.vue",
 	"./Admin/Librarians/List": "./resources/js/Pages/Admin/Librarians/List.vue",
