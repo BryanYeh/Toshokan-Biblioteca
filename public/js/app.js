@@ -28485,6 +28485,142 @@ component.options.__file = "resources/js/Pages/Admin/Librarians/Profile.vue"
 
 /***/ }),
 
+/***/ "./resources/js/Pages/Admin/Locations/Detail.vue":
+/*!*******************************************************!*\
+  !*** ./resources/js/Pages/Admin/Locations/Detail.vue ***!
+  \*******************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => __WEBPACK_DEFAULT_EXPORT__
+/* harmony export */ });
+/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! !../../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+var render, staticRenderFns
+var script = {}
+
+
+/* normalize component */
+;
+var component = (0,_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_0__.default)(
+  script,
+  render,
+  staticRenderFns,
+  false,
+  null,
+  null,
+  null
+  
+)
+
+component.options.__file = "resources/js/Pages/Admin/Locations/Detail.vue"
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/js/Pages/Admin/Locations/Edit.vue":
+/*!*****************************************************!*\
+  !*** ./resources/js/Pages/Admin/Locations/Edit.vue ***!
+  \*****************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => __WEBPACK_DEFAULT_EXPORT__
+/* harmony export */ });
+/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! !../../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+var render, staticRenderFns
+var script = {}
+
+
+/* normalize component */
+;
+var component = (0,_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_0__.default)(
+  script,
+  render,
+  staticRenderFns,
+  false,
+  null,
+  null,
+  null
+  
+)
+
+component.options.__file = "resources/js/Pages/Admin/Locations/Edit.vue"
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/js/Pages/Admin/Locations/List.vue":
+/*!*****************************************************!*\
+  !*** ./resources/js/Pages/Admin/Locations/List.vue ***!
+  \*****************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => __WEBPACK_DEFAULT_EXPORT__
+/* harmony export */ });
+/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! !../../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+var render, staticRenderFns
+var script = {}
+
+
+/* normalize component */
+;
+var component = (0,_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_0__.default)(
+  script,
+  render,
+  staticRenderFns,
+  false,
+  null,
+  null,
+  null
+  
+)
+
+component.options.__file = "resources/js/Pages/Admin/Locations/List.vue"
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/js/Pages/Admin/Locations/New.vue":
+/*!****************************************************!*\
+  !*** ./resources/js/Pages/Admin/Locations/New.vue ***!
+  \****************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => __WEBPACK_DEFAULT_EXPORT__
+/* harmony export */ });
+/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! !../../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+var render, staticRenderFns
+var script = {}
+
+
+/* normalize component */
+;
+var component = (0,_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_0__.default)(
+  script,
+  render,
+  staticRenderFns,
+  false,
+  null,
+  null,
+  null
+  
+)
+
+component.options.__file = "resources/js/Pages/Admin/Locations/New.vue"
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (component.exports);
+
+/***/ }),
+
 /***/ "./resources/js/Pages/Admin/Patrons/Edit.vue":
 /*!***************************************************!*\
   !*** ./resources/js/Pages/Admin/Patrons/Edit.vue ***!
@@ -52965,6 +53101,14 @@ var map = {
 	"./Admin/Librarians/List.vue": "./resources/js/Pages/Admin/Librarians/List.vue",
 	"./Admin/Librarians/Profile": "./resources/js/Pages/Admin/Librarians/Profile.vue",
 	"./Admin/Librarians/Profile.vue": "./resources/js/Pages/Admin/Librarians/Profile.vue",
+	"./Admin/Locations/Detail": "./resources/js/Pages/Admin/Locations/Detail.vue",
+	"./Admin/Locations/Detail.vue": "./resources/js/Pages/Admin/Locations/Detail.vue",
+	"./Admin/Locations/Edit": "./resources/js/Pages/Admin/Locations/Edit.vue",
+	"./Admin/Locations/Edit.vue": "./resources/js/Pages/Admin/Locations/Edit.vue",
+	"./Admin/Locations/List": "./resources/js/Pages/Admin/Locations/List.vue",
+	"./Admin/Locations/List.vue": "./resources/js/Pages/Admin/Locations/List.vue",
+	"./Admin/Locations/New": "./resources/js/Pages/Admin/Locations/New.vue",
+	"./Admin/Locations/New.vue": "./resources/js/Pages/Admin/Locations/New.vue",
 	"./Admin/Patrons/Edit": "./resources/js/Pages/Admin/Patrons/Edit.vue",
 	"./Admin/Patrons/Edit.vue": "./resources/js/Pages/Admin/Patrons/Edit.vue",
 	"./Admin/Patrons/List": "./resources/js/Pages/Admin/Patrons/List.vue",
