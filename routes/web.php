@@ -8,6 +8,7 @@ use App\Http\Controllers\Admin\LibrariansController;
 use App\Http\Controllers\Admin\PatronsController;
 use App\Http\Controllers\Admin\VisitorsController;
 use App\Http\Controllers\Admin\BooksController;
+use App\Http\Controllers\Admin\LocationController;
 
 /*
 |--------------------------------------------------------------------------
@@ -67,4 +68,12 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
     Route::post('/books/update/{id}', [BooksController::class,'update'])->name('book.update');
     Route::get('/books/create', [BooksController::class,'create'])->name('book.create');
     Route::post('/books/create', [BooksController::class,'save'])->name('book.save');
+
+    Route::get('/locations', LocationController::class)->name('locations');
+    Route::get('/locations/details/{id}', [LocationController::class,'view'])->name('location.detail');
+    Route::get('/locations/edit/{id}', [BooksLocationControllerController::class,'edit'])->name('location.edit');
+    Route::post('/locations/update/{id}', [LocationController::class,'update'])->name('location.update');
+    Route::get('/locations/create', [LocationController::class,'create'])->name('location.create');
+    Route::post('/locations/create', [LocationController::class,'save'])->name('location.save');
+
 });
