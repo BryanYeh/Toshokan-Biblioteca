@@ -34,7 +34,7 @@ class LocationController extends Controller
     public function update(Request $request)
     {
         $request->validate([
-            'name' => 'string|required0',
+            'name' => 'string|required',
             'address1' => 'string|required',
             'address2' => 'string|nullable',
             'city' => 'string|required',
@@ -51,12 +51,32 @@ class LocationController extends Controller
     // create location page
     public function create(Request $request)
     {
-        //
+        return Inertia::render('Admin/Locations/New');
     }
 
     // save location
     public function save(Request $request)
     {
-        //
+        $request->validate([
+            'name' => 'string|required',
+            'address1' => 'string|required',
+            'address2' => 'string|nullable',
+            'city' => 'string|required',
+            'state' => 'string|nullable',
+            'postal_code' => 'string|required',
+            'country' => 'string|required',
+            'phone' => 'string|required'
+        ]);
+        $location = new Location();
+        $location->name = $request->name;
+        $location->address1 = $request->address1;
+        $location->address2 = $request->address2;
+        $location->city = $request->city;
+        $location->state = $request->state;
+        $location->postal_code = $request->postal_code;
+        $location->phone = $request->phone;
+        $location->save();
+
+        return redirect()->back()->with('message', "Successfully added location.");
     }
 }
