@@ -18,4 +18,14 @@ class Lend extends Model
         'damaged_fee_paid',
         'notes'
     ];
+
+    public function patron()
+    {
+        return $this->belongsTo(User::class,'user_id','id');
+    }
+
+    public function book()
+    {
+        return $this->belongsTo(BookLocation::class,'book_id','id');
+    }
 }
