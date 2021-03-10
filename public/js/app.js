@@ -5179,6 +5179,20 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => __WEBPACK_DEFAULT_EXPORT__
 /* harmony export */ });
 /* harmony import */ var _Layouts_AppLayout__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @/Layouts/AppLayout */ "./resources/js/Layouts/AppLayout.vue");
+/* harmony import */ var _Jetstream_Input__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/Jetstream/Input */ "./resources/js/Jetstream/Input.vue");
+/* harmony import */ var _Jetstream_Label__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @/Jetstream/Label */ "./resources/js/Jetstream/Label.vue");
+/* harmony import */ var _Jetstream_Button__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @/Jetstream/Button */ "./resources/js/Jetstream/Button.vue");
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -5194,9 +5208,38 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 
+
+
+
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   components: {
-    AppLayout: _Layouts_AppLayout__WEBPACK_IMPORTED_MODULE_0__.default
+    AppLayout: _Layouts_AppLayout__WEBPACK_IMPORTED_MODULE_0__.default,
+    JetInput: _Jetstream_Input__WEBPACK_IMPORTED_MODULE_1__.default,
+    JetLabel: _Jetstream_Label__WEBPACK_IMPORTED_MODULE_2__.default,
+    JetButton: _Jetstream_Button__WEBPACK_IMPORTED_MODULE_3__.default
+  },
+  data: function data() {
+    return {
+      card: {
+        number: ""
+      },
+      patron: {},
+      books: []
+    };
+  },
+  methods: {
+    loadUser: function loadUser() {
+      var _this = this;
+
+      this.$inertia.post(route("lend.load"), this.card, {
+        onSuccess: function onSuccess(data) {
+          return _this.patron = data;
+        },
+        onError: function onError(err) {
+          return console.log(err);
+        }
+      });
+    }
   }
 });
 
@@ -36440,7 +36483,46 @@ var render = function() {
         }
       ])
     },
-    [_vm._v(" "), _c("div")]
+    [
+      _vm._v(" "),
+      _c("div", [
+        _c(
+          "div",
+          { staticClass: "col-span-6 sm:col-span-4" },
+          [
+            _c("jet-label", {
+              attrs: { for: "card_number", value: "Card Number" }
+            }),
+            _vm._v(" "),
+            _c("jet-input", {
+              staticClass: "mt-1 block w-full",
+              attrs: { id: "card_number", type: "text" },
+              model: {
+                value: _vm.card.number,
+                callback: function($$v) {
+                  _vm.$set(_vm.card, "number", $$v)
+                },
+                expression: "card.number"
+              }
+            }),
+            _vm._v(" "),
+            _c(
+              "jet-button",
+              {
+                attrs: { type: "button" },
+                nativeOn: {
+                  click: function($event) {
+                    return _vm.loadUser($event)
+                  }
+                }
+              },
+              [_vm._v("Load")]
+            )
+          ],
+          1
+        )
+      ])
+    ]
   )
 }
 var staticRenderFns = []

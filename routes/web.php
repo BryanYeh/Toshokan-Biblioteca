@@ -78,5 +78,5 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
     Route::post('/locations/create', [LocationController::class,'save'])->name('location.save');
 
     Route::get('/lend', LendController::class)->name('lend');
-
+    Route::post('/lend/patron', [LendController::class,'load'])->name('lend.load');
 });
