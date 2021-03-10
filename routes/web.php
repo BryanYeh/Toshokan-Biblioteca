@@ -9,6 +9,7 @@ use App\Http\Controllers\Admin\PatronsController;
 use App\Http\Controllers\Admin\VisitorsController;
 use App\Http\Controllers\Admin\BooksController;
 use App\Http\Controllers\Admin\LocationController;
+use App\Http\Controllers\Admin\LendController;
 
 /*
 |--------------------------------------------------------------------------
@@ -75,5 +76,7 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
     Route::post('/locations/update/{id}', [LocationController::class,'update'])->name('location.update');
     Route::get('/locations/create', [LocationController::class,'create'])->name('location.create');
     Route::post('/locations/create', [LocationController::class,'save'])->name('location.save');
+
+    Route::get('/lend', LendController::class)->name('lend');
 
 });
