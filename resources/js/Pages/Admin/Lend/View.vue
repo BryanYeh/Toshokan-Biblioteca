@@ -6,7 +6,7 @@
             </h2>
         </template>
 
-        <div>
+        <div v-if="!this.patron">
             <div class="col-span-6 sm:col-span-4">
                 <jet-label for="card_number" value="Card Number" />
                 <jet-input
@@ -14,12 +14,33 @@
                     type="text"
                     class="mt-1 block w-full"
                     v-model="card.number"
+                    v-on:keyup.enter.native="loadUser"
                 />
                 <jet-button type="button" @click.native="loadUser"
                     >Load</jet-button
                 >
             </div>
         </div>
+
+        <div v-if="this.patron">
+            <div class="col-span-6 sm:col-span-4">
+                <jet-label for="barcode" value="Barcode" />
+                <jet-input
+                    id="barcode"
+                    type="text"
+                    class="mt-1 block w-full"
+                    v-model="barcode"
+                    v-on:keyup.enter.native="lendBook"
+                />
+                <jet-button type="button" @click.native="lendBook"
+                    >Lend</jet-button
+                >
+            </div>
+        </div>
+
+        <ul>
+            <li v-for="book in books">{{ book.title }}</li>
+        </ul>
     </app-layout>
 </template>
 
@@ -41,8 +62,9 @@ export default {
             card: {
                 number: ""
             },
-            patron: {},
-            books: []
+            patron: null,
+            books: [],
+            barcode: ""
         };
     },
     methods: {
@@ -51,6 +73,9 @@ export default {
                 onSuccess: data => (this.patron = data),
                 onError: err => console.log(err)
             });
+        },
+        lendBook() {
+            this.books.push({title:'hello'})
         }
     }
 };

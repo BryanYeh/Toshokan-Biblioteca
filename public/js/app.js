@@ -5207,6 +5207,27 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -5223,8 +5244,9 @@ __webpack_require__.r(__webpack_exports__);
       card: {
         number: ""
       },
-      patron: {},
-      books: []
+      patron: null,
+      books: [],
+      barcode: ""
     };
   },
   methods: {
@@ -5238,6 +5260,11 @@ __webpack_require__.r(__webpack_exports__);
         onError: function onError(err) {
           return console.log(err);
         }
+      });
+    },
+    lendBook: function lendBook() {
+      this.books.push({
+        title: 'hello'
       });
     }
   }
@@ -36485,43 +36512,115 @@ var render = function() {
     },
     [
       _vm._v(" "),
-      _c("div", [
-        _c(
-          "div",
-          { staticClass: "col-span-6 sm:col-span-4" },
-          [
-            _c("jet-label", {
-              attrs: { for: "card_number", value: "Card Number" }
-            }),
-            _vm._v(" "),
-            _c("jet-input", {
-              staticClass: "mt-1 block w-full",
-              attrs: { id: "card_number", type: "text" },
-              model: {
-                value: _vm.card.number,
-                callback: function($$v) {
-                  _vm.$set(_vm.card, "number", $$v)
-                },
-                expression: "card.number"
-              }
-            }),
-            _vm._v(" "),
+      !this.patron
+        ? _c("div", [
             _c(
-              "jet-button",
-              {
-                attrs: { type: "button" },
-                nativeOn: {
-                  click: function($event) {
-                    return _vm.loadUser($event)
+              "div",
+              { staticClass: "col-span-6 sm:col-span-4" },
+              [
+                _c("jet-label", {
+                  attrs: { for: "card_number", value: "Card Number" }
+                }),
+                _vm._v(" "),
+                _c("jet-input", {
+                  staticClass: "mt-1 block w-full",
+                  attrs: { id: "card_number", type: "text" },
+                  nativeOn: {
+                    keyup: function($event) {
+                      if (
+                        !$event.type.indexOf("key") &&
+                        _vm._k($event.keyCode, "enter", 13, $event.key, "Enter")
+                      ) {
+                        return null
+                      }
+                      return _vm.loadUser($event)
+                    }
+                  },
+                  model: {
+                    value: _vm.card.number,
+                    callback: function($$v) {
+                      _vm.$set(_vm.card, "number", $$v)
+                    },
+                    expression: "card.number"
                   }
-                }
-              },
-              [_vm._v("Load")]
+                }),
+                _vm._v(" "),
+                _c(
+                  "jet-button",
+                  {
+                    attrs: { type: "button" },
+                    nativeOn: {
+                      click: function($event) {
+                        return _vm.loadUser($event)
+                      }
+                    }
+                  },
+                  [_vm._v("Load")]
+                )
+              ],
+              1
             )
-          ],
-          1
-        )
-      ])
+          ])
+        : _vm._e(),
+      _vm._v(" "),
+      this.patron
+        ? _c("div", [
+            _c(
+              "div",
+              { staticClass: "col-span-6 sm:col-span-4" },
+              [
+                _c("jet-label", {
+                  attrs: { for: "barcode", value: "Barcode" }
+                }),
+                _vm._v(" "),
+                _c("jet-input", {
+                  staticClass: "mt-1 block w-full",
+                  attrs: { id: "barcode", type: "text" },
+                  nativeOn: {
+                    keyup: function($event) {
+                      if (
+                        !$event.type.indexOf("key") &&
+                        _vm._k($event.keyCode, "enter", 13, $event.key, "Enter")
+                      ) {
+                        return null
+                      }
+                      return _vm.lendBook($event)
+                    }
+                  },
+                  model: {
+                    value: _vm.barcode,
+                    callback: function($$v) {
+                      _vm.barcode = $$v
+                    },
+                    expression: "barcode"
+                  }
+                }),
+                _vm._v(" "),
+                _c(
+                  "jet-button",
+                  {
+                    attrs: { type: "button" },
+                    nativeOn: {
+                      click: function($event) {
+                        return _vm.lendBook($event)
+                      }
+                    }
+                  },
+                  [_vm._v("Lend")]
+                )
+              ],
+              1
+            )
+          ])
+        : _vm._e(),
+      _vm._v(" "),
+      _c(
+        "ul",
+        _vm._l(_vm.books, function(book) {
+          return _c("li", [_vm._v(_vm._s(book.title))])
+        }),
+        0
+      )
     ]
   )
 }
