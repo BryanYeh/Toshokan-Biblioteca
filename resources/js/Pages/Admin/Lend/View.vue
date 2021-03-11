@@ -29,7 +29,7 @@
                     id="barcode"
                     type="text"
                     class="mt-1 block w-full"
-                    v-model="barcode"
+                    v-model="search.barcode"
                     v-on:keyup.enter.native="lendBook"
                 />
                 <jet-button type="button" @click.native="lendBook"
@@ -64,7 +64,9 @@ export default {
             },
             patron: null,
             books: [],
-            barcode: ""
+            search: {
+                barcode: ""
+            }
         };
     },
     methods: {
@@ -75,7 +77,13 @@ export default {
             });
         },
         lendBook() {
-            this.books.push({title:'hello'})
+            this.$inertia.post(route("lend.book"), this.search, {
+                onSuccess: data => this.books.push({
+                    title: data.props.book.title,
+                    barcode: data.props.barcode,
+                    image: data.props.book.image
+                })
+            });
         }
     }
 };

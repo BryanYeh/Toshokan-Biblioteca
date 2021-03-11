@@ -5246,7 +5246,9 @@ __webpack_require__.r(__webpack_exports__);
       },
       patron: null,
       books: [],
-      barcode: ""
+      search: {
+        barcode: ""
+      }
     };
   },
   methods: {
@@ -5263,8 +5265,16 @@ __webpack_require__.r(__webpack_exports__);
       });
     },
     lendBook: function lendBook() {
-      this.books.push({
-        title: 'hello'
+      var _this2 = this;
+
+      this.$inertia.post(route("lend.book"), this.search, {
+        onSuccess: function onSuccess(data) {
+          return _this2.books.push({
+            title: data.props.book.title,
+            barcode: data.props.barcode,
+            image: data.props.book.image
+          });
+        }
       });
     }
   }
@@ -36588,11 +36598,11 @@ var render = function() {
                     }
                   },
                   model: {
-                    value: _vm.barcode,
+                    value: _vm.search.barcode,
                     callback: function($$v) {
-                      _vm.barcode = $$v
+                      _vm.$set(_vm.search, "barcode", $$v)
                     },
-                    expression: "barcode"
+                    expression: "search.barcode"
                   }
                 }),
                 _vm._v(" "),

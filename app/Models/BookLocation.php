@@ -22,6 +22,11 @@ class BookLocation extends Model
         return $this->belongsTo(Location::class,'location_id','id');
     }
 
+    public function book()
+    {
+        return $this->belongsTo(Books::class,'book_id','id');
+    }
+
     public function lends()
     {
         return $this->hasMany(Lend::class, 'book_id','id');
