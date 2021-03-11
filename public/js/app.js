@@ -5241,13 +5241,11 @@ __webpack_require__.r(__webpack_exports__);
   },
   data: function data() {
     return {
-      card: {
-        number: ""
-      },
       patron: null,
       books: [],
       search: {
-        barcode: ""
+        barcode: "",
+        card_number: ""
       }
     };
   },
@@ -5255,7 +5253,7 @@ __webpack_require__.r(__webpack_exports__);
     loadUser: function loadUser() {
       var _this = this;
 
-      this.$inertia.post(route("lend.load"), this.card, {
+      this.$inertia.post(route("lend.load"), this.search, {
         onSuccess: function onSuccess(data) {
           return _this.patron = data;
         },
@@ -36547,11 +36545,11 @@ var render = function() {
                     }
                   },
                   model: {
-                    value: _vm.card.number,
+                    value: _vm.search.card_number,
                     callback: function($$v) {
-                      _vm.$set(_vm.card, "number", $$v)
+                      _vm.$set(_vm.search, "card_number", $$v)
                     },
-                    expression: "card.number"
+                    expression: "search.card_number"
                   }
                 }),
                 _vm._v(" "),

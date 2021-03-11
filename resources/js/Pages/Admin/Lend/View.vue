@@ -13,7 +13,7 @@
                     id="card_number"
                     type="text"
                     class="mt-1 block w-full"
-                    v-model="card.number"
+                    v-model="search.card_number"
                     v-on:keyup.enter.native="loadUser"
                 />
                 <jet-button type="button" @click.native="loadUser"
@@ -59,19 +59,17 @@ export default {
     },
     data() {
         return {
-            card: {
-                number: ""
-            },
             patron: null,
             books: [],
             search: {
-                barcode: ""
+                barcode: "",
+                card_number: ""
             }
         };
     },
     methods: {
         loadUser() {
-            this.$inertia.post(route("lend.load"), this.card, {
+            this.$inertia.post(route("lend.load"), this.search, {
                 onSuccess: data => (this.patron = data),
                 onError: err => console.log(err)
             });
