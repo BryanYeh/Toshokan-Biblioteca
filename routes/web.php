@@ -79,5 +79,7 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
 
     Route::get('/lend', LendController::class)->name('lend');
     Route::post('/lend/patron', [LendController::class,'load'])->name('lend.load');
-    Route::post('/lend/book',[LendController::class,'lend'])->name('lend.book');
+    Route::post('/lend/book',[LendController::class,'checkout'])->name('lend.book');
+    Route::get('/lend/book/return',[LendController::class,'checkinView'])->name('lend.return.view');
+    Route::post('/lend/book/return',[LendController::class,'checkin'])->name('lend.return');
 });

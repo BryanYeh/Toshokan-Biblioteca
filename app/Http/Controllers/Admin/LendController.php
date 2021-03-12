@@ -22,7 +22,7 @@ class LendController extends Controller
         return Inertia::render('Admin/Lend/View',User::where('card_number',$request->card_number)->firstOrFail());
     }
 
-    public function lend(Request $request)
+    public function checkout(Request $request)
     {
         $user = User::where('card_number',$request->card_number)->first();
         $book = BookLocation::where('barcode',$request->barcode)->with('book')->firstOrFail();
@@ -33,4 +33,16 @@ class LendController extends Controller
         $lend->save();
         return Inertia::render('Admin/Lend/View', $book );
     }
+
+    public function checkinView()
+    {
+        return Inertia::render('Admin/Lend/Checkin');
+    }
+
+    public function checkin()
+    {
+        return redirect()->back()
+            ->with('message', "Book has been returned!");
+    }
+
 }

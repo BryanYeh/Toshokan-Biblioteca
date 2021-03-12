@@ -21,6 +21,7 @@ class CreateLendsTable extends Migration
             $table->dateTime('returned_date')->nullable();
             $table->decimal('late_fee_paid', $precision = 8, $scale = 2)->default(0.00);
             $table->decimal('damaged_fee_paid', $precision = 8, $scale = 2)->default(0.00);
+            $table->boolean('is_damaged')->default(false);
             $table->text('notes')->nullable();
             $table->timestamps();
         });
