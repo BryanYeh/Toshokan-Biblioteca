@@ -4,7 +4,6 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use Inertia\Inertia;
 use App\Models\User;
 use App\Models\Invitation;
 use Carbon\Carbon;
@@ -18,14 +17,14 @@ class LibrariansController extends Controller
     public function __invoke()
     {
         $librarians = User::where('user_type', 'librarian')->select('first_name','last_name','username','id')->paginate(25);
-        return Inertia::render('Admin/Librarians/List', ['librarians' => $librarians]);
+        return $librarians;
     }
 
     // view librarian profile
     public function view(Request $request)
     {
         $librarian = User::where('id',$request->id)->first();
-        return Inertia::render('Admin/Librarians/Profile',['librarian' => $librarian]);
+        return $librarian;
     }
 
     // delete librarian
@@ -33,14 +32,13 @@ class LibrariansController extends Controller
     {
         User::destroy($request->id);
 
-        return redirect()->back()
-            ->with('message', 'Successfully deleted librarian');
+        return response()->json(['message'=>'Successfully deleted librarian']);
     }
 
     // view librarian invitation page
     public function invite(Request $request)
     {
-        return Inertia::render('Admin/Librarians/Invitation');
+        // probably dont need this
     }
 
     // send librarian invitation
@@ -66,7 +64,6 @@ class LibrariansController extends Controller
 
         Mail::to($request->user())->send(new LibrarianInvitation($invitation));
 
-        return redirect()->back()
-            ->with('message', "Successfully invited $request->first_name to be a librarian");
+        return response()->json(['message'=> "Successfully invited $request->first_name to be a librarian"]);
     }
 }

@@ -8,7 +8,6 @@ use App\Models\Invitation;
 use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Support\Str;
-use Inertia\Inertia;
 use Illuminate\Support\Facades\Hash;
 
 class InvitationController extends Controller
@@ -25,7 +24,7 @@ class InvitationController extends Controller
             ->first();
 
         if($invitation){
-            return Inertia::render('Invitations/Accept',[
+            return response()->json([
                 'first_name'=>$invitation->first_name,
                 'last_name'=>$invitation->last_name,
                 'email'=>$invitation->email,
@@ -33,7 +32,7 @@ class InvitationController extends Controller
                 ]);
         }
         else{
-            return Inertia::render('Invitations/Expired');
+            return response()->json(['error'=>'Invitation Expired']);
         }
     }
 
@@ -68,6 +67,6 @@ class InvitationController extends Controller
             ]
         );
 
-        return redirect()->route('login');
+        return response()->json(['success'=>'Invitation Accepted!']);
     }
 }

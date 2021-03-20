@@ -4,7 +4,6 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use Inertia\Inertia;
 use App\Models\User;
 use App\Models\BookLocation;
 use App\Models\Lend;
@@ -15,13 +14,13 @@ class LendController extends Controller
     // lend book page
     public function __invoke()
     {
-        return Inertia::render('Admin/Lend/View');
+        // probably don't need?
     }
 
     // load patron by card
     public function load(Request $request)
     {
-        return Inertia::render('Admin/Lend/View',User::where('card_number',$request->card_number)->firstOrFail());
+        return User::where('card_number',$request->card_number)->firstOrFail();
     }
 
     // checkout book to patron
@@ -34,13 +33,13 @@ class LendController extends Controller
         $lend->book_id = $book->id;
         $lend->lend_date = Carbon::now();
         $lend->save();
-        return Inertia::render('Admin/Lend/View', $book );
+        return $book;
     }
 
     // return book page
     public function checkinView()
     {
-        return Inertia::render('Admin/Lend/Checkin');
+        // probably don't need?
     }
 
     // return book
@@ -53,8 +52,7 @@ class LendController extends Controller
         $lend->notes = $request->notes;
         $lend->save();
 
-        return redirect()->back()
-            ->with('message', "Book has been returned!");
+        return response()->json(['message'=>'Book has been returned!']);
     }
 
 }

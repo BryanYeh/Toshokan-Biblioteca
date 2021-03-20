@@ -5,7 +5,6 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\User;
-use Inertia\Inertia;
 
 class PatronsController extends Controller
 {
@@ -13,21 +12,21 @@ class PatronsController extends Controller
     public function __invoke()
     {
         $patrons = User::where('user_type', 'patron')->select('first_name','last_name','card_number','address_confirmed_at','id')->paginate(25);
-        return Inertia::render('Admin/Patrons/List', ['patrons' => $patrons]);
+        return $patrons;
     }
 
     // view patron page
     public function view(Request $request)
     {
         $patron = User::where('id',$request->id)->first();
-        return Inertia::render('Admin/Patrons/Profile',['patron' => $patron]);
+        return $patron;
     }
 
     // view edit patron page
     public function edit(Request $request)
     {
         $patron = User::where('id',$request->id)->first();
-        return Inertia::render('Admin/Patrons/Edit',['patron' => $patron]);
+        return $patron;
     }
 
     // update patron
@@ -50,7 +49,7 @@ class PatronsController extends Controller
         ]);
 
         User::find($request->id)->update($request->all());
-        return redirect()->route('patron.profile',['id'=>$request->id])->with('success', 'Patron successfully updated');
+        return response()->json(['success'=>'Patron successfully updated']);
     }
 
     // turn patron into visitor
@@ -71,7 +70,6 @@ class PatronsController extends Controller
             'address_confirmed_at' => null
         ]);
 
-        return redirect()->back()
-            ->with('message', "$patron->first_name $patron->last_name has been downgraded to a visitor");
+        return response()->json(['message'=> "$patron->first_name $patron->last_name has been downgraded to a visitor"]);
     }
 }

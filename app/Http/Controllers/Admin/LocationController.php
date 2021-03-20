@@ -5,7 +5,6 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Location;
 use Illuminate\Http\Request;
-use Inertia\Inertia;
 
 class LocationController extends Controller
 {
@@ -13,21 +12,21 @@ class LocationController extends Controller
     public function __invoke()
     {
         $locations = Location::select('id','name','address1','phone')->paginate(25);
-        return Inertia::render('Admin/Locations/List', ['locations' => $locations]);
+        return $locations;
     }
 
     // location details
     public function details(Request $request)
     {
         $location = Location::where('id',$request->id)->firstOrFail();
-        return Inertia::render('Admin/Locations/Detail', ['location' => $location]);
+        return $location;
     }
 
     // edit location page
     public function edit(Request $request)
     {
         $location = Location::where('id',$request->id)->firstOrFail();
-        return Inertia::render('Admin/Locations/Edit', ['location' => $location]);
+        return $location;
     }
 
     // update location page
@@ -46,12 +45,12 @@ class LocationController extends Controller
         $location = Location::where('id',$request->id)->firstOrFail();
         $location->update($request->all());
 
-        return redirect()->back()->with('message', "Successfully updated location.");
+        return response()->json(['message'=>"Successfully updated location."]);
     }
     // create location page
     public function create(Request $request)
     {
-        return Inertia::render('Admin/Locations/New');
+        // most likely dont need
     }
 
     // save location
@@ -77,6 +76,6 @@ class LocationController extends Controller
         $location->phone = $request->phone;
         $location->save();
 
-        return redirect()->back()->with('message', "Successfully added location.");
+        return response()->json(['message'=>"Successfully added location."]);
     }
 }

@@ -7,7 +7,6 @@ use Illuminate\Http\Request;
 use App\Models\Books;
 use App\Models\Location;
 use App\Models\BookLocation;
-use Inertia\Inertia;
 
 class BooksController extends Controller
 {
@@ -15,14 +14,14 @@ class BooksController extends Controller
     public function __invoke()
     {
         $books = Books::select('title','edition','isbn','image','id')->paginate(25);
-        return Inertia::render('Admin/Books/List', ['books' => $books]);
+        return $books;
     }
 
     // view book info with locations
     public function view(Request $request)
     {
         $book = Books::where('id',$request->id)->with('locations')->firstOrFail();
-        return Inertia::render('Admin/Books/Detail', ['book' => $book]);
+        return $book;
     }
 
     // show edit book form
@@ -30,7 +29,9 @@ class BooksController extends Controller
     {
         $book = Books::where('books.id',$request->id)->with('locations.library')->firstOrFail();
         $libraries = Location::select(['id','name'])->get();
-        return Inertia::render('Admin/Books/Edit', ['book' => $book, 'libraries' => $libraries]);
+        return response()->json([
+            $libraries, $book
+        ]);
     }
 
     // update book
@@ -89,15 +90,14 @@ class BooksController extends Controller
         }
 
         $book = Books::where('id',$request->id)->with('locations')->firstOrFail();
-
-        return Inertia::render('Admin/Books/Detail', ['book' => $book]);
+        return $book;
     }
 
     // show create book form
     public function create(Request $request)
     {
         $libraries = Location::select(['id','name'])->get();
-        return Inertia::render('Admin/Books/New',['libraries' => $libraries]);
+        return $libraries;
     }
 
     // save the book

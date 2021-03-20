@@ -5,7 +5,6 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\User;
-use Inertia\Inertia;
 use Illuminate\Support\Carbon;
 
 class VisitorsController extends Controller
@@ -14,21 +13,21 @@ class VisitorsController extends Controller
     public function __invoke()
     {
         $visitors = User::where('user_type', 'visitor')->select('first_name','last_name','email','id')->paginate(25);
-        return Inertia::render('Admin/Visitors/List', ['visitors' => $visitors]);
+        return $visitors;
     }
 
     // view visitor profile
     public function view(Request $request)
     {
         $visitor = User::where('id',$request->id)->first();
-        return Inertia::render('Admin/Visitors/Profile',['visitor' => $visitor]);
+        return $visitor;
     }
 
     // upgrading visitor into patron page
     public function edit(Request $request)
     {
         $visitor = User::where('id',$request->id)->first();
-        return Inertia::render('Admin/Visitors/Upgrade',['visitor' => $visitor]);
+        return $visitor;
     }
 
     // upgrade visitor to a patron
@@ -54,6 +53,6 @@ class VisitorsController extends Controller
         $data['address_confirmed_at'] = Carbon::now();
         $visitor->update($data);
 
-        return redirect()->back()->with('message', "$request->first_name $request->last_name is now a patron.");
+        return response()->json(['message'=>"$request->first_name $request->last_name is now a patron."]);
     }
 }
