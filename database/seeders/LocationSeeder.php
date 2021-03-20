@@ -19,6 +19,7 @@ class LocationSeeder extends Seeder
 
         for ($i = 0; $i < 3; $i++) {
             DB::table('locations')->insert([
+                'uuid' => $faker->uuid(),
                 'name' => $faker->unique()->company(),
                 'address1' => $faker->streetAddress(),
                 'address2' => $faker->randomElement([$faker->secondaryAddress(),null]),

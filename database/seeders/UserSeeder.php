@@ -22,6 +22,16 @@ class UserSeeder extends Seeder
     {
         $faker = Factory::create();
 
+        DB::table('users')->insert([
+            'uuid' => $faker->uuid(),
+            'user_type' => 'owner',
+            'username' => 'owner',
+            'email' => $faker->unique()->safeEmail,
+            'password' => Hash::make('password'),
+            'first_name' => $faker->firstName(),
+            'last_name' => $faker->lastName()
+        ]);
+
         for ($i = 0; $i < 500; $i++) {
             $user_type = $faker->randomElement(['librarian','patron','visitor']);
 
