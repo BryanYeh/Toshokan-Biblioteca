@@ -22,7 +22,9 @@ class BookSeeder extends Seeder
 
         for ($i = 0; $i < 1000; $i++) {
             DB::table('books')->insert([
+                'uuid' => $faker->uuid(),
                 'title' => Str::of($faker->words(4, true))->title(),
+                'slug' => $faker->unique()->slug(4),
                 'isbn' => $faker->isbn13(),
                 'edition' => $faker->optional()->randomElement(['1st Edition', '2nd Edition', '3rd Edition', '4th Edition', '5th Edition', '6th Edition', '7th Edition', '8th Edition', '9th Edition', '10th Edition']),
                 'summary' => $faker->text(150),

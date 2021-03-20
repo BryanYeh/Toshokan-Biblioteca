@@ -26,6 +26,7 @@ class UserSeeder extends Seeder
             $user_type = $faker->randomElement(['librarian','patron','visitor']);
 
             DB::table('users')->insert([
+                'uuid' => $faker->uuid(),
                 'user_type' => $user_type,
                 'username' => $faker->unique()->username(),
                 'card_number' => $user_type === 'patron' ? $faker->unique()->numerify('0000########') : null,
@@ -42,6 +43,7 @@ class UserSeeder extends Seeder
                 'postal_code' => $user_type === 'patron' ? $faker->postcode() : null,
                 'country' => $user_type === 'patron' ? $faker->country() : null,
                 'phone' => $user_type === 'patron' ? $faker->phoneNumber() : null,
+                'is_disabled' => $faker->boolean()
             ]);
         }
     }
