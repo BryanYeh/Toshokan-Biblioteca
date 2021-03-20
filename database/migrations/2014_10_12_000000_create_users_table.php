@@ -15,6 +15,7 @@ class CreateUsersTable extends Migration
     {
         Schema::create('users', function (Blueprint $table) {
             $table->id();
+            $table->string('uuid')->unique();
             $table->string('user_type')->default('visitor')->comment('owner,librarian,patron,visitor');
             $table->string('username')->unique()->nullable();
             $table->string('card_number')->unique()->nullable();
@@ -33,9 +34,9 @@ class CreateUsersTable extends Migration
             $table->string('phone')->nullable();
             $table->timestamp('address_confirmed_at')->useCurrent();
             $table->timestamp('registered_at')->nullable();
+            $table->boolean('is_disabled')->default(false);
             $table->rememberToken();
             $table->timestamps();
-            // $table->string('name');
         });
     }
 

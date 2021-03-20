@@ -15,8 +15,8 @@ class CreateBookLocationsTable extends Migration
     {
         Schema::create('book_locations', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('book_id');
-            $table->unsignedBigInteger('location_id');
+            $table->foreignId('book_id');
+            $table->foreignId('location_id');
             $table->string('barcode')->unique();
             $table->string('call_number')->comment('Which shelf in the library?');
             $table->string('location')->comment('What section of the library?');
