@@ -22,15 +22,15 @@ class LibrariansController extends Controller
             $sort = explode(' ',$request->sort);
             $column = Str::slug($sort[0],'_');
             $direction = $sort[1] === 'asc' ? 'ASC' : 'DESC';
-            return User::where('user_type', 'librarian')
+            return response()->json(User::where('user_type', 'librarian')
                             ->select('first_name','last_name','username','uuid')
                             ->orderBy($column, $direction)
-                            ->paginate(25)->withQueryString();
+                            ->paginate(25)->withQueryString());
         }
 
-        return User::where('user_type', 'librarian')
+        return response()->json(User::where('user_type', 'librarian')
                         ->select('first_name','last_name','username','uuid')
-                        ->paginate(25)->withQueryString();
+                        ->paginate(25)->withQueryString());
     }
 
     // return librarian
