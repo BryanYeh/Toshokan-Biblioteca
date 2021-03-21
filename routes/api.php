@@ -33,7 +33,6 @@ Route::post('/invitation/accept',[InvitationController::class,'accept'])
 Route::get('/librarians', LibrariansController::class)->name('librarians');
 Route::get('/librarians/profile/{id}', [LibrariansController::class,'view'])->name('librarian.profile');
 Route::delete('/librarians/delete/{id}', [LibrariansController::class,'remove'])->name('librarian.delete');
-Route::get('/invite', [LibrariansController::class,'invite'])->name('librarian.invitation');
 Route::post('/invite', [LibrariansController::class,'send'])->name('librarian.invitation.send');
 
 Route::get('/patrons', PatronsController::class)->name('patrons');

@@ -14,10 +14,23 @@ use App\Mail\LibrarianInvitation;
 class LibrariansController extends Controller
 {
     // list of librarians
-    public function __invoke()
+    public function __invoke(Request $request)
     {
-        $librarians = User::where('user_type', 'librarian')->select('first_name','last_name','username','id')->paginate(25);
-        return $librarians;
+
+        // order by column from $request->sort (column name, sorting direction)
+        if(isset($request->sort) && count(explode(' ',$request->sort)) == 2){
+            $sort = explode(' ',$request->sort);
+            $column = Str::slug($sort[0],'_');
+            $direction = $sort[1] === 'asc' ? 'ASC' : 'DESC';
+            return User::where('user_type', 'librarian')
+                            ->select('first_name','last_name','username','uuid')
+                            ->orderBy($column, $direction)
+                            ->paginate(25)->withQueryString();
+        }
+
+        return User::where('user_type', 'librarian')
+                        ->select('first_name','last_name','username','uuid')
+                        ->paginate(25)->withQueryString();
     }
 
     // view librarian profile
@@ -32,13 +45,7 @@ class LibrariansController extends Controller
     {
         User::destroy($request->id);
 
-        return response()->json(['message'=>'Successfully deleted librarian']);
-    }
-
-    // view librarian invitation page
-    public function invite(Request $request)
-    {
-        // probably dont need this
+        return response()->json('Successfully deleted librarian');
     }
 
     // send librarian invitation
