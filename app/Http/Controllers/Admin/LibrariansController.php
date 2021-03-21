@@ -33,11 +33,16 @@ class LibrariansController extends Controller
                         ->paginate(25)->withQueryString();
     }
 
-    // view librarian profile
-    public function view(Request $request)
+    // return librarian
+    public function show(Request $request)
     {
-        $librarian = User::where('id',$request->id)->first();
-        return $librarian;
+        $librarian = User::where('uuid',$request->uuid)->first();
+
+        if(!$librarian){
+            return response()->json(['message' => 'Librarian not found'], 404);
+        }
+
+        return response()->json($librarian);
     }
 
     // delete librarian
