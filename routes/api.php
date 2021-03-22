@@ -31,9 +31,11 @@ Route::post('/invitation/accept',[InvitationController::class,'accept'])
     ->name('accept');
 
 Route::get('/librarians', LibrariansController::class);
-Route::get('/librarians/{uuid}', [LibrariansController::class,'show']);
-Route::delete('/librarians/delete/{id}', [LibrariansController::class,'remove']);
-Route::post('/invite', [LibrariansController::class,'send']);
+Route::group(['prefix' => 'librarian'], function () {
+    Route::delete('delete/{uuid}', [LibrariansController::class,'delete']);
+    Route::post('invite', [LibrariansController::class,'send']);
+    Route::get('{uuid}', [LibrariansController::class,'show']);
+});
 
 Route::get('/patrons', PatronsController::class)->name('patrons');
 Route::get('/patrons/profile/{id}', [PatronsController::class,'view'])->name('patron.profile');
