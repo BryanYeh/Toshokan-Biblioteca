@@ -22,6 +22,7 @@ class LibrariansController extends Controller
             $sort = explode(' ',$request->sort);
             $column = Str::slug($sort[0],'_');
             $direction = $sort[1] === 'asc' ? 'ASC' : 'DESC';
+
             return response()->json(User::where('user_type', 'librarian')
                             ->select('first_name','last_name','username','uuid')
                             ->orderBy($column, $direction)
@@ -46,9 +47,15 @@ class LibrariansController extends Controller
     }
 
     // delete librarian
-    public function remove(Request $request)
+    public function delete(Request $request)
     {
-        User::destroy($request->id);
+        $librarian = User::where('uuid',$request->uuid)->first();
+
+        if(!$librarian){
+            return response()->json(['message' => 'Librarian not found'], 404);
+        }
+
+        $librarian->delete();
 
         return response()->json('Successfully deleted librarian');
     }
