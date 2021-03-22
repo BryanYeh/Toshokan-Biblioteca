@@ -33,6 +33,7 @@ Route::post('/invitation/accept',[InvitationController::class,'accept'])
 Route::get('/librarians', LibrariansController::class);
 Route::group(['prefix' => 'librarian'], function () {
     Route::delete('delete/{uuid}', [LibrariansController::class,'delete']);
+    Route::post('toggle/{uuid}/{status}', [LibrariansController::class,'toggle']);
     Route::post('invite', [LibrariansController::class,'send']);
     Route::get('{uuid}', [LibrariansController::class,'show']);
 });
