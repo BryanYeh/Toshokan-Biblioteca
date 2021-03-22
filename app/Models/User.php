@@ -30,7 +30,8 @@ class User extends Authenticatable
         'postal_code',
         'phone',
         'address_confirmed_at',
-        'registered_at'
+        'registered_at',
+        'is_disabled'
     ];
 
     /**

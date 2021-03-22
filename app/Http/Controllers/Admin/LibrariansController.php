@@ -76,13 +76,18 @@ class LibrariansController extends Controller
     }
 
     // send librarian invitation
-    public function send(Request $request)
+    public function invite(Request $request)
     {
         $request->validate([
             'first_name' => 'required|string|max:255',
             'last_name' => 'required|string|max:255',
             'email' => 'required|email|unique:users'
         ]);
+
+        $librarian = User::where('email',$request->email)->first();
+        if($librarian){
+            return response()->json(['message'=> "$request->first_name $request->last_name is already an existing librarian"],409);
+        }
 
         $invitation = Invitation::updateOrCreate(
             ['email' => $request->email],
@@ -98,6 +103,6 @@ class LibrariansController extends Controller
 
         Mail::to($request->user())->send(new LibrarianInvitation($invitation));
 
-        return response()->json(['message'=> "Successfully invited $request->first_name to be a librarian"]);
+        return response()->json(['message'=> "Successfully sent librarian invitation to $request->first_name"]);
     }
 }
