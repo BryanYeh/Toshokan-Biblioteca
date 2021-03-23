@@ -38,6 +38,17 @@ Route::group(['prefix' => 'librarian'], function () {
     Route::get('{uuid}', [LibrariansController::class,'show']);
 });
 
+Route::get('/books', BooksController::class);
+Route::group(['prefix' => 'book'], function () {
+    Route::get('details/{id}', [BooksController::class,'view']);
+    Route::get('edit/{id}', [BooksController::class,'edit']);
+    Route::post('update/{id}', [BooksController::class,'update']);
+    Route::get('create', [BooksController::class,'create']);
+    Route::post('create', [BooksController::class,'save']);
+});
+
+
+
 Route::get('/patrons', PatronsController::class)->name('patrons');
 Route::get('/patrons/profile/{id}', [PatronsController::class,'view'])->name('patron.profile');
 Route::get('/patrons/edit/{id}', [PatronsController::class,'edit'])->name('patron.edit');
