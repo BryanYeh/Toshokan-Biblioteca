@@ -7,14 +7,26 @@ use Illuminate\Http\Request;
 use App\Models\Books;
 use App\Models\Location;
 use App\Models\BookLocation;
+use Illuminate\Support\Str;
 
 class BooksController extends Controller
 {
     // list of books
-    public function __invoke()
+    public function __invoke(Request $request)
     {
-        $books = Books::select('title','edition','isbn','image','id')->paginate(25);
-        return $books;
+        // order by column from $request->sort (column name, sorting direction)
+        if(isset($request->sort) && count(explode(' ',$request->sort)) == 2){
+            $sort = explode(' ',$request->sort);
+            $column = Str::slug($sort[0],'_');
+            $direction = $sort[1] === 'asc' ? 'ASC' : 'DESC';
+
+            return response()->json(Books::select('title','edition','isbn','image','uuid')
+                            ->orderBy($column, $direction)
+                            ->paginate(25)->withQueryString());
+        }
+
+        return response()->json(Books::select('title','edition','isbn','image','uuid')
+                        ->paginate(25)->withQueryString());
     }
 
     // view book info with locations
