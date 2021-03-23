@@ -40,11 +40,12 @@ Route::group(['prefix' => 'librarian'], function () {
 
 Route::get('/books', BooksController::class);
 Route::group(['prefix' => 'book'], function () {
-    Route::get('details/{id}', [BooksController::class,'view']);
     Route::get('edit/{id}', [BooksController::class,'edit']);
     Route::post('update/{id}', [BooksController::class,'update']);
     Route::get('create', [BooksController::class,'create']);
     Route::post('create', [BooksController::class,'save']);
+
+    Route::get('{uuid}', [BooksController::class,'show']);
 });
 
 

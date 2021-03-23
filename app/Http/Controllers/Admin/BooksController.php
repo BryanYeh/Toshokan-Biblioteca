@@ -30,10 +30,15 @@ class BooksController extends Controller
     }
 
     // view book info with locations
-    public function view(Request $request)
+    public function show(Request $request)
     {
-        $book = Books::where('id',$request->id)->with('locations')->firstOrFail();
-        return $book;
+        $book = Books::where('uuid',$request->uuid)->with('locations')->first();
+
+        if(!$book){
+            return response()->json(['message' => 'Book not found'], 404);
+        }
+
+        return response()->json($book);
     }
 
     // show edit book form
