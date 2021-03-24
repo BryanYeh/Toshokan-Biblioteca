@@ -41,16 +41,6 @@ class BooksController extends Controller
         return response()->json($book);
     }
 
-    // show edit book form
-    public function edit(Request $request)
-    {
-        $book = Books::where('books.id',$request->id)->with('locations.library')->firstOrFail();
-        $libraries = Location::select(['id','name'])->get();
-        return response()->json([
-            $libraries, $book
-        ]);
-    }
-
     // update book
     public function update(Request $request)
     {
@@ -108,13 +98,6 @@ class BooksController extends Controller
 
         $book = Books::where('id',$request->id)->with('locations')->firstOrFail();
         return $book;
-    }
-
-    // show create book form
-    public function create(Request $request)
-    {
-        $libraries = Location::select(['id','name'])->get();
-        return $libraries;
     }
 
     // save the book
