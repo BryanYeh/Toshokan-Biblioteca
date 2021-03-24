@@ -5,28 +5,40 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\User;
+use Illuminate\Support\Str;
 
 class PatronsController extends Controller
 {
     // list of patrons
-    public function __invoke()
+    public function __invoke(Request $request)
     {
-        $patrons = User::where('user_type', 'patron')->select('first_name','last_name','card_number','address_confirmed_at','id')->paginate(25);
-        return $patrons;
+        // order by column from $request->sort (column name, sorting direction)
+        if(isset($request->sort) && count(explode(' ',$request->sort)) == 2){
+            $sort = explode(' ',$request->sort);
+            $column = Str::slug($sort[0],'_');
+            $direction = $sort[1] === 'asc' ? 'ASC' : 'DESC';
+
+            return response()->json(User::where('user_type', 'patron')
+                            ->select('first_name','last_name','card_number','address_confirmed_at','uuid')
+                            ->orderBy($column, $direction)
+                            ->paginate(25)->withQueryString());
+        }
+
+        return response()->json(User::where('user_type', 'patron')
+                        ->select('first_name','last_name','card_number','address_confirmed_at','uuid')
+                        ->paginate(25)->withQueryString());
     }
 
     // view patron page
     public function view(Request $request)
     {
-        $patron = User::where('id',$request->id)->first();
-        return $patron;
-    }
+        $patron = User::where('uuid',$request->uuid)->first();
 
-    // view edit patron page
-    public function edit(Request $request)
-    {
-        $patron = User::where('id',$request->id)->first();
-        return $patron;
+        if(!$patron){
+            return response()->json(['message' => 'Book not found'], 404);
+        }
+
+        return response()->json($patron);
     }
 
     // update patron
@@ -48,14 +60,14 @@ class PatronsController extends Controller
             'address_confirmed_at' => 'required|date'
         ]);
 
-        User::find($request->id)->update($request->all());
+        User::where('uuid',$request->uuid)->update($request->all());
         return response()->json(['success'=>'Patron successfully updated']);
     }
 
     // turn patron into visitor
     public function downgrade(Request $request)
     {
-        $patron = User::where('id',$request->id)->first();
+        $patron = User::where('uuid',$request->uuid)->first();
         $patron->update([
             'user_type' => 'visitor',
             'card_number' => null,

@@ -52,11 +52,12 @@ Route::group(['prefix' => 'location'], function () {
     Route::get('{uuid}', [LocationController::class,'show']);
 });
 
-Route::get('/patrons', PatronsController::class)->name('patrons');
-Route::get('/patrons/profile/{id}', [PatronsController::class,'view'])->name('patron.profile');
-Route::get('/patrons/edit/{id}', [PatronsController::class,'edit'])->name('patron.edit');
-Route::post('/patrons/edit/{id}', [PatronsController::class,'update'])->name('patron.update');
-Route::post('/patrons/downgrade/{id}', [PatronsController::class,'downgrade'])->name('patron.downgrade');
+Route::get('/patrons', PatronsController::class);
+Route::group(['prefix' => 'location'], function () {
+    Route::post('update/{uuid}', [PatronsController::class,'update']);
+    Route::post('downgrade/{uuid}', [PatronsController::class,'downgrade']);
+    Route::get('{uuid}', [PatronsController::class,'show']);
+});
 
 Route::get('/visitors', VisitorsController::class)->name('visitors');
 Route::get('/visitors/profile/{id}', [VisitorsController::class,'view'])->name('visitor.profile');
