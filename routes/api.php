@@ -45,6 +45,12 @@ Route::group(['prefix' => 'book'], function () {
     Route::get('{uuid}', [BooksController::class,'show']);
 });
 
+Route::get('/locations', LocationController::class);
+Route::group(['prefix' => 'location'], function () {
+    Route::post('update/{uuid}', [LocationController::class,'update']);
+    Route::post('create', [LocationController::class,'save']);
+    Route::get('{uuid}', [LocationController::class,'show']);
+});
 
 Route::get('/patrons', PatronsController::class)->name('patrons');
 Route::get('/patrons/profile/{id}', [PatronsController::class,'view'])->name('patron.profile');
@@ -63,13 +69,6 @@ Route::get('/books/edit/{id}', [BooksController::class,'edit'])->name('book.edit
 Route::post('/books/update/{id}', [BooksController::class,'update'])->name('book.update');
 Route::get('/books/create', [BooksController::class,'create'])->name('book.create');
 Route::post('/books/create', [BooksController::class,'save'])->name('book.save');
-
-Route::get('/locations', LocationController::class)->name('locations');
-Route::get('/locations/details/{id}', [LocationController::class,'view'])->name('location.detail');
-Route::get('/locations/edit/{id}', [BooksLocationControllerController::class,'edit'])->name('location.edit');
-Route::post('/locations/update/{id}', [LocationController::class,'update'])->name('location.update');
-Route::get('/locations/create', [LocationController::class,'create'])->name('location.create');
-Route::post('/locations/create', [LocationController::class,'save'])->name('location.save');
 
 Route::get('/lend', LendController::class)->name('lend');
 Route::post('/lend/patron', [LendController::class,'load'])->name('lend.load');

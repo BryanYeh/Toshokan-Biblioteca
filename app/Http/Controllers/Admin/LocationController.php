@@ -5,28 +5,38 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Location;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 
 class LocationController extends Controller
 {
     // list of locations
-    public function __invoke()
+    public function __invoke(Request $request)
     {
-        $locations = Location::select('id','name','address1','phone')->paginate(25);
-        return $locations;
+        // order by column from $request->sort (column name, sorting direction)
+        if(isset($request->sort) && count(explode(' ',$request->sort)) == 2){
+            $sort = explode(' ',$request->sort);
+            $column = Str::slug($sort[0],'_');
+            $direction = $sort[1] === 'asc' ? 'ASC' : 'DESC';
+
+            return response()->json(Location::select('uuid','name','address1','phone')
+                            ->orderBy($column, $direction)
+                            ->paginate(25)->withQueryString());
+        }
+
+        return response()->json(Location::select('uuid','name','address1','phone')
+                        ->paginate(25)->withQueryString());
     }
 
     // location details
-    public function details(Request $request)
+    public function show(Request $request)
     {
-        $location = Location::where('id',$request->id)->firstOrFail();
-        return $location;
-    }
+        $location = Location::where('uuid',$request->uuid)->first();
 
-    // edit location page
-    public function edit(Request $request)
-    {
-        $location = Location::where('id',$request->id)->firstOrFail();
-        return $location;
+        if(!$location){
+            return response()->json(['message' => 'Location not found'], 404);
+        }
+
+        return response()->json($location);
     }
 
     // update location page
@@ -45,12 +55,7 @@ class LocationController extends Controller
         $location = Location::where('id',$request->id)->firstOrFail();
         $location->update($request->all());
 
-        return response()->json(['message'=>"Successfully updated location."]);
-    }
-    // create location page
-    public function create(Request $request)
-    {
-        // most likely dont need
+        return response()->json(['message'=>'Successfully updated location.']);
     }
 
     // save location
@@ -66,6 +71,7 @@ class LocationController extends Controller
             'country' => 'string|required',
             'phone' => 'string|required'
         ]);
+
         $location = new Location();
         $location->name = $request->name;
         $location->address1 = $request->address1;
