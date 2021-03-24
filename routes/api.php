@@ -63,13 +63,6 @@ Route::get('/visitors/profile/{id}', [VisitorsController::class,'view'])->name('
 Route::get('/visitors/upgrade/{id}', [VisitorsController::class,'edit'])->name('visitor.edit');
 Route::post('/visitors/upgrade/{id}', [VisitorsController::class,'upgrade'])->name('visitor.upgrade');
 
-Route::get('/books', BooksController::class)->name('books');
-Route::get('/books/details/{id}', [BooksController::class,'view'])->name('book.detail');
-Route::get('/books/edit/{id}', [BooksController::class,'edit'])->name('book.edit');
-Route::post('/books/update/{id}', [BooksController::class,'update'])->name('book.update');
-Route::get('/books/create', [BooksController::class,'create'])->name('book.create');
-Route::post('/books/create', [BooksController::class,'save'])->name('book.save');
-
 Route::get('/lend', LendController::class)->name('lend');
 Route::post('/lend/patron', [LendController::class,'load'])->name('lend.load');
 Route::post('/lend/book',[LendController::class,'checkout'])->name('lend.book');
