@@ -155,6 +155,6 @@ class BooksController extends Controller
             $bookLocation->save();
         }
 
-        return redirect()->back()->with('success','Successfully added book');
+        return response()->json(['message'=>'Successfully created book!']);
     }
 }
