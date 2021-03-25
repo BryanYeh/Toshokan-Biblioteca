@@ -62,7 +62,7 @@ Route::group(['prefix' => 'location'], function () {
 Route::get('visitors', VisitorsController::class);
 Route::group(['prefix' => 'visitor'], function(){
     Route::post('upgrade/{uuid}', [VisitorsController::class,'upgrade']);
-    Route::get('{uuid}', [VisitorsController::class,'view']);
+    Route::get('{uuid}', [VisitorsController::class,'show']);
 });
 
 
