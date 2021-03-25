@@ -6,28 +6,40 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\User;
 use Illuminate\Support\Carbon;
+use Illuminate\Support\Str;
 
 class VisitorsController extends Controller
 {
     // list of visitors
-    public function __invoke()
+    public function __invoke(Request $request)
     {
-        $visitors = User::where('user_type', 'visitor')->select('first_name','last_name','email','id')->paginate(25);
-        return $visitors;
+        // order by column from $request->sort (column name, sorting direction)
+        if(isset($request->sort) && count(explode(' ',$request->sort)) == 2){
+            $sort = explode(' ',$request->sort);
+            $column = Str::slug($sort[0],'_');
+            $direction = $sort[1] === 'asc' ? 'ASC' : 'DESC';
+
+            return response()->json(User::where('user_type', 'patron')
+                            ->select('first_name','last_name','email','uuid')
+                            ->orderBy($column, $direction)
+                            ->paginate(25)->withQueryString());
+        }
+
+        return response()->json(User::where('user_type', 'patron')
+                        ->select('first_name','last_name','email','uuid')
+                        ->paginate(25)->withQueryString());
     }
 
     // view visitor profile
-    public function view(Request $request)
+    public function show(Request $request)
     {
-        $visitor = User::where('id',$request->id)->first();
-        return $visitor;
-    }
+        $visitor = User::where('uuid',$request->uuid)->first();
 
-    // upgrading visitor into patron page
-    public function edit(Request $request)
-    {
-        $visitor = User::where('id',$request->id)->first();
-        return $visitor;
+        if(!$visitor){
+            return response()->json(['message' => 'Visitor not found'], 404);
+        }
+
+        return response()->json($visitor);
     }
 
     // upgrade visitor to a patron
@@ -47,7 +59,12 @@ class VisitorsController extends Controller
             'phone' => 'required|string|max:255'
         ]);
 
-        $visitor = User::find($request->id);
+        $visitor = User::where('uuid',$request->uuid)->first();
+
+        if(!$visitor){
+            return response()->json(['message' => 'Visitor not found'], 404);
+        }
+
         $data = $request->all();
         $data['user_type'] = 'patron';
         $data['address_confirmed_at'] = Carbon::now();

@@ -20,17 +20,17 @@ use App\Http\Controllers\Admin\InvitationController;
 | is assigned the "api" middleware group. Enjoy building your API!
 |
 */
-Route::get('/invitation/{code}/email/{email}', InvitationController::class)
+Route::get('invitation/{code}/email/{email}', InvitationController::class)
     ->whereAlphaNumeric('code')
     ->where('email','^([a-z0-9\+_\-]+)(\.[a-z0-9\+_\-]+)*@([a-z0-9\-]+\.)+[a-z]{2,6}$')
     ->middleware(['guest'])
     ->name('invitation');
 
-Route::post('/invitation/accept',[InvitationController::class,'accept'])
+Route::post('invitation/accept',[InvitationController::class,'accept'])
     ->middleware(['guest'])
     ->name('accept');
 
-Route::get('/librarians', LibrariansController::class);
+Route::get('librarians', LibrariansController::class);
 Route::group(['prefix' => 'librarian'], function () {
     Route::delete('delete/{uuid}', [LibrariansController::class,'delete']);
     Route::post('toggle/{uuid}/{status}', [LibrariansController::class,'toggle']);
@@ -38,31 +38,33 @@ Route::group(['prefix' => 'librarian'], function () {
     Route::get('{uuid}', [LibrariansController::class,'show']);
 });
 
-Route::get('/books', BooksController::class);
+Route::get('books', BooksController::class);
 Route::group(['prefix' => 'book'], function () {
     Route::post('update/{id}', [BooksController::class,'update']);
     Route::post('create', [BooksController::class,'save']);
     Route::get('{uuid}', [BooksController::class,'show']);
 });
 
-Route::get('/locations', LocationController::class);
+Route::get('locations', LocationController::class);
 Route::group(['prefix' => 'location'], function () {
     Route::post('update/{uuid}', [LocationController::class,'update']);
     Route::post('create', [LocationController::class,'save']);
     Route::get('{uuid}', [LocationController::class,'show']);
 });
 
-Route::get('/patrons', PatronsController::class);
+Route::get('patrons', PatronsController::class);
 Route::group(['prefix' => 'location'], function () {
     Route::post('update/{uuid}', [PatronsController::class,'update']);
     Route::post('downgrade/{uuid}', [PatronsController::class,'downgrade']);
     Route::get('{uuid}', [PatronsController::class,'show']);
 });
 
-Route::get('/visitors', VisitorsController::class)->name('visitors');
-Route::get('/visitors/profile/{id}', [VisitorsController::class,'view'])->name('visitor.profile');
-Route::get('/visitors/upgrade/{id}', [VisitorsController::class,'edit'])->name('visitor.edit');
-Route::post('/visitors/upgrade/{id}', [VisitorsController::class,'upgrade'])->name('visitor.upgrade');
+Route::get('visitors', VisitorsController::class);
+Route::group(['prefix' => 'visitor'], function(){
+    Route::post('upgrade/{uuid}', [VisitorsController::class,'upgrade']);
+    Route::get('{uuid}', [VisitorsController::class,'view']);
+});
+
 
 Route::get('/lend', LendController::class)->name('lend');
 Route::post('/lend/patron', [LendController::class,'load'])->name('lend.load');
