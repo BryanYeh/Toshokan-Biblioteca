@@ -30,7 +30,7 @@ class PatronsController extends Controller
     }
 
     // view patron page
-    public function view(Request $request)
+    public function show(Request $request)
     {
         $patron = User::where('uuid',$request->uuid)->first();
 
