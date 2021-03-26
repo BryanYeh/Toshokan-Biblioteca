@@ -11,42 +11,53 @@ use Carbon\Carbon;
 
 class LendController extends Controller
 {
-    // lend book page
-    public function __invoke()
-    {
-        // probably don't need?
-    }
-
     // load patron by card
     public function load(Request $request)
     {
-        return User::where('card_number',$request->card_number)->firstOrFail();
+        $patron = User::where('card_number',$request->card_number)->first();
+
+        if(!$patron){
+            return response()->json(['message' => 'Unable to find card owner'], 404);
+        }
+
+        return response()->json($patron);
     }
 
     // checkout book to patron
     public function checkout(Request $request)
     {
-        $user = User::where('card_number',$request->card_number)->first();
-        $book = BookLocation::where('barcode',$request->barcode)->with('book')->firstOrFail();
+        $patron = User::where('card_number',$request->card_number)->first();
+        if(!$patron){
+            return response()->json(['message' => 'Unable to find card owner'], 404);
+        }
+
+        $book = BookLocation::where('barcode',$request->barcode)->with('book')->first();
+        if(!$book){
+            return response()->json(['message' => 'Unable to find book'], 404);
+        }
+
         $lend = new Lend();
-        $lend->user_id = $user->id;
+        $lend->user_id = $patron->id;
         $lend->book_id = $book->id;
         $lend->lend_date = Carbon::now();
         $lend->save();
-        return $book;
-    }
 
-    // return book page
-    public function checkinView()
-    {
-        // probably don't need?
+        return response()->json($book);
     }
 
     // return book
     public function checkin(Request $request)
     {
-        $bookLocation = BookLocation::where('barcode', $request->barcode)->firstOrFail();
-        $lend = Lend::where('book_id',$bookLocation->id)->whereNull('returned_date')->firstOrFail();
+        $bookLocation = BookLocation::where('barcode', $request->barcode)->first();
+        if(!$bookLocation){
+            return response()->json(['message' => 'Unable to find book'], 404);
+        }
+
+        $lend = Lend::where('book_id',$bookLocation->id)->whereNull('returned_date')->first();
+        if(!$lend){
+            return response()->json(['message' => 'The book was never lended out'], 404);
+        }
+
         $lend->returned_date = Carbon::now();
         $lend->is_damaged = isset($request->is_damaged);
         $lend->notes = $request->notes;
