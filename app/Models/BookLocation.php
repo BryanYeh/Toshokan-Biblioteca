@@ -31,4 +31,9 @@ class BookLocation extends Model
     {
         return $this->hasMany(Lend::class, 'book_id','id');
     }
+
+    public function isLent()
+    {
+        return $this->hasMany(Lend::class, 'book_id','id')->whereNull('returned_date');
+    }
 }
