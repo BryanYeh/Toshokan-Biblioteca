@@ -7,7 +7,7 @@ use App\Models\Location;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 
-class LocationController extends Controller
+class LocationsController extends Controller
 {
     // list of locations
     public function __invoke(Request $request)

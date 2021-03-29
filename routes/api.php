@@ -6,7 +6,7 @@ use App\Http\Controllers\Admin\LibrariansController;
 use App\Http\Controllers\Admin\PatronsController;
 use App\Http\Controllers\Admin\VisitorsController;
 use App\Http\Controllers\Admin\BooksController;
-use App\Http\Controllers\Admin\LocationController;
+use App\Http\Controllers\Admin\LocationsController;
 use App\Http\Controllers\Admin\LendController;
 use App\Http\Controllers\Admin\InvitationController;
 
@@ -45,11 +45,11 @@ Route::group(['prefix' => 'book'], function () {
     Route::get('{uuid}', [BooksController::class,'show']);
 });
 
-Route::get('locations', LocationController::class);
+Route::get('locations', LocationsController::class);
 Route::group(['prefix' => 'location'], function () {
-    Route::post('update/{uuid}', [LocationController::class,'update']);
-    Route::post('create', [LocationController::class,'save']);
-    Route::get('{uuid}', [LocationController::class,'show']);
+    Route::post('update/{uuid}', [LocationsController::class,'update']);
+    Route::post('create', [LocationsController::class,'save']);
+    Route::get('{uuid}', [LocationsController::class,'show']);
 });
 
 Route::get('patrons', PatronsController::class);
