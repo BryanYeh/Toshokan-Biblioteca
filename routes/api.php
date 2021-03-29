@@ -75,5 +75,5 @@ Route::prefix('admin')->group(function () {
 });
 
 Route::get('books', BookController::class);
-
+Route::get('books/search', [BookController::class,'search']);
 

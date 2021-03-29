@@ -28,4 +28,19 @@ class BookController extends Controller
                                 $query->withCount('isLent');
                             }])->paginate(25));
     }
+
+    public function search(Request $request)
+    {
+        if(!$request->q){
+            return response()->json([]);
+        }
+
+        $books = Books::where('title','like',"%{$request->q}%")
+                        ->with(['locations'=> function($query){
+                                $query->withCount('isLent');
+                            }])
+                        ->paginate(25);
+
+        return response()->json($books);
+    }
 }
