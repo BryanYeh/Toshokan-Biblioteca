@@ -55,7 +55,7 @@ Route::prefix('admin')->group(function () {
     });
 
     Route::get('patrons', PatronsController::class);
-    Route::group(['prefix' => 'location'], function () {
+    Route::group(['prefix' => 'patron'], function () {
         Route::post('update/{uuid}', [PatronsController::class,'update']);
         Route::post('downgrade/{uuid}', [PatronsController::class,'downgrade']);
         Route::get('{uuid}', [PatronsController::class,'show']);
