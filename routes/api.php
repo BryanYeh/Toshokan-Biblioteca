@@ -49,6 +49,11 @@ Route::prefix('admin')->group(function () {
     });
 
     Route::get('subjects',SubjectsController::class);
+    Route::group(['prefix' => 'subject'], function () {
+        Route::post('update/{uuid}', [SubjectsController::class,'update']);
+        Route::post('create', [SubjectsController::class,'save']);
+        Route::get('{uuid}', [SubjectsController::class,'show']);
+    });
 
     Route::get('locations', LocationsController::class);
     Route::group(['prefix' => 'location'], function () {

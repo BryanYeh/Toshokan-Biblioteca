@@ -17,6 +17,7 @@ class SubjectSeeder extends Seeder
     {
         $faker = Factory::create();
 
+        // subjects from barnes and nobles
         $subjects = [
             'Generic Fiction',
             'Graphic Novels',
