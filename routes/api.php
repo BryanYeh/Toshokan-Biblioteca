@@ -9,6 +9,7 @@ use App\Http\Controllers\Admin\BooksController;
 use App\Http\Controllers\Admin\LocationsController;
 use App\Http\Controllers\Admin\LendController;
 use App\Http\Controllers\Admin\InvitationController;
+use App\Http\Controllers\Admin\SubjectsController;
 use App\Http\Controllers\BookController;
 
 /*
@@ -46,6 +47,8 @@ Route::prefix('admin')->group(function () {
         Route::post('create', [BooksController::class,'save']);
         Route::get('{uuid}', [BooksController::class,'show']);
     });
+
+    Route::get('subjects',SubjectsController::class);
 
     Route::get('locations', LocationsController::class);
     Route::group(['prefix' => 'location'], function () {
