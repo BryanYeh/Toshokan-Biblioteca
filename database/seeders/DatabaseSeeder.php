@@ -17,7 +17,9 @@ class DatabaseSeeder extends Seeder
             UserSeeder::class,
             BookSeeder::class,
             LocationSeeder::class,
-            BookLocationSeeder::class
+            BookLocationSeeder::class,
+            SubjectSeeder::class,
+            BookSubjectSeeder::class
         ]);
     }
 }
