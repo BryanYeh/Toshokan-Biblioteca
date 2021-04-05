@@ -26,4 +26,9 @@ class Books extends Model
     {
         return $this->hasMany(BookLocation::class,'book_id','id');
     }
+
+    public function subjects()
+    {
+        return $this->hasManyThrough(Subject::class,BookSubject::class,'book_id','id');
+    }
 }

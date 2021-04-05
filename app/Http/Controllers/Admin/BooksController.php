@@ -32,7 +32,7 @@ class BooksController extends Controller
     // view book info with locations
     public function show(Request $request)
     {
-        $book = Books::where('uuid',$request->uuid)->with('locations')->first();
+        $book = Books::where('uuid',$request->uuid)->with('locations')->with('subjects')->first();
 
         if(!$book){
             return response()->json(['message' => 'Book not found'], 404);
