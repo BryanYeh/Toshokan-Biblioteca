@@ -18,8 +18,6 @@
     </head>
     <body class="font-sans antialiased">
         <div id="app">
-            <example-component></example-component>
         </div>
     </body>
-    <script src="/resources/js/app.js"></script>
 </html>
