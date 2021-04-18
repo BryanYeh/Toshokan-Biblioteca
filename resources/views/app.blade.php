@@ -16,8 +16,8 @@
         <!-- Scripts -->
         <script src="{{ mix('js/app.js') }}" defer></script>
     </head>
-    <body class="font-sans antialiased">
-        <div id="app">
+    <body class="font-sans antialiased bg-gray-200 h-screen flex flex-col">
+        <div id="app" class="flex-grow">
         </div>
     </body>
 </html>
