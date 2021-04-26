@@ -49,7 +49,7 @@ export default {
     created() {
         document.addEventListener("click", this.documentClick);
     },
-    destroyed() {
+    unmounted() {
         // important to clean up!!
         document.removeEventListener("click", this.documentClick);
     },
