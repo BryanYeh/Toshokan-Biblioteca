@@ -81,19 +81,5 @@
 import Dropdown from './Dropdown';
 export default {
     components: { Dropdown },
-    methods: {
-        toggleDropdownMenu(x){
-            /**
-             * event.target //the element currently clicked
-             * event.currentTarget //Element of the current binding event
-             */
-            x.currentTarget.lastElementChild.classList.toggle('hidden')
-        },
-        closeDropdown() {
-            document.querySelectorAll(".dropdown-menu").forEach((dropdown_menu) => {
-                dropdown_menu.classList.add("hidden");
-            });
-        },
-    }
 }
 </script>
