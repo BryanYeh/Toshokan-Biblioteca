@@ -1,35 +1,15 @@
 <template>
-    <the-topbar />
-    <div class="container">
-        <div class="text-center" style="margin: 20px 0px 20px 0px">
-            <span class="text-secondary">Laravel Vue CRUD Example</span>
-        </div>
-
-        <nav class="navbar navbar-expand-lg navbar-light bg-light">
-            <div class="collapse navbar-collapse">
-                <div class="navbar-nav">
-                    <router-link
-                        :to="{ name: 'home' }"
-                        class="nav-item nav-link"
-                        >Home</router-link
-                    >
-                    <router-link
-                        :to="{ name: 'about' }"
-                        class="nav-item nav-link"
-                        >Add Post</router-link
-                    >
-                </div>
-            </div>
-        </nav>
-        <br />
-        <router-view></router-view>
+    <topbar />
+    <div class="bg-white container flex mt-5 mx-auto p-4 rounded-md shadow-md w-11/12">
+        <router-view />
     </div>
 </template>
 
 <script>
-import TheTopbar from "./components/TheTopbar"
+import Topbar from "./components/TheTopbar"
+
 export default {
-    components: { TheTopbar },
+    components: { Topbar },
 
 };
 </script>

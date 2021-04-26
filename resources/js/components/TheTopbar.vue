@@ -7,13 +7,13 @@
         </div>
         <ul class="flex items-center">
             <li class="px-2">
-                <div class="relative">
-                    <div class="flex cursor-pointer" @click="toggle_notifications">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <dropdown top="top-16" right="-right-32" width="w-72">
+                    <template v-slot:dropdown_head>
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-12 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9" />
                         </svg>
-                    </div>
-                    <div class="absolute bg-white flex flex-col -right-32 rounded-md shadow-md top-16 w-72 border border-gray-200 py-1" v-if="show_notifications">
+                    </template>
+                    <template v-slot:dropdown_body>
                         <a href="#" class="hover:bg-gray-100 hover:text-blue-600 p-4 w-full flex border-b">
                             <div class="flex flex-col">
                                 <span class="font-semibold">5 new patrons today</span>
@@ -31,23 +31,25 @@
                                 View all Notifications
                             </a>
                         </div>
-                    </div>
-                </div>
+                    </template>
+                </dropdown>
             </li>
             <li class="px-2">
-                <div class="relative">
-                    <div class="flex cursor-pointer" @click="toggle_show">
-                        <img
-                            class="h-10 w-10 rounded-full"
-                            src="https://avatars.dicebear.com/api/avataaars/4c2a904bafba06591225113ad17b5cec.svg?background=%23f00f0f"
-                            alt="John Doe"
-                        />
-                        <div class="flex flex-col ml-2">
-                            <span class="font-semibold">John Doe</span>
-                            <small>admin</small>
+                <dropdown top="top-16" right="right-0" width="w-56">
+                    <template v-slot:dropdown_head>
+                        <div class="flex cursor-pointer items-center leading-none">
+                            <div class="flex flex-col mr-2 text-right">
+                                <div class="font-semibold">John Doe</div>
+                                <div class="text-sm">admin</div>
+                            </div>
+                            <img
+                                class="h-12 w-12 rounded-full"
+                                src="https://avatars.dicebear.com/api/avataaars/4c2a904bafba06591225113ad17b5cec.svg?background=%23f00f0f"
+                                alt="John Doe"
+                            />
                         </div>
-                    </div>
-                    <div class="absolute bg-white flex flex-col right-1 rounded-md shadow-md top-16 w-40 border border-gray-200 py-1" v-if="show">
+                    </template>
+                    <template v-slot:dropdown_body :class="w-56">
                         <a href="#" class="hover:bg-gray-100 hover:text-blue-600 p-4 w-full flex">
                             <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor" >
                                 <path
@@ -68,30 +70,30 @@
                             </svg>
                             Logout
                         </a>
-                    </div>
-                </div>
+                    </template>
+                </dropdown>
             </li>
         </ul>
     </div>
 </template>
 
 <script>
+import Dropdown from './Dropdown';
 export default {
-    data() {
-        return {
-            show: false,
-            show_notifications: false,
-        };
-    },
+    components: { Dropdown },
     methods: {
-        toggle_show(){
-            this.show = !this.show;
-            this.show_notifications = false;
+        toggleDropdownMenu(x){
+            /**
+             * event.target //the element currently clicked
+             * event.currentTarget //Element of the current binding event
+             */
+            x.currentTarget.lastElementChild.classList.toggle('hidden')
         },
-        toggle_notifications(){
-            this.show_notifications = !this.show_notifications
-            this.show = false;
-        }
+        closeDropdown() {
+            document.querySelectorAll(".dropdown-menu").forEach((dropdown_menu) => {
+                dropdown_menu.classList.add("hidden");
+            });
+        },
     }
 }
 </script>
