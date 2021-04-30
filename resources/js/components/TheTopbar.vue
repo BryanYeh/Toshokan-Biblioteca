@@ -2,7 +2,7 @@
     <div class="bg-white px-6 py-2 flex justify-between items-center">
         <div>
             <a href="/">
-                <img class="h-14" src="images/logo.svg" alt="Toshokan Biblioteca">
+                <img class="h-14" :src="'/images/logo.svg'" alt="Toshokan Biblioteca">
             </a>
         </div>
         <ul class="flex items-center">

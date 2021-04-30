@@ -1,8 +1,7 @@
 <template>
     <nav class="bg-white cotnainer flex flex-col mt-5 mx-auto p-4 rounded-md shadow-md w-11/12 md:flex-row">
-        <a href="/" class="hover:bg-gray-100 hover:text-blue-600 px-4 py-2 rounded-md cursor-pointer">
-            Dashboard
-        </a>
+        <navbar-link :to="{ name: 'home' }">Dashboard</navbar-link>
+        <navbar-link :to="{ name: 'patron.view', params: { uuid: 123 }}">Patron</navbar-link>
         <dropdown top="top-16" width="w-52">
             <template v-slot:dropdown_head>
                 <div class="hover:bg-gray-100 hover:text-blue-600 px-4 py-2 rounded-md cursor-pointer">
@@ -33,16 +32,15 @@
                 </a>
             </template>
         </dropdown>
-        <div class="hover:bg-gray-100 hover:text-blue-600 px-4 py-2 rounded-md cursor-pointer">
-            Visitors
-        </div>
+        <navbar-link :to="{ name: 'home' }">Visitors</navbar-link>
     </nav>
 </template>
 
 <script>
 import Dropdown from './Dropdown';
+import NavbarLink from './NavbarLink'
 
 export default {
-    components: { Dropdown },
+    components: { Dropdown, NavbarLink },
 }
 </script>
