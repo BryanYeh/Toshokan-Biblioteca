@@ -35,7 +35,7 @@ class PatronsController extends Controller
         $patron = User::where('uuid',$request->uuid)->first();
 
         if(!$patron){
-            return response()->json(['message' => 'Book not found'], 404);
+            return response()->json(['message' => 'Patron not found'], 404);
         }
 
         return response()->json($patron);

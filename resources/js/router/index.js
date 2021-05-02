@@ -7,7 +7,7 @@ const routes = [
     { path: "/", name: "home", component: Home },
     { path: "/about", name: "about", component: About },
 
-    { path: "/patron/view/:uuid", name: "patron.view", component: PatronProfile },
+    { path: "/patron/:uuid", name: "patron.view", component: PatronProfile, props: true},
 
     { path: "/:catchAll(.*)", component: NotFound },
 ];
