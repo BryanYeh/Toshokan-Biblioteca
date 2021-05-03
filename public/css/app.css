@@ -32813,8 +32813,8 @@ select {
 }
 
 .animate-pulse {
-  -webkit-animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
-          animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+  -webkit-animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) 5;;
+          animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) 5;;
 }
 
 .animate-bounce {
@@ -65310,8 +65310,8 @@ select {
   }
 
   .sm\:animate-pulse {
-    -webkit-animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
-            animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+    -webkit-animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) 5;;
+            animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) 5;;
   }
 
   .sm\:animate-bounce {
@@ -97716,8 +97716,8 @@ select {
   }
 
   .md\:animate-pulse {
-    -webkit-animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
-            animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+    -webkit-animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) 5;;
+            animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) 5;;
   }
 
   .md\:animate-bounce {
@@ -130122,8 +130122,8 @@ select {
   }
 
   .lg\:animate-pulse {
-    -webkit-animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
-            animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+    -webkit-animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) 5;;
+            animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) 5;;
   }
 
   .lg\:animate-bounce {
@@ -162528,8 +162528,8 @@ select {
   }
 
   .xl\:animate-pulse {
-    -webkit-animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
-            animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+    -webkit-animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) 5;;
+            animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) 5;;
   }
 
   .xl\:animate-bounce {
@@ -194934,8 +194934,8 @@ select {
   }
 
   .\32xl\:animate-pulse {
-    -webkit-animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
-            animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+    -webkit-animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) 5;;
+            animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) 5;;
   }
 
   .\32xl\:animate-bounce {

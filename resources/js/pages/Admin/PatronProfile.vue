@@ -58,8 +58,20 @@
             </div>
         </div>
     </div>
-    <div class="bg-white flex flex-wrap mt-5 p-6 rounded-md shadow-md w-full lg:w-4/12">
-        Something
+    <div class="bg-white mt-5 p-6 border border-red-600 rounded-md shadow-md w-full lg:w-4/12 animate-pulse">
+        <h2 class="text-lg font-semibold text-red-600">Fines Owe</h2>
+        <h2 class="text-lg font-semibold text-red-600">
+            Overdue Books
+            <span class="text-xs text-white px-3 rounded-xl bg-red-500" v-if="patron.overdue_books.length > 0">{{ patron.overdue_books.length }}</span>
+        </h2>
+        <ul v-if="patron.overdue_books.length > 0">
+            <li v-for="item in patron.overdue_books" :key="item.id">
+                <div class="flex flex-wrap">
+                    <div class="w-3/4">{{ item.location.book.title }}</div>
+                    <div class="text-red-600 text-sm w-1/4">{{ formatDate(item.lend_date) }}</div>
+                </div>
+            </li>
+        </ul>
     </div>
 </template>
 

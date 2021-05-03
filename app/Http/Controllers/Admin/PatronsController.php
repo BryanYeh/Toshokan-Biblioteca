@@ -32,7 +32,7 @@ class PatronsController extends Controller
     // view patron page
     public function show(Request $request)
     {
-        $patron = User::where('uuid',$request->uuid)->first();
+        $patron = User::where('uuid',$request->uuid)->with('overdueBooks.location.book')->first();
 
         if(!$patron){
             return response()->json(['message' => 'Patron not found'], 404);

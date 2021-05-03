@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Support\Carbon;
 
 
 class User extends Authenticatable
@@ -52,5 +53,10 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function overdueBooks()
+    {
+        return $this->hasMany(Lend::class)->whereNull('lends.returned_date')->whereDate('lend_date', '<', Carbon::today()->subWeeks(2)->toDateString());
+    }
 
 }
