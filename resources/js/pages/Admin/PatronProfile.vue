@@ -60,9 +60,23 @@
     </div>
     <div class="bg-white mt-5 p-6 border border-red-600 rounded-md shadow-md w-full lg:w-4/12 animate-pulse">
         <h2 class="text-lg font-semibold text-red-600">Fines Owe</h2>
+        <ul>
+            <li>
+                <div class="flex flex-wrap">
+                    <div class="w-3/4">Late Fee</div>
+                    <div class="text-red-600 text-sm w-1/4">${{ parseFloat(fees.late).toFixed(2) }}</div>
+                </div>
+            </li>
+            <li>
+                <div class="flex flex-wrap">
+                    <div class="w-3/4">Damaged Fee</div>
+                    <div class="text-red-600 text-sm w-1/4">${{ parseFloat(fees.damaged).toFixed(2) }}</div>
+                </div>
+            </li>
+        </ul>
         <h2 class="text-lg font-semibold text-red-600">
             Overdue Books
-            <span class="text-xs text-white px-3 rounded-xl bg-red-500" v-if="patron.overdue_books.length > 0">{{ patron.overdue_books.length }}</span>
+            <span class="text-xs text-white px-3 rounded-xl bg-red-500" v-if="patron.overdue_books && patron.overdue_books.length > 0">{{ patron.overdue_books.length }}</span>
         </h2>
         <ul v-if="patron.overdue_books.length > 0">
             <li v-for="item in patron.overdue_books" :key="item.id">
@@ -84,13 +98,20 @@ export default {
     },
     data() {
         return {
-            patron: {},
+            patron: {
+                overdue_books: []
+            },
+            fees: {
+                late: 0.00,
+                damaged: 0.00
+            }
         }
     },
     methods: {
         getUser() {
             axios.get("/api/admin/patron/" + this.uuid).then((response) => {
                 this.patron = response.data
+                this.calculateFees()
             });
         },
         formatDate(date) {
@@ -98,6 +119,13 @@ export default {
                 return null;
             }
             return dayjs(date).format('MM-DD-YYYY');
+        },
+        calculateFees(){
+            for(let item of this.patron.overdue_books) {
+                if(item.is_damaged && item.damaged_fee_paid < (0.10 * Math.round(Number(item.location.price) * Math.pow(10, 2)) / Math.pow(10, 2))){
+                    this.fees.damaged = (0.10 * Math.round(Number(item.location.price) * Math.pow(10, 2)) / Math.pow(10, 2)) - this.fees.damaged
+                }
+            }
         }
     },
     created() {
