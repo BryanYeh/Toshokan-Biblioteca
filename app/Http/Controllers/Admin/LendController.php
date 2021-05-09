@@ -66,4 +66,29 @@ class LendController extends Controller
         return response()->json(['message'=>'Book has been returned!']);
     }
 
+    public function bookFees(Request $request)
+    {
+        $patron = User::select('id')->where('uuid',$request->uuid)->first();
+
+        if(!$patron){
+            return response()->json(['message' => 'Patron not found'], 404);
+        }
+
+        $returned_books = Lend::whereNotNull('returned_date')->where('user_id',$patron->id)->with('location')->get();
+
+        $late_fees = 0;
+        $damaged_fees = 0;
+        foreach($returned_books as $book){
+            $lend_date = Carbon::parse($book->lend_date);
+            $returned_date = $book->returned_date;
+            $days_late = $lend_date->diffInDays($returned_date);
+            $late_fees += round($days_late * .25 - $book->late_fee_paid, 2);
+
+            if($book->is_damaged){
+                $damaged_fees += round($book->location->price * .10 - $book->damaged_fee_paid, 2);
+            }
+
+        }
+        return response()->json(['late_fee'=>$late_fees,'damaged_fee'=>$damaged_fees]);
+    }
 }

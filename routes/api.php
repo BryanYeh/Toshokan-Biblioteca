@@ -79,6 +79,7 @@ Route::prefix('admin')->group(function () {
         Route::post('patron', [LendController::class,'load']);
         Route::post('book',[LendController::class,'checkout']);
         Route::post('book/return',[LendController::class,'checkin']);
+        Route::get('returned/fees/{uuid}',[LendController::class,'bookFees']);
     });
 });
 

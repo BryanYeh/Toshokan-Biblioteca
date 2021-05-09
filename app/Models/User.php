@@ -59,4 +59,9 @@ class User extends Authenticatable
         return $this->hasMany(Lend::class)->whereNull('lends.returned_date')->whereDate('lend_date', '<', Carbon::today()->subWeeks(2)->toDateString());
     }
 
+    public function returnedBooks()
+    {
+        return $this->hasMany(Lend::class)->whereNotNull('lends.returned_date');
+    }
+
 }

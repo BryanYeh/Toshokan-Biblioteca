@@ -79,13 +79,17 @@
             <span class="text-xs text-white px-3 rounded-xl bg-red-500" v-if="patron.overdue_books && patron.overdue_books.length > 0">{{ patron.overdue_books.length }}</span>
         </h2>
         <ul v-if="patron.overdue_books.length > 0">
-            <li v-for="item in patron.overdue_books" :key="item.id">
+            <li v-for="item in patron.overdue_books.slice(0,4)" :key="item.id">
                 <div class="flex flex-wrap">
                     <div class="w-3/4">{{ item.location.book.title }}</div>
-                    <div class="text-red-600 text-sm w-1/4">{{ formatDate(item.lend_date) }}</div>
+                    <div class="text-red-600 text-sm w-1/4">{{ formatDate(item.lend_date,14) }}</div>
                 </div>
             </li>
+            <li class="text-center" v-if="patron.overdue_books.length > 4">
+                <a href="#" class="mt-2 inline-block rounded px-4 py-2 bg-red-600 text-white border border-red-600 hover:text-red-600 hover:bg-white">View All Overdue Books</a>
+            </li>
         </ul>
+
     </div>
 </template>
 
@@ -111,25 +115,24 @@ export default {
         getUser() {
             axios.get("/api/admin/patron/" + this.uuid).then((response) => {
                 this.patron = response.data
-                this.calculateFees()
             });
         },
-        formatDate(date) {
+        formatDate(date, add = 0) {
             if (!date){
                 return null;
             }
-            return dayjs(date).format('MM-DD-YYYY');
+            return dayjs(date).add(add,'days').format('MM-DD-YYYY');
         },
-        calculateFees(){
-            for(let item of this.patron.overdue_books) {
-                if(item.is_damaged && item.damaged_fee_paid < (0.10 * Math.round(Number(item.location.price) * Math.pow(10, 2)) / Math.pow(10, 2))){
-                    this.fees.damaged = (0.10 * Math.round(Number(item.location.price) * Math.pow(10, 2)) / Math.pow(10, 2)) - this.fees.damaged
-                }
-            }
+        getFees(){
+            axios.get("/api/admin/lend/returned/fees/" + this.uuid).then((response) => {
+                this.fees.late = response.data.late_fee
+                this.fees.damaged = response.data.damaged_fee
+            });
         }
     },
     created() {
-        this.getUser()
+        this.getUser(),
+        this.getFees()
     },
 };
 </script>
