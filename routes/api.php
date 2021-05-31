@@ -80,6 +80,7 @@ Route::prefix('admin')->group(function () {
         Route::post('book',[LendController::class,'checkout']);
         Route::post('book/return',[LendController::class,'checkin']);
         Route::get('returned/fees/{uuid}',[LendController::class,'bookFees']);
+        Route::get('books/patron/{uuid}',[LendController::class, 'patronBooks']);
     });
 });
 

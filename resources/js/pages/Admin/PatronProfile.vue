@@ -1,5 +1,5 @@
 <template>
-    <div class="bg-white flex flex-wrap mt-5 p-6 rounded-md shadow-md w-full lg:w-8/12">
+    <div class="bg-white flex flex-wrap mt-5 p-6 rounded-md shadow-md w-full lg:w-7/12">
         <div class="w-full md:w-1/2 mb-4">
             <h1 class="text-lg font-bold">{{ patron.first_name }} {{ patron.last_name }}</h1>
             {{ patron.email }}
@@ -89,14 +89,25 @@
                 <a href="#" class="mt-2 inline-block rounded px-4 py-2 bg-red-600 text-white border border-red-600 hover:text-red-600 hover:bg-white">View All Overdue Books</a>
             </li>
         </ul>
-
+    </div>
+    <div class="bg-white flex flex-wrap my-5 p-6 rounded-md shadow-md w-full">
+        <smart-table
+            :perPage=25
+            :is-loading=false
+            :columns=columns
+            :rows=books
+        ></smart-table>
     </div>
 </template>
 
 <script>
 import dayjs from 'dayjs';
+import SmartTable from '../../components/SmartTable/SmartTable';
 
 export default {
+    components: {
+      SmartTable
+    },
     props: {
         uuid: { required: true },
     },
@@ -108,7 +119,36 @@ export default {
             fees: {
                 late: 0.00,
                 damaged: 0.00
-            }
+            },
+            books: [],
+            columns: [
+                {
+                    label: "ID",
+                    field: "id",
+                    width: "w-2",
+                    sort: 'asc',
+                    sortable: true
+                },
+                {
+                    label: "Barcode",
+                    field: "barcode",
+                    width: "w-1/12",
+                    sort: 'default',
+                    sortable: true
+                },
+                {
+                    label: "Title",
+                    field: "title",
+                    sortable: true,
+                    sort: "default"
+                },
+                {
+                    label: "Lend Date",
+                    field: "lend_date",
+                    sortable: false,
+                    sort: "default"
+                }
+            ]
         }
     },
     methods: {
@@ -128,11 +168,24 @@ export default {
                 this.fees.late = response.data.late_fee
                 this.fees.damaged = response.data.damaged_fee
             });
+        },
+        getBooks(){
+            axios.get("/api/admin/lend/books/patron/" + this.uuid).then((response) => {
+                response.data.books.forEach((element, index) => {
+                    this.books.push({
+                        id: index + 1,
+                        title: element.book.title,
+                        lend_date: element.lend_date,
+                        barcode: element.location.barcode
+                    })
+                });
+            });
         }
     },
     created() {
-        this.getUser(),
+        this.getUser()
         this.getFees()
+        this.getBooks()
     },
 };
 </script>

@@ -28,4 +28,9 @@ class Lend extends Model
     {
         return $this->belongsTo(BookLocation::class,'book_id','id');
     }
+
+    public function book()
+    {
+        return $this->belongsTo(Books::class);
+    }
 }

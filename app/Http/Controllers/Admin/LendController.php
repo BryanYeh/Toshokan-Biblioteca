@@ -91,4 +91,17 @@ class LendController extends Controller
         }
         return response()->json(['late_fee'=>$late_fees,'damaged_fee'=>$damaged_fees]);
     }
+
+    public function patronBooks(Request $request)
+    {
+        $patron = User::select('id')->where('uuid',$request->uuid)->first();
+
+        if(!$patron){
+            return response()->json(['message' => 'Patron not found'], 404);
+        }
+
+        $books = Lend::select('id','lend_date','book_id')->whereNull('returned_date')->where('user_id',$patron->id)->with('book:id,title')->with('location:id,barcode')->get();
+
+        return response()->json(['books' => $books]);
+    }
 }

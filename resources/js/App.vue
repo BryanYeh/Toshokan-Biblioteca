@@ -1,7 +1,7 @@
 <template>
     <topbar />
     <navbar />
-    <div class="container flex flex-wrap lg:flex-nowrap lg:space-x-4 mx-auto w-11/12">
+    <div class="container flex flex-wrap justify-between mx-auto w-11/12">
         <router-view />
     </div>
 </template>
