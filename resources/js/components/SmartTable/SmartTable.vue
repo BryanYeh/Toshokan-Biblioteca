@@ -40,7 +40,7 @@
 
         <div class="w-full flex justify-between items-center mt-4" v-if="rows.length > 0">
             <div class="col">
-                Showing {{ fromRecord }}-{{ toRecord }} of {{ totalRecords }}
+                Showing {{ fromRecord }}-{{ toRecord }} of {{ rows.length }}
             </div>
             <div class="col" v-if="totalPages > 1">
                 <button v-if="currentPage != 1" @click="changePage('previous')" class="focus:outline-none border border-gray-400 px-4 py-2 rounded hover:bg-gray-400 hover:text-white">Previous</button>
@@ -76,15 +76,13 @@ export default {
     },
     data() {
         return {
-            totalRecords: this.perPage,
             currentPage: 1,
             fromRecord: 1,
-            toRecord: this.perPage,
             sortColumn: 'id',
             sortType: 'asc',
             is_loading: this.isLoading,
-            totalPages: 100,
-            header: this.columns
+            header: this.columns,
+            toRecord: this.perPage
         }
     },
     methods:{
@@ -136,25 +134,11 @@ export default {
                 return order === 'desc' ? (comparison * -1) : comparison
             }
         },
-        calculatePages(){
-            if (this.rows.length <= 0) {
-                return 0
-            }
-
-            let maxPage = Math.floor(this.rows.length / this.perPage)
-            let mod = this.rows.length % this.perPage
-
-            if (mod > 0) {
-                maxPage++
-            }
-
-            this.totalPages = maxPage
-        },
         changePage(direction){
             this.is_loading = true
 
             if(direction == 'next') {
-                if(this.currentPage != this.totalPage){
+                if(this.currentPage != this.totalPages){
                     this.currentPage++
                     this.fromRecord += this.perPage
                     this.toRecord += this.perPage
@@ -182,9 +166,32 @@ export default {
             this.is_loading = false
         }
     },
-    updated(){
-        this.totalRecords = this.rows.length
-        this.calculatePages()
-    }
+    computed:{
+        totalPages(){
+            if (this.rows.length <= 0) {
+                return 0
+            }
+
+            let maxPage = Math.floor(this.rows.length / this.perPage)
+            let mod = this.rows.length % this.perPage
+
+            if (mod > 0) {
+                maxPage++
+            }
+
+            return maxPage
+        },
+        totalRecords() {
+            return this.rows.length
+        },
+        ctoRecord() {
+            if(this.perPage > this.totalRecords){
+                this.toRecord = this.totalRecords
+                return this.totalRecords
+            }
+            this.toRecord = this.perPage
+            return this.perPage
+        }
+    },
 }
 </script>
