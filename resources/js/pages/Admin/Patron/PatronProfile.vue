@@ -5,7 +5,7 @@
             {{ patron.email }}
             <div class="flex flex-wrap mt-2">
                 <a href="#" class="px-4 py-2 bg-blue-500 font-semibold text-white rounded-md hover:shadow-lg">Edit</a>
-                <a href="#" class="ml-4 px-4 py-2 text-red-500 bg-white border border-red-500 rounded-md hover:bg-red-100">Downgrade</a>
+                <a v-on:click="downgradePatron($event)" class="ml-4 px-4 py-2 text-red-500 bg-white border border-red-500 rounded-md hover:bg-red-100">Downgrade</a>
             </div>
         </div>
         <div class="w-full md:w-1/2">
@@ -152,6 +152,14 @@ export default {
         }
     },
     methods: {
+        downgradePatron(event) {
+            event.preventDefault()
+            axios.post("/api/admin/patron/downgrade/" + this.uuid).then((response) => {
+                // TODO: show message
+                // redirect to visitor/uuid
+                console.log(response.data.message)
+            });
+        },
         getUser() {
             axios.get("/api/admin/patron/" + this.uuid).then((response) => {
                 this.patron = response.data

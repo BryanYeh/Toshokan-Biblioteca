@@ -79,7 +79,6 @@ class PatronsController extends Controller
             'postal_code' => null,
             'country' => null,
             'phone' => null,
-            'address_confirmed_at' => null
         ]);
 
         return response()->json(['message'=> "$patron->first_name $patron->last_name has been downgraded to a visitor"]);
