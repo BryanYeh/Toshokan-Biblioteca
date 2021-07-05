@@ -102,7 +102,7 @@
 
 <script>
 import dayjs from 'dayjs';
-import SmartTable from '../../components/SmartTable/SmartTable';
+import SmartTable from '../../../components/SmartTable/SmartTable';
 
 export default {
     components: {

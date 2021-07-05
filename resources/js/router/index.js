@@ -1,7 +1,7 @@
 import Home from "../pages/Home";
 import About from "../pages/About";
 import NotFound from "../pages/NotFound"
-import PatronProfile from "../pages/Admin/PatronProfile"
+import PatronProfile from "../pages/Admin/Patron/PatronProfile"
 import PatronList from "../pages/Admin/Patron/PatronList"
 
 const routes = [
