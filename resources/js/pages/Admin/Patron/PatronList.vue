@@ -9,11 +9,11 @@
                     <p><span class="font-semibold">Last Confirmed</span>: {{ patron.address_confirmed_at }}</p>
                 </app-link>
             </div>
-        </div>  
+        </div>
         <div class="flex mt-4 gap-4">
             <div v-if="currentPage > 1" v-on:click="previousPage()" class="bg-white rounded-md shadow-md px-4 py-2 cursor-pointer hover:bg-gray-100 hover:text-blue-600">Previous Page</div>
             <div v-if="currentPage < pages" v-on:click="nextPage()" class="bg-white rounded-md shadow-md px-4 py-2 cursor-pointer hover:bg-gray-100 hover:text-blue-600">Next Page</div>
-        </div>      
+        </div>
     </div>
 </template>
 
@@ -34,7 +34,6 @@ export default {
             axios.get("/api/admin/patrons?page="+this.currentPage).then((response) => {
                 this.patrons = response.data.data
                 this.pages = response.data.last_page
-                console.log(response.data)
             });
         },
         previousPage() {
