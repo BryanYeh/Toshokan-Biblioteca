@@ -4,7 +4,9 @@
             <h1 class="text-lg font-bold">{{ patron.first_name }} {{ patron.last_name }}</h1>
             {{ patron.email }}
             <div class="flex flex-wrap mt-2">
-                <a href="#" class="px-4 py-2 bg-blue-500 font-semibold text-white rounded-md hover:shadow-lg">Edit</a>
+                <app-link :to="{ name: 'patron.edit', params: { uuid: patron.uuid }}" class="px-4 py-2 bg-blue-500 font-semibold text-white rounded-md hover:shadow-lg">
+                    Edit
+                </app-link>
                 <a v-on:click="downgradePatron($event)" class="ml-4 px-4 py-2 text-red-500 bg-white border border-red-500 rounded-md hover:bg-red-100">Downgrade</a>
             </div>
         </div>
@@ -103,10 +105,12 @@
 <script>
 import dayjs from 'dayjs';
 import SmartTable from '../../../components/SmartTable/SmartTable';
+import AppLink from "../../../components/AppLink"
 
 export default {
     components: {
-      SmartTable
+      SmartTable,
+      AppLink
     },
     props: {
         uuid: { required: true },

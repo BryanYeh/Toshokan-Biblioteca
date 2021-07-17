@@ -21,12 +21,12 @@ class PatronsController extends Controller
             return response()->json(User::where('user_type', 'patron')
                             ->select('first_name','last_name','card_number','address_confirmed_at','uuid')
                             ->orderBy($column, $direction)
-                            ->paginate(25)->withQueryString());
+                            ->paginate(24)->withQueryString());
         }
 
         return response()->json(User::where('user_type', 'patron')
                         ->select('first_name','last_name','card_number','address_confirmed_at','uuid')
-                        ->paginate(25)->withQueryString());
+                        ->paginate(24)->withQueryString());
     }
 
     // view patron page
@@ -50,8 +50,8 @@ class PatronsController extends Controller
             'last_name' => 'required|string|max:255',
             'email' => 'required|email',
             'dob' => 'required|date',
-            'address_1' => 'required|string|max:255',
-            'address_2' => 'required|string|max:255',
+            'address1' => 'required|string|max:255',
+            'address2' => 'required|string|max:255',
             'city' => 'required|string|max:255',
             'state' => 'required|string|max:255',
             'postal_code' => 'required|string|max:255',
