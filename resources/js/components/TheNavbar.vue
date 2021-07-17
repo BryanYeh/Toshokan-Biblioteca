@@ -29,7 +29,7 @@
                 </a>
             </template>
         </dropdown>
-        <navbar-link :to="{ name: 'home' }">Visitors</navbar-link>
+        <navbar-link :to="{ name: 'visitors' }">Visitors</navbar-link>
     </nav>
 </template>
 
