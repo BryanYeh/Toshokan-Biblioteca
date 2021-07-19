@@ -19,13 +19,13 @@ class VisitorsController extends Controller
             $column = Str::slug($sort[0],'_');
             $direction = $sort[1] === 'asc' ? 'ASC' : 'DESC';
 
-            return response()->json(User::where('user_type', 'patron')
+            return response()->json(User::where('user_type', 'visitor')
                             ->select('first_name','last_name','email','uuid')
                             ->orderBy($column, $direction)
                             ->paginate(25)->withQueryString());
         }
 
-        return response()->json(User::where('user_type', 'patron')
+        return response()->json(User::where('user_type', 'visitor')
                         ->select('first_name','last_name','email','uuid')
                         ->paginate(25)->withQueryString());
     }
