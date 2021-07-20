@@ -1,6 +1,8 @@
 <template>
     <div class="w-full mt-6">
-        <button class="px-4 py-2 bg-yellow-100 text-yellow-500 rounded-md shadow-md hover:bg-yellow-500 hover:text-white">Upgrade</button>
+        <app-link :to="{ name: 'visitor.upgrade', params: { uuid: visitor.uuid }}" class="px-4 py-2 bg-yellow-100 text-yellow-500 rounded-md shadow-md hover:bg-yellow-500 hover:text-white">
+            Upgrade
+        </app-link>
     </div>
     <div class="w-full rounded-md shadow-md bg-white mt-4 p-4">
         <p><span class="font-semibold">First Name</span>: {{ visitor.first_name }}</p>
@@ -11,7 +13,12 @@
 </template>
 
 <script>
+import AppLink from "../../../components/AppLink"
+
 export default {
+    components: {
+      AppLink
+    },
     props: {
         uuid: { required: true },
     },
