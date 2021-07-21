@@ -21,9 +21,7 @@
                 </div>
             </template>
             <template v-slot:dropdown_body>
-                <a href="#" class="hover:bg-gray-100 hover:text-blue-600 p-4 w-full flex border-b">
-                    Books
-                </a>
+                <dropdown-link :to="{ name: 'books' }">Books</dropdown-link>
                 <a href="#" class="hover:bg-gray-100 hover:text-blue-600 p-4 w-full flex">
                     Subjects
                 </a>

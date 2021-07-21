@@ -22,11 +22,11 @@ class BooksController extends Controller
 
             return response()->json(Books::select('title','edition','isbn','image','uuid')
                             ->orderBy($column, $direction)
-                            ->paginate(25)->withQueryString());
+                            ->get());
         }
 
         return response()->json(Books::select('title','edition','isbn','image','uuid')
-                        ->paginate(25)->withQueryString());
+                        ->get());
     }
 
     // view book info with locations

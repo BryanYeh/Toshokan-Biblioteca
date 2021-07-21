@@ -7,6 +7,7 @@ import PatronEdit from "../pages/Admin/Patron/PatronEdit"
 import VisitorList from "../pages/Admin/Visitor/VisitorList"
 import VisitorProfile from "../pages/Admin/Visitor/VisitorProfile"
 import VisitorUpgrade from "../pages/Admin/Visitor/VisitorUpgrade"
+import BooksList from "../pages/Admin/Book/BookList"
 
 const routes = [
     { path: "/", name: "home", component: Home },
@@ -20,6 +21,7 @@ const routes = [
     { path: "/visitor/:uuid", name: "visitor.view", component: VisitorProfile, props: true},
     { path: "/visitor/upgrade/:uuid", name: "visitor.upgrade", component: VisitorUpgrade, props: true},
 
+    { path: "/books", name: "books", component: BooksList},
 
     { path: "/:catchAll(.*)", component: NotFound },
 ];
