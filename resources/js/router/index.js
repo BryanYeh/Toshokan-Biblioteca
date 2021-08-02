@@ -22,6 +22,8 @@ const routes = [
     { path: "/visitor/upgrade/:uuid", name: "visitor.upgrade", component: VisitorUpgrade, props: true},
 
     { path: "/books", name: "books", component: BooksList},
+    { path: "/book/:uuid", name: "book.view", component: PatronProfile, props: true},
+    { path: "/book/edit/:uuid", name: "book.edit", component: PatronEdit, props: true},
 
     { path: "/:catchAll(.*)", component: NotFound },
 ];

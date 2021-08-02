@@ -32,13 +32,20 @@ export default {
                 {
                     label: "Cover",
                     field: "image",
-                    sortable: false
+                    sortable: false,
+                    type: "image"
                 },
                 {
                     label: "Title",
                     field: "title",
                     sortable: true,
                     sort: "default"
+                },
+                {
+                    label: "Options",
+                    field: "links",
+                    sortable: false,
+                    type: 'link'
                 }
             ]
         }
@@ -46,7 +53,17 @@ export default {
     methods: {
         getBooks() {
             axios.get("/api/admin/books").then((response) => {
-                this.books = response.data
+                response.data.forEach((element, index) => {
+                    this.books.push({
+                        id: index + 1,
+                        title: element.title,
+                        image: element.image,
+                        links: [
+                            { params: { uuid: element.uuid }, name: 'book.view', title: 'View'},
+                            { params: { uuid: element.uuid }, name: 'book.edit', title: 'Edit'}
+                        ]
+                    })
+                });
             });
         },
     },
