@@ -28,10 +28,14 @@
             <tbody v-if="rows.length > 0">
                 <tr v-for="(row, i) in rows.slice(fromRecord-1, toRecord)" :key="i">
                     <td v-for="(col, j) in header" :key="j" class="border border-gray-400 p-3">
-                        <div
-                            v-if="col.display"
-                            v-html="col.display(row)"
-                        ></div>
+                        <img v-if="col.type == 'image'" v-bind:src="row[col.field]"/>
+                        <div v-if="col.type == 'link'">
+                            <span v-for="(link, k) in row[col.field]" :key="k">
+                                <app-link class="px-4 py-2 bg-yellow-200 mr-2" :to="{ name: link.name , params: link.params }">
+                                    {{ link.title }}
+                                </app-link>
+                            </span>
+                        </div>
                         <span v-else>{{ row[col.field] }}</span>
                     </td>
                 </tr>
@@ -54,8 +58,11 @@
 </template>
 
 <script>
-
+import AppLink from "../AppLink"
 export default {
+    components: {
+        AppLink
+    },
     props: {
         isLoading: {
             type: Boolean,
