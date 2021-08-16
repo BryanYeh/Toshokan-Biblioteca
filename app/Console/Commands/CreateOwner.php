@@ -14,14 +14,14 @@ class CreateOwner extends Command
      *
      * @var string
      */
-    protected $signature = 'owner:create';
+    protected $signature = 'make:user:owner';
 
     /**
      * The console command description.
      *
      * @var string
      */
-    protected $description = 'Create an owner account (max 1)';
+    protected $description = 'Creates an owner account (max 1)';
 
     /**
      * Create a new command instance.
