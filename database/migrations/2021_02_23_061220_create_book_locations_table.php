@@ -19,7 +19,7 @@ class CreateBookLocationsTable extends Migration
             $table->foreignId('location_id');
             $table->string('barcode')->unique();
             $table->string('call_number')->comment('Which shelf in the library?');
-            $table->string('location')->comment('What section of the library?');
+            $table->string('section')->comment('What section of the library?');
             $table->decimal('price', $precision = 8, $scale = 2);
             $table->timestamps();
         });
