@@ -23,7 +23,6 @@ class UserSeeder extends Seeder
         $faker = Factory::create();
 
         DB::table('users')->insert([
-            'uuid' => $faker->uuid(),
             'user_type' => 'owner',
             'username' => 'owner',
             'email' => $faker->unique()->safeEmail,
@@ -36,7 +35,6 @@ class UserSeeder extends Seeder
             $user_type = $faker->randomElement(['librarian','patron','visitor']);
 
             DB::table('users')->insert([
-                'uuid' => $faker->uuid(),
                 'user_type' => $user_type,
                 'username' => $faker->unique()->username(),
                 'card_number' => $user_type === 'patron' ? $faker->unique()->numerify('0000########') : null,

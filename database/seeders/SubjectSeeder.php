@@ -64,7 +64,6 @@ class SubjectSeeder extends Seeder
 
         foreach($subjects as $subject){
             DB::table('subjects')->insert([
-                'uuid' => $faker->uuid(),
                 'subject' => $subject
             ]);
         }
