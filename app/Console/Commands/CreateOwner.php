@@ -66,7 +66,6 @@ class CreateOwner extends Command
             }
             User::create([
                 'user_type' => 'owner',
-                'uuid' => (string) Str::uuid(),
                 'first_name' => $first_name,
                 'last_name' => $last_name,
                 'email' => $email,
