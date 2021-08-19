@@ -8,33 +8,50 @@ use App\Models\Books;
 use App\Models\Location;
 use App\Models\BookLocation;
 use Illuminate\Support\Str;
+use Hashids\Hashids;
 
 class BooksController extends Controller
 {
     // list of books
     public function __invoke(Request $request)
     {
-        // order by column from $request->sort (column name, sorting direction)
-        if(isset($request->sort) && count(explode(' ',$request->sort)) == 2){
-            $sort = explode(' ',$request->sort);
-            $column = Str::slug($sort[0],'_');
-            $direction = $sort[1] === 'asc' ? 'ASC' : 'DESC';
+        $hashids = new Hashids('books',10);
 
-            return response()->json(Books::select('title','edition','isbn','image','uuid')
-                            ->orderBy($column, $direction)
-                            ->get());
+        // order by column from $request->sort (column name, sorting direction)
+        if ($request->has('sortCol') && $request->has('sortOrder')) {
+            $column = Str::slug($request->query('sortCol'), '_');
+            $direction = $request->query('sortCol') === 'asc' ? 'ASC' : 'DESC';
+
+            $books = Books::orderBy($column, $direction)->paginate(env('PER_PAGE'));
+
+            $books->transform(function($book) use ($hashids) {
+                $book->hashid = $hashids->encode($book->id);
+                unset($book->id);
+
+                return $book;
+            });
+
+            return response()->json($books);
         }
 
-        return response()->json(Books::select('title','edition','isbn','image','uuid')
-                        ->get());
+        $books = Books::paginate(env('PER_PAGE'));
+
+        $books->transform(function($book) use ($hashids) {
+            $book->hashid = $hashids->encode($book->id);
+            unset($book->id);
+
+            return $book;
+        });
+
+        return response()->json($books);
     }
 
     // view book info with locations
     public function show(Request $request)
     {
-        $book = Books::where('uuid',$request->uuid)->with('locations')->with('subjects')->first();
+        $book = Books::where('uuid', $request->uuid)->with('locations')->with('subjects')->first();
 
-        if(!$book){
+        if (!$book) {
             return response()->json(['message' => 'Book not found'], 404);
         }
 
@@ -61,7 +78,7 @@ class BooksController extends Controller
             'locations.*.location' => 'string|nullable',
             'locations.*.price' => 'regex:/^\d+(\.\d{1,2})?$/|nullable'
         ]);
-        $book = Books::where('id',$request->id)->firstOrFail();
+        $book = Books::where('id', $request->id)->firstOrFail();
         $book->title = $request->title;
         $book->isbn = $request->isbn;
         $book->edition = $request->edition;
@@ -73,17 +90,18 @@ class BooksController extends Controller
         $book->dewey_decimal = $request->dewey_decimal;
         $book->save();
 
-        foreach($request->locations as $location){
+        foreach ($request->locations as $location) {
             $bookLocation = null;
-            if(isset($location['id']) && !is_null($location['id'])){
-                $bookLocation = BookLocation::where('id',$location['id'])->first();
-            }
-            elseif(!isset($location['id'])
-                    && !is_null($location['location_id'])
-                    && !is_null($location['barcode'])
-                    && !is_null($location['call_number'])
-                    && !is_null($location['location'])
-                    && !is_null($location['price'])){
+            if (isset($location['id']) && !is_null($location['id'])) {
+                $bookLocation = BookLocation::where('id', $location['id'])->first();
+            } elseif (
+                !isset($location['id'])
+                && !is_null($location['location_id'])
+                && !is_null($location['barcode'])
+                && !is_null($location['call_number'])
+                && !is_null($location['location'])
+                && !is_null($location['price'])
+            ) {
                 $bookLocation = new BookLocation();
                 $bookLocation->book_id = $request->id;
             }
@@ -96,7 +114,7 @@ class BooksController extends Controller
             $bookLocation->save();
         }
 
-        $book = Books::where('id',$request->id)->with('locations')->firstOrFail();
+        $book = Books::where('id', $request->id)->with('locations')->firstOrFail();
         return $book;
     }
 
@@ -132,17 +150,18 @@ class BooksController extends Controller
         $book->dewey_decimal = $request->dewey_decimal;
         $book->save();
 
-        foreach($request->locations as $location){
+        foreach ($request->locations as $location) {
             $bookLocation = null;
-            if(isset($location['id']) && !is_null($location['id'])){
-                $bookLocation = BookLocation::where('id',$location['id'])->first();
-            }
-            elseif(!isset($location['id'])
-                    && !is_null($location['location_id'])
-                    && !is_null($location['barcode'])
-                    && !is_null($location['call_number'])
-                    && !is_null($location['location'])
-                    && !is_null($location['price'])){
+            if (isset($location['id']) && !is_null($location['id'])) {
+                $bookLocation = BookLocation::where('id', $location['id'])->first();
+            } elseif (
+                !isset($location['id'])
+                && !is_null($location['location_id'])
+                && !is_null($location['barcode'])
+                && !is_null($location['call_number'])
+                && !is_null($location['location'])
+                && !is_null($location['price'])
+            ) {
                 $bookLocation = new BookLocation();
                 $bookLocation->book_id = $book->id;
             }
@@ -155,6 +174,6 @@ class BooksController extends Controller
             $bookLocation->save();
         }
 
-        return response()->json(['message'=>'Successfully created book!']);
+        return response()->json(['message' => 'Successfully created book!']);
     }
 }
