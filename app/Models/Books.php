@@ -22,7 +22,7 @@ class Books extends Model
         'dewey_decimal'
     ];
 
-    public function locations()
+    public function copies()
     {
         return $this->hasMany(BookLocation::class,'book_id','id');
     }

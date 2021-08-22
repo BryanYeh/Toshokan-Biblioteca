@@ -15,33 +15,24 @@ class BooksController extends Controller
     // list of books
     public function __invoke(Request $request)
     {
-        $hashids = new Hashids('books',10);
-
         // order by column from $request->sort (column name, sorting direction)
-        if ($request->has('sortCol') && $request->has('sortOrder')) {
-            $column = Str::slug($request->query('sortCol'), '_');
-            $direction = $request->query('sortCol') === 'asc' ? 'ASC' : 'DESC';
+        $valid_columns = [
+            'id', 'title', 'isbn', 'edition',
+            'summary', 'language', 'image', 'author',
+            'publisher', 'publication_date', 'dewey_decimal'
+        ];
+        if ($request->has('sortCol') && $request->has('sortOrder')
+            && in_array(Str::slug($request->query('sortCol'), '_'), $valid_columns))
+            {
+                $column = Str::slug($request->query('sortCol'), '_');
+                $direction = $request->query('sortCol') === 'asc' ? 'ASC' : 'DESC';
 
-            $books = Books::orderBy($column, $direction)->paginate(env('PER_PAGE'));
+                $books = Books::orderBy($column, $direction)->paginate(env('PER_PAGE'));
 
-            $books->transform(function($book) use ($hashids) {
-                $book->hashid = $hashids->encode($book->id);
-                unset($book->id);
-
-                return $book;
-            });
-
-            return response()->json($books);
-        }
+                return response()->json($books);
+            }
 
         $books = Books::paginate(env('PER_PAGE'));
-
-        $books->transform(function($book) use ($hashids) {
-            $book->hashid = $hashids->encode($book->id);
-            unset($book->id);
-
-            return $book;
-        });
 
         return response()->json($books);
     }
@@ -49,7 +40,13 @@ class BooksController extends Controller
     // view book info with locations
     public function show(Request $request)
     {
-        $book = Books::where('uuid', $request->uuid)->with('locations')->with('subjects')->first();
+        $book = Books::where('id', $request->id)
+            ->with('copies.lends.patron')
+            ->with(['copies' => function($query) {
+                $query->with('location');
+            }])
+
+        ->with('subjects')->first();
 
         if (!$book) {
             return response()->json(['message' => 'Book not found'], 404);
