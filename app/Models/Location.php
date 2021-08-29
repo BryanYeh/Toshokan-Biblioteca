@@ -8,4 +8,11 @@ use Illuminate\Database\Eloquent\Model;
 class Location extends Model
 {
     use HasFactory;
+
+    public function books()
+    {
+        // return $this->hasMany(BookLocation::class,'book_id','id');
+        // return $this->hasManyThrough(Location::class, BookLocation::class,'book_id','id');
+        return $this->belongsToMany(Books::class);
+    }
 }

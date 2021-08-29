@@ -24,11 +24,11 @@ class Books extends Model
 
     public function copies()
     {
-        return $this->hasMany(BookLocation::class,'book_id','id');
+        return $this->belongsToMany(Location::class, 'book_locations', 'book_id');
     }
 
     public function subjects()
     {
-        return $this->hasManyThrough(Subject::class,BookSubject::class,'book_id','id');
+        return $this->belongsToMany(Subject::class,'book_subject','book_id');
     }
 }
