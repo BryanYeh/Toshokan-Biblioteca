@@ -18,6 +18,11 @@ class BookLocation extends Pivot
         'location'
     ];
 
+    public function lends()
+    {
+        return $this->hasMany(Lend::class, 'book_id','id');
+    }
+
     public function location()
     {
         return $this->belongsTo(Location::class,'location_id','id');
@@ -26,11 +31,6 @@ class BookLocation extends Pivot
     public function book()
     {
         return $this->belongsTo(Books::class,'book_id','id');
-    }
-
-    public function lends()
-    {
-        return $this->hasMany(Lend::class, 'book_id','id');
     }
 
     public function isLent()

@@ -15,4 +15,9 @@ class Location extends Model
         // return $this->hasManyThrough(Location::class, BookLocation::class,'book_id','id');
         return $this->belongsToMany(Books::class);
     }
+
+    public function copies()
+    {
+        return $this->hasMany(BookLocation::class);
+    }
 }

@@ -41,10 +41,8 @@ class BooksController extends Controller
     public function show(Request $request)
     {
         $book = Books::where('id', $request->id)
+            ->with('copies.location')
             ->with('copies.lends.patron')
-            ->with(['copies' => function ($query) {
-                $query->with('location');
-            }])
 
             ->with('subjects')->first();
 
@@ -154,7 +152,7 @@ class BooksController extends Controller
 
         foreach ($request->locations as $location) {
             $book
-                ->copies()
+                ->locations()
                 ->attach(
                     $location['location_id'],
                     [
