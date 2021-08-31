@@ -5,9 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Books;
-use App\Models\Location;
 use App\Models\BookLocation;
-use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 
@@ -189,5 +187,14 @@ class BooksController extends Controller
         $book->subjects()->sync($request->subjects);
 
         return response()->json(['message' => 'Successfully created book!', 'id' => $book->id ]);
+    }
+
+    // soft delete book
+    public function destroy(Request $request)
+    {
+        $book = Books::find($request->id);
+        $book->delete();
+
+        return response()->json(['success' => 'Successfully deleted book']);
     }
 }

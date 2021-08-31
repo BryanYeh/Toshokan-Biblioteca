@@ -26,6 +26,7 @@ class CreateBooksTable extends Migration
             $table->string('publisher');
             $table->dateTime('publication_date');
             $table->string('dewey_decimal')->nullable();
+            $table->softDeletes();
             $table->timestamps();
         });
     }
