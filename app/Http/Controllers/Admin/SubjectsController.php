@@ -12,17 +12,23 @@ class SubjectsController extends Controller
     // list of subjects
     public function __invoke(Request $request)
     {
-        // order by column from $request->sort (column name, sorting direction) (?sort=subject+asc)
-        if(isset($request->sort) && count(explode(' ',$request->sort)) == 2){
-            $sort = explode(' ',$request->sort);
-            $column = Str::slug($sort[0],'_');
-            $direction = $sort[1] === 'asc' ? 'ASC' : 'DESC';
+        // order by column from $request->sort (column name, sorting direction)
+        $valid_columns = ['id', 'name'];
+        if (
+            $request->has('sortCol') && $request->has('sortOrder')
+            && in_array(Str::slug($request->query('sortCol'), '_'), $valid_columns)
+        ) {
+            $column = Str::slug($request->query('sortCol'), '_');
+            $direction = $request->query('sortCol') === 'asc' ? 'ASC' : 'DESC';
 
-            return response()->json(Subject::orderBy($column, $direction)
-                            ->paginate(25)->withQueryString());
+            $subjects = Subject::orderBy($column, $direction)->paginate(env('PER_PAGE'))->withQueryString();
+
+            return response()->json($subjects);
         }
 
-        return response()->json(Subject::paginate(25)->withQueryString());
+        $subjects = Subject::paginate(env('PER_PAGE'));
+
+        return response()->json($subjects);
     }
 
     // subjects details
