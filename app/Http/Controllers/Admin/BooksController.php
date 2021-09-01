@@ -27,7 +27,7 @@ class BooksController extends Controller
             $column = Str::slug($request->query('sortCol'), '_');
             $direction = $request->query('sortCol') === 'asc' ? 'ASC' : 'DESC';
 
-            $books = Books::orderBy($column, $direction)->paginate(env('PER_PAGE'));
+            $books = Books::orderBy($column, $direction)->paginate(env('PER_PAGE'))->withQueryString();
 
             return response()->json($books);
         }
