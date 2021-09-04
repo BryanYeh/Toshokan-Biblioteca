@@ -186,7 +186,7 @@ class BooksController extends Controller
 
         $book->subjects()->sync($request->subjects);
 
-        return response()->json(['message' => 'Successfully created book!', 'id' => $book->id ]);
+        return response()->json(['message' => 'Successfully created book!', 'id' => $book->id ], 201);
     }
 
     // soft delete book
@@ -195,6 +195,6 @@ class BooksController extends Controller
         $book = Books::find($request->id);
         $book->delete();
 
-        return response()->json(['success' => 'Successfully deleted book']);
+        return response()->json(null, 204);
     }
 }
