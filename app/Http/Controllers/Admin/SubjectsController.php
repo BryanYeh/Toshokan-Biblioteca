@@ -48,7 +48,7 @@ class SubjectsController extends Controller
     // subjects details
     public function show(Request $request)
     {
-        $subject = Subject::where('uuid', $request->uuid)->first();
+        $subject = Subject::where('id', $request->id)->first();
 
         if (!$subject) {
             return response()->json(['message' => 'Subject not found'], 404);
