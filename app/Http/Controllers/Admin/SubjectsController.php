@@ -31,12 +31,26 @@ class SubjectsController extends Controller
         return response()->json($subjects);
     }
 
+    // create subject
+    public function store(Request $request)
+    {
+        $request->validate([
+            'name' => 'string|required|unique:subjects',
+        ]);
+
+        $subject = new Subject();
+        $subject->name = $request->name;
+        $subject->save();
+
+        return response()->json(['message' => "Successfully added Subject."]);
+    }
+
     // subjects details
     public function show(Request $request)
     {
-        $subject = Subject::where('uuid',$request->uuid)->first();
+        $subject = Subject::where('uuid', $request->uuid)->first();
 
-        if(!$subject){
+        if (!$subject) {
             return response()->json(['message' => 'Subject not found'], 404);
         }
 
@@ -49,29 +63,14 @@ class SubjectsController extends Controller
         $request->validate([
             'subject' => 'string|required|unique:subjects',
         ]);
-        $subject = Subject::where('uuid',$request->uuid)->first();
+        $subject = Subject::where('uuid', $request->uuid)->first();
 
-        if(!$subject){
+        if (!$subject) {
             return response()->json(['message' => 'Subject not found'], 404);
         }
 
         $subject->update($request->all());
 
-        return response()->json(['message'=>'Successfully updated subject.']);
-    }
-
-    // save subject
-    public function save(Request $request)
-    {
-        $request->validate([
-            'subject' => 'string|required|unique:subjects',
-        ]);
-
-        $subject = new Subject();
-        $subject->subject = $request->subject;
-        $subject->uuid = (string) Str::uuid();
-        $subject->save();
-
-        return response()->json(['message'=>"Successfully added Subject."]);
+        return response()->json(['message' => 'Successfully updated subject.']);
     }
 }
