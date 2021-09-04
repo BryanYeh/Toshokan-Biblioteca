@@ -42,7 +42,7 @@ class SubjectsController extends Controller
         $subject->name = $request->name;
         $subject->save();
 
-        return response()->json(['message' => "Successfully added Subject."]);
+        return response()->json(['message' => "Successfully added Subject."], 201);
     }
 
     // subjects details
@@ -73,5 +73,14 @@ class SubjectsController extends Controller
         $subject->update($request->all());
 
         return response()->json(['message' => 'Successfully updated subject.']);
+    }
+
+    // delete subject
+    public function destroy(Request $request)
+    {
+        $subject = Subject::find($request->id);
+        $subject->delete();
+
+        return response()->json(null, 204);
     }
 }
