@@ -42,7 +42,7 @@ class SubjectsController extends Controller
         $subject->name = $request->name;
         $subject->save();
 
-        return response()->json(['message' => "Successfully added Subject."], 201);
+        return response()->json(['message' => "Successfully created subject!", 'id' => $subject->id ], 201);
     }
 
     // subjects details
