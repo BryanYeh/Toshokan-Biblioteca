@@ -70,7 +70,7 @@ class LocationsController extends Controller
         return response()->json($location);
     }
 
-    // update location page
+    // update location
     public function update(Request $request)
     {
         $request->validate([
@@ -83,9 +83,24 @@ class LocationsController extends Controller
             'country' => 'string|required',
             'phone' => 'string|required'
         ]);
-        $location = Location::where('id', $request->id)->firstOrFail();
+        $location = Location::where('id', $request->id)->first();
+        if (!$location) {
+            return response()->json(['message' => 'Location not found'], 404);
+        }
+
         $location->update($request->all());
 
         return response()->json(['message' => 'Successfully updated location.']);
+    }
+
+    // delete location
+    public function destroy(Request $request)
+    {
+        $location = Location::where('id', $request->id)->first();
+        if (!$location) {
+            return response()->json(['message' => 'Location not found'], 404);
+        }
+
+        return response()->json(null, 204);
     }
 }
