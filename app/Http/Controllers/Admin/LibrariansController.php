@@ -16,22 +16,27 @@ class LibrariansController extends Controller
     // list of librarians
     public function __invoke(Request $request)
     {
-
         // order by column from $request->sort (column name, sorting direction)
-        if(isset($request->sort) && count(explode(' ',$request->sort)) == 2){
-            $sort = explode(' ',$request->sort);
-            $column = Str::slug($sort[0],'_');
-            $direction = $sort[1] === 'asc' ? 'ASC' : 'DESC';
+        $valid_columns = ['id', 'username', 'email', 'first_name', 'last_name'];
+        if (
+            $request->has('sortCol') && $request->has('sortOrder')
+            && in_array(Str::slug($request->query('sortCol'), '_'), $valid_columns)
+        ) {
+            $column = Str::slug($request->query('sortCol'), '_');
+            $direction = $request->query('sortCol') === 'asc' ? 'ASC' : 'DESC';
 
-            return response()->json(User::where('user_type', 'librarian')
-                            ->select('first_name','last_name','username','uuid')
-                            ->orderBy($column, $direction)
-                            ->paginate(25)->withQueryString());
+            $librarians = User::where('user_type', 'librarian')
+                            ->select('id','first_name','last_name','username','email')
+                            ->orderBy($column, $direction)->paginate(env('PER_PAGE'))->withQueryString();
+
+            return response()->json($librarians);
         }
 
-        return response()->json(User::where('user_type', 'librarian')
-                        ->select('first_name','last_name','username','uuid')
-                        ->paginate(25)->withQueryString());
+        $librarians = User::where('user_type', 'librarian')
+                        ->select('id','first_name','last_name','username','email')
+                        ->paginate(env('PER_PAGE'));
+
+        return response()->json($librarians);
     }
 
     // return librarian
