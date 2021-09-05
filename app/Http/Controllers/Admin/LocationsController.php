@@ -61,7 +61,7 @@ class LocationsController extends Controller
     // location details
     public function show(Request $request)
     {
-        $location = Location::where('uuid', $request->uuid)->first();
+        $location = Location::where('id', $request->id)->first();
 
         if (!$location) {
             return response()->json(['message' => 'Location not found'], 404);
