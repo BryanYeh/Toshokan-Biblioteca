@@ -31,6 +31,33 @@ class LocationsController extends Controller
         return response()->json($locations);
     }
 
+    // create location
+    public function store(Request $request)
+    {
+        $request->validate([
+            'name' => 'string|required',
+            'address1' => 'string|required',
+            'address2' => 'string|nullable',
+            'city' => 'string|required',
+            'state' => 'string|nullable',
+            'postal_code' => 'string|required',
+            'country' => 'string|required',
+            'phone' => 'string|required'
+        ]);
+
+        $location = new Location();
+        $location->name = $request->name;
+        $location->address1 = $request->address1;
+        $location->address2 = $request->address2;
+        $location->city = $request->city;
+        $location->state = $request->state;
+        $location->postal_code = $request->postal_code;
+        $location->phone = $request->phone;
+        $location->save();
+
+        return response()->json(['message' => "Successfully created location.", 'id' => $location->id], 201);
+    }
+
     // location details
     public function show(Request $request)
     {
@@ -60,32 +87,5 @@ class LocationsController extends Controller
         $location->update($request->all());
 
         return response()->json(['message' => 'Successfully updated location.']);
-    }
-
-    // save location
-    public function save(Request $request)
-    {
-        $request->validate([
-            'name' => 'string|required',
-            'address1' => 'string|required',
-            'address2' => 'string|nullable',
-            'city' => 'string|required',
-            'state' => 'string|nullable',
-            'postal_code' => 'string|required',
-            'country' => 'string|required',
-            'phone' => 'string|required'
-        ]);
-
-        $location = new Location();
-        $location->name = $request->name;
-        $location->address1 = $request->address1;
-        $location->address2 = $request->address2;
-        $location->city = $request->city;
-        $location->state = $request->state;
-        $location->postal_code = $request->postal_code;
-        $location->phone = $request->phone;
-        $location->save();
-
-        return response()->json(['message' => "Successfully added location."]);
     }
 }
