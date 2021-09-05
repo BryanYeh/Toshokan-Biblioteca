@@ -13,26 +13,30 @@ class LocationsController extends Controller
     public function __invoke(Request $request)
     {
         // order by column from $request->sort (column name, sorting direction)
-        if(isset($request->sort) && count(explode(' ',$request->sort)) == 2){
-            $sort = explode(' ',$request->sort);
-            $column = Str::slug($sort[0],'_');
-            $direction = $sort[1] === 'asc' ? 'ASC' : 'DESC';
+        $valid_columns = ['id', 'name', 'address1', 'address2', 'city', 'state', 'postal_code', 'country', 'phone'];
+        if (
+            $request->has('sortCol') && $request->has('sortOrder')
+            && in_array(Str::slug($request->query('sortCol'), '_'), $valid_columns)
+        ) {
+            $column = Str::slug($request->query('sortCol'), '_');
+            $direction = $request->query('sortCol') === 'asc' ? 'ASC' : 'DESC';
 
-            return response()->json(Location::select('uuid','name','address1','phone')
-                            ->orderBy($column, $direction)
-                            ->paginate(25)->withQueryString());
+            $locations = Location::orderBy($column, $direction)->paginate(env('PER_PAGE'))->withQueryString();
+
+            return response()->json($locations);
         }
 
-        return response()->json(Location::select('uuid','name','address1','phone')
-                        ->paginate(25)->withQueryString());
+        $locations = Location::paginate(env('PER_PAGE'));
+
+        return response()->json($locations);
     }
 
     // location details
     public function show(Request $request)
     {
-        $location = Location::where('uuid',$request->uuid)->first();
+        $location = Location::where('uuid', $request->uuid)->first();
 
-        if(!$location){
+        if (!$location) {
             return response()->json(['message' => 'Location not found'], 404);
         }
 
@@ -52,10 +56,10 @@ class LocationsController extends Controller
             'country' => 'string|required',
             'phone' => 'string|required'
         ]);
-        $location = Location::where('id',$request->id)->firstOrFail();
+        $location = Location::where('id', $request->id)->firstOrFail();
         $location->update($request->all());
 
-        return response()->json(['message'=>'Successfully updated location.']);
+        return response()->json(['message' => 'Successfully updated location.']);
     }
 
     // save location
@@ -82,6 +86,6 @@ class LocationsController extends Controller
         $location->phone = $request->phone;
         $location->save();
 
-        return response()->json(['message'=>"Successfully added location."]);
+        return response()->json(['message' => "Successfully added location."]);
     }
 }
