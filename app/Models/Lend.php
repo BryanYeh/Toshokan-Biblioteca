@@ -24,7 +24,7 @@ class Lend extends Model
         return $this->belongsTo(User::class,'user_id','id');
     }
 
-    public function location()
+    public function copy()
     {
         return $this->belongsTo(BookLocation::class,'book_id','id');
     }

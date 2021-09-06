@@ -65,4 +65,9 @@ class User extends Authenticatable
         return $this->hasMany(Lend::class)->whereNotNull('lends.returned_date');
     }
 
+    public function books()
+    {
+        return $this->hasMany(Lend::class)->whereNull('lends.returned_date');
+    }
+
 }
