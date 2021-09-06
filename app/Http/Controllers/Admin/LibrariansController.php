@@ -42,7 +42,10 @@ class LibrariansController extends Controller
     // return librarian
     public function show(Request $request)
     {
-        $librarian = User::where('uuid',$request->uuid)->first();
+        $librarian = User::select('id','first_name','last_name','username','email')
+                        ->where('user_type', 'librarian')
+                        ->where('id',$request->id)
+                        ->first();
 
         if(!$librarian){
             return response()->json(['message' => 'Librarian not found'], 404);
