@@ -36,12 +36,12 @@ class PatronsController extends Controller
     // view patron page
     public function show(Request $request)
     {
-        $patron = User::where('id',$request->id)
-                        ->with('books.copy.location')
-                        ->with('books.copy.book')
-                        ->first();
+        $patron = User::where('id', $request->id)
+            ->with('books.copy.location')
+            ->with('books.copy.book')
+            ->first();
 
-        if(!$patron){
+        if (!$patron) {
             return response()->json(['message' => 'Patron not found'], 404);
         }
 
@@ -67,14 +67,25 @@ class PatronsController extends Controller
             'address_confirmed_at' => 'required|date'
         ]);
 
-        User::where('id',$request->id)->update($request->all());
-        return response()->json(['success'=>'Patron successfully updated']);
+        User::where('id', $request->id)->update($request->all());
+        return response()->json(['success' => 'Patron successfully updated']);
+    }
+
+    // delete location
+    public function destroy(Request $request)
+    {
+        $patron = User::where('id', $request->id)->first();
+        if (!$patron) {
+            return response()->json(['message' => 'User not found'], 404);
+        }
+
+        return response()->json(null, 204);
     }
 
     // turn patron into visitor
     public function downgrade(Request $request)
     {
-        $patron = User::where('uuid',$request->uuid)->first();
+        $patron = User::where('uuid', $request->uuid)->first();
         $patron->update([
             'user_type' => 'visitor',
             'card_number' => null,
@@ -88,6 +99,6 @@ class PatronsController extends Controller
             'phone' => null,
         ]);
 
-        return response()->json(['message'=> "$patron->first_name $patron->last_name has been downgraded to a visitor"]);
+        return response()->json(['message' => "$patron->first_name $patron->last_name has been downgraded to a visitor"]);
     }
 }
