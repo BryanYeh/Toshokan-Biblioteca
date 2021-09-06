@@ -67,7 +67,7 @@ class PatronsController extends Controller
             'address_confirmed_at' => 'required|date'
         ]);
 
-        User::where('uuid',$request->uuid)->update($request->all());
+        User::where('id',$request->id)->update($request->all());
         return response()->json(['success'=>'Patron successfully updated']);
     }
 
