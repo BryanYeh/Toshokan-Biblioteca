@@ -43,7 +43,7 @@ Route::group(['prefix' => 'locations'], function () {
 
 Route::group(['prefix' => 'patrons'], function () {
     Route::get('/', PatronsController::class);
-    Route::post('/', [PatronsController::class,'store']);
+    // Route::post('/', [PatronsController::class,'store']);
     Route::get('{id}', [PatronsController::class,'show']);
     Route::put('{id}', [PatronsController::class,'update']);
     Route::delete('{id}', [PatronsController::class,'destroy']);
