@@ -100,11 +100,6 @@ class LibrariansController extends Controller
             'email' => 'required|email|unique:users'
         ]);
 
-        $librarian = User::where('email', $request->email)->first();
-        if ($librarian) {
-            return response()->json(['message' => "$request->first_name $request->last_name is already an existing librarian"], 409);
-        }
-
         $invitation = Invitation::updateOrCreate(
             ['email' => $request->email],
             [
@@ -112,7 +107,7 @@ class LibrariansController extends Controller
                 'first_name' => $request->first_name,
                 'last_name' => $request->last_name,
                 'email' => $request->email,
-                'invitation_token' => Str::randomAlpha(32),
+                'invitation_token' => Str::random(32),
                 'invited_at' => Carbon::now()
             ]
         );

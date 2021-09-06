@@ -11,7 +11,7 @@ use App\Http\Controllers\Admin\InvitationController;
 
 Route::group(['prefix' => 'librarians'], function () {
     Route::get('/', LibrariansController::class);
-    Route::post('/', [LibrariansController::class,'store']);
+    Route::post('/', [LibrariansController::class,'invite']);
     Route::get('{id}', [LibrariansController::class,'show']);
     Route::put('{id}', [LibrariansController::class,'update']);
     Route::delete('{id}', [LibrariansController::class,'destroy']);
