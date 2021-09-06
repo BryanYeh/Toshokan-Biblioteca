@@ -69,21 +69,6 @@ class LibrariansController extends Controller
         return response()->json(null, 204);
     }
 
-    // disable librarian
-    public function toggle(Request $request)
-    {
-        $librarian = User::where('uuid',$request->uuid)->first();
-
-        if(!$librarian){
-            return response()->json(['message' => 'Librarian not found'], 404);
-        }
-
-        $librarian->is_disabled = $request->status === 'disable';
-        $librarian->save();
-
-        return response()->json('Librarian successfully ' . $request->status . 'd');
-    }
-
     // send librarian invitation
     public function invite(Request $request)
     {
