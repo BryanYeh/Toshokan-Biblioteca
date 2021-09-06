@@ -85,7 +85,7 @@ class PatronsController extends Controller
     // turn patron into visitor
     public function downgrade(Request $request)
     {
-        $patron = User::where('uuid', $request->uuid)->first();
+        $patron = User::where('id', $request->id)->first();
         $patron->update([
             'user_type' => 'visitor',
             'card_number' => null,

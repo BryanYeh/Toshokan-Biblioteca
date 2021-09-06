@@ -47,6 +47,7 @@ Route::group(['prefix' => 'patrons'], function () {
     Route::get('{id}', [PatronsController::class,'show']);
     Route::put('{id}', [PatronsController::class,'update']);
     Route::delete('{id}', [PatronsController::class,'destroy']);
+    Route::post('{id}/downgrade', [PatronsController::class,'downgrade']);
 });
 
 Route::group(['prefix' => 'visitors'], function(){
