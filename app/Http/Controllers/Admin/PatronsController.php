@@ -13,20 +13,24 @@ class PatronsController extends Controller
     public function __invoke(Request $request)
     {
         // order by column from $request->sort (column name, sorting direction)
-        if(isset($request->sort) && count(explode(' ',$request->sort)) == 2){
-            $sort = explode(' ',$request->sort);
-            $column = Str::slug($sort[0],'_');
-            $direction = $sort[1] === 'asc' ? 'ASC' : 'DESC';
+        $valid_columns = ['id', 'username', 'email', 'first_name', 'last_name', 'card_number', 'address1', 'country', 'postal_code'];
+        if (
+            $request->has('sortCol') && $request->has('sortOrder')
+            && in_array(Str::slug($request->query('sortCol'), '_'), $valid_columns)
+        ) {
+            $column = Str::slug($request->query('sortCol'), '_');
+            $direction = $request->query('sortCol') === 'asc' ? 'ASC' : 'DESC';
 
-            return response()->json(User::where('user_type', 'patron')
-                            ->select('first_name','last_name','card_number','address_confirmed_at','uuid')
-                            ->orderBy($column, $direction)
-                            ->paginate(24)->withQueryString());
+            $patrons = User::where('user_type', 'patron')
+                ->orderBy($column, $direction)->paginate(env('PER_PAGE'))->withQueryString();
+
+            return response()->json($patrons);
         }
 
-        return response()->json(User::where('user_type', 'patron')
-                        ->select('first_name','last_name','card_number','address_confirmed_at','uuid')
-                        ->paginate(24)->withQueryString());
+        $patrons = User::where('user_type', 'patron')
+            ->paginate(env('PER_PAGE'));
+
+        return response()->json($patrons);
     }
 
     // view patron page
