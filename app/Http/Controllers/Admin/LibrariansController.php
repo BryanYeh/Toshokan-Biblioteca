@@ -55,9 +55,10 @@ class LibrariansController extends Controller
     }
 
     // delete librarian
-    public function delete(Request $request)
+    public function destroy(Request $request)
     {
-        $librarian = User::where('uuid',$request->uuid)->first();
+        $librarian = User::where('user_type', 'librarian')
+                        ->where('id',$request->id)->first();
 
         if(!$librarian){
             return response()->json(['message' => 'Librarian not found'], 404);
@@ -65,7 +66,7 @@ class LibrariansController extends Controller
 
         $librarian->delete();
 
-        return response()->json('Successfully deleted librarian');
+        return response()->json(null, 204);
     }
 
     // disable librarian
