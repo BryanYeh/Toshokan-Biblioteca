@@ -26,15 +26,15 @@ class LibrariansController extends Controller
             $direction = $request->query('sortCol') === 'asc' ? 'ASC' : 'DESC';
 
             $librarians = User::where('user_type', 'librarian')
-                            ->select('id','first_name','last_name','username','email')
-                            ->orderBy($column, $direction)->paginate(env('PER_PAGE'))->withQueryString();
+                ->select('id', 'first_name', 'last_name', 'username', 'email')
+                ->orderBy($column, $direction)->paginate(env('PER_PAGE'))->withQueryString();
 
             return response()->json($librarians);
         }
 
         $librarians = User::where('user_type', 'librarian')
-                        ->select('id','first_name','last_name','username','email')
-                        ->paginate(env('PER_PAGE'));
+            ->select('id', 'first_name', 'last_name', 'username', 'email')
+            ->paginate(env('PER_PAGE'));
 
         return response()->json($librarians);
     }
@@ -42,25 +42,47 @@ class LibrariansController extends Controller
     // return librarian
     public function show(Request $request)
     {
-        $librarian = User::select('id','first_name','last_name','username','email')
-                        ->where('user_type', 'librarian')
-                        ->where('id',$request->id)
-                        ->first();
+        $librarian = User::select('id', 'first_name', 'last_name', 'username', 'email')
+            ->where('user_type', 'librarian')
+            ->where('id', $request->id)
+            ->first();
 
-        if(!$librarian){
+        if (!$librarian) {
             return response()->json(['message' => 'Librarian not found'], 404);
         }
 
         return response()->json($librarian);
     }
 
+    // update librarian
+    public function update(Request $request)
+    {
+        $request->validate([
+            'first_name' => 'required|string|max:255',
+            'last_name' => 'required|string|max:255',
+            'username' => 'required',
+            'email' => 'required|email'
+        ]);
+
+        $librarian = User::where('user_type', 'librarian')
+                        ->where('id', $request->id)->first();
+
+        if (!$librarian) {
+            return response()->json(['message' => 'Subject not found'], 404);
+        }
+
+        $librarian->update($request->all());
+
+        return response()->json(['message' => 'Successfully updated librarian.']);
+    }
+
     // delete librarian
     public function destroy(Request $request)
     {
         $librarian = User::where('user_type', 'librarian')
-                        ->where('id',$request->id)->first();
+            ->where('id', $request->id)->first();
 
-        if(!$librarian){
+        if (!$librarian) {
             return response()->json(['message' => 'Librarian not found'], 404);
         }
 
@@ -78,9 +100,9 @@ class LibrariansController extends Controller
             'email' => 'required|email|unique:users'
         ]);
 
-        $librarian = User::where('email',$request->email)->first();
-        if($librarian){
-            return response()->json(['message'=> "$request->first_name $request->last_name is already an existing librarian"],409);
+        $librarian = User::where('email', $request->email)->first();
+        if ($librarian) {
+            return response()->json(['message' => "$request->first_name $request->last_name is already an existing librarian"], 409);
         }
 
         $invitation = Invitation::updateOrCreate(
@@ -97,6 +119,6 @@ class LibrariansController extends Controller
 
         Mail::to($request->user())->send(new LibrarianInvitation($invitation));
 
-        return response()->json(['message'=> "Successfully sent librarian invitation to $request->first_name"]);
+        return response()->json(['message' => "Successfully sent librarian invitation to $request->first_name"]);
     }
 }
