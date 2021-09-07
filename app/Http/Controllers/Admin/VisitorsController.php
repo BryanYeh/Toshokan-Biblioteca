@@ -49,6 +49,17 @@ class VisitorsController extends Controller
         return response()->json($visitor);
     }
 
+    // delete visitor
+    public function destroy(Request $request)
+    {
+        $visitor = User::where('id', $request->id)->where('user_type', 'visitor')->first();
+        if (!$visitor) {
+            return response()->json(['message' => 'Visitor not found'], 404);
+        }
+
+        return response()->json(null, 204);
+    }
+
     // upgrade visitor to a visitor
     public function upgrade(Request $request)
     {
