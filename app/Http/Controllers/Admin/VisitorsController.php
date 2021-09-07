@@ -38,9 +38,9 @@ class VisitorsController extends Controller
     public function show(Request $request)
     {
         $visitor = User::select('id', 'username', 'email', 'first_name', 'last_name')
-                        ->where('id', $request->id)
-                        ->where('user_type', 'vistor')
-                        ->first();
+            ->where('id', $request->id)
+            ->where('user_type', 'vistor')
+            ->first();
 
         if (!$visitor) {
             return response()->json(['message' => 'Visitor not found'], 404);
@@ -49,7 +49,7 @@ class VisitorsController extends Controller
         return response()->json($visitor);
     }
 
-    // upgrade visitor to a patron
+    // upgrade visitor to a visitor
     public function upgrade(Request $request)
     {
         $request->validate([
@@ -66,9 +66,9 @@ class VisitorsController extends Controller
             'phone' => 'required|string|max:255'
         ]);
 
-        $visitor = User::where('uuid',$request->uuid)->first();
+        $visitor = User::where('id', $request->id)->where('user_type', 'visitor')->first();
 
-        if(!$visitor){
+        if (!$visitor) {
             return response()->json(['message' => 'Visitor not found'], 404);
         }
 
@@ -77,6 +77,6 @@ class VisitorsController extends Controller
         $data['address_confirmed_at'] = Carbon::now();
         $visitor->update($data);
 
-        return response()->json(['message'=>"$request->first_name $request->last_name is now a patron."]);
+        return response()->json(['message' => "$request->first_name $request->last_name is now a patron."]);
     }
 }
