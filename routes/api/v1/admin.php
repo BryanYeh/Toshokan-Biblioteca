@@ -55,6 +55,7 @@ Route::group(['prefix' => 'visitors'], function(){
     Route::get('{id}', [VisitorsController::class,'show']);
     Route::put('{id}', [VisitorsController::class,'update']);
     Route::delete('{id}', [VisitorsController::class,'destroy']);
+    Route::post('{id}/upgrade', [VisitorsController::class,'upgrade']);
 });
 
 Route::group(['prefix' => 'invitations'], function () {
