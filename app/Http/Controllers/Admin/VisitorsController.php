@@ -14,20 +14,24 @@ class VisitorsController extends Controller
     public function __invoke(Request $request)
     {
         // order by column from $request->sort (column name, sorting direction)
-        if(isset($request->sort) && count(explode(' ',$request->sort)) == 2){
-            $sort = explode(' ',$request->sort);
-            $column = Str::slug($sort[0],'_');
-            $direction = $sort[1] === 'asc' ? 'ASC' : 'DESC';
+        $valid_columns = ['id', 'username', 'email', 'first_name', 'last_name'];
+        if (
+            $request->has('sortCol') && $request->has('sortOrder')
+            && in_array(Str::slug($request->query('sortCol'), '_'), $valid_columns)
+        ) {
+            $column = Str::slug($request->query('sortCol'), '_');
+            $direction = $request->query('sortCol') === 'asc' ? 'ASC' : 'DESC';
 
-            return response()->json(User::where('user_type', 'visitor')
-                            ->select('first_name','last_name','email','uuid')
-                            ->orderBy($column, $direction)
-                            ->paginate(25)->withQueryString());
+            $visitors = User::where('user_type', 'visitor')
+                ->orderBy($column, $direction)->paginate(env('PER_PAGE'))->withQueryString();
+
+            return response()->json($visitors);
         }
 
-        return response()->json(User::where('user_type', 'visitor')
-                        ->select('first_name','last_name','email','uuid')
-                        ->paginate(25)->withQueryString());
+        $visitors = User::where('user_type', 'visitor')
+            ->paginate(env('PER_PAGE'));
+
+        return response()->json($visitors);
     }
 
     // view visitor profile
