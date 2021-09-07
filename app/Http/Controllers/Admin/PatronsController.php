@@ -37,6 +37,7 @@ class PatronsController extends Controller
     public function show(Request $request)
     {
         $patron = User::where('id', $request->id)
+            ->where('user_type', 'patron')
             ->with('books.copy.location')
             ->with('books.copy.book')
             ->first();
@@ -74,7 +75,7 @@ class PatronsController extends Controller
     // delete location
     public function destroy(Request $request)
     {
-        $patron = User::where('id', $request->id)->first();
+        $patron = User::where('id', $request->id)->where('user_type', 'patron')->first();
         if (!$patron) {
             return response()->json(['message' => 'User not found'], 404);
         }
@@ -85,7 +86,7 @@ class PatronsController extends Controller
     // turn patron into visitor
     public function downgrade(Request $request)
     {
-        $patron = User::where('id', $request->id)->first();
+        $patron = User::where('id', $request->id)->where('user_type', 'patron')->first();
         $patron->update([
             'user_type' => 'visitor',
             'card_number' => null,
