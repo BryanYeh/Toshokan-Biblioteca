@@ -7,7 +7,6 @@ use App\Http\Controllers\Admin\VisitorsController;
 use App\Http\Controllers\Admin\BooksController;
 use App\Http\Controllers\Admin\LocationsController;
 use App\Http\Controllers\Admin\SubjectsController;
-use App\Http\Controllers\Admin\InvitationController;
 
 Route::group(['prefix' => 'librarians'], function () {
     Route::get('/', LibrariansController::class);
@@ -56,16 +55,4 @@ Route::group(['prefix' => 'visitors'], function(){
     Route::put('{id}', [VisitorsController::class,'update']);
     Route::delete('{id}', [VisitorsController::class,'destroy']);
     Route::post('{id}/upgrade', [VisitorsController::class,'upgrade']);
-});
-
-Route::group(['prefix' => 'invitations'], function () {
-    Route::get('{code}/email/{email}', InvitationController::class)
-        ->whereAlphaNumeric('code')
-        ->where('email','^([a-z0-9\+_\-]+)(\.[a-z0-9\+_\-]+)*@([a-z0-9\-]+\.)+[a-z]{2,6}$')
-        ->middleware(['guest'])
-        ->name('invitation');
-
-    Route::post('accept',[InvitationController::class,'accept'])
-        ->middleware(['guest'])
-        ->name('accept');
 });

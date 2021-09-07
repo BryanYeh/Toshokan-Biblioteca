@@ -13,26 +13,25 @@ use Illuminate\Support\Facades\Hash;
 class InvitationController extends Controller
 {
     // page of invitation acceptance
-    public function __invoke(Request $request,$email,$code)
+    public function __invoke(Request $request)
     {
         $invitation = Invitation::where([
-            'email'=>$request->email,
-            'invitation_token'=>$request->code
-            ])
+            'email' => $request->email,
+            'invitation_token' => $request->code
+        ])
             ->whereNull('accepted_at')
-            ->whereDate('invited_at','>',Carbon::now()->subDays(30))
+            ->whereDate('invited_at', '>', Carbon::now()->subDays(30))
             ->first();
 
-        if($invitation){
+        if ($invitation) {
             return response()->json([
-                'first_name'=>$invitation->first_name,
-                'last_name'=>$invitation->last_name,
-                'email'=>$invitation->email,
-                'token'=>$invitation->invitation_token
-                ]);
-        }
-        else{
-            return response()->json(['error'=>'Invitation Expired']);
+                'first_name' => $invitation->first_name,
+                'last_name' => $invitation->last_name,
+                'email' => $invitation->email,
+                'token' => $invitation->invitation_token
+            ]);
+        } else {
+            return response()->json(['error' => 'Invitation Expired']);
         }
     }
 
@@ -47,12 +46,17 @@ class InvitationController extends Controller
         ]);
 
         $invitation = Invitation::where([
-            'email'=>$request->email,
-            'invitation_token'=>$request->invitation_token
-            ])
+            'email' => $request->email,
+            'invitation_token' => $request->invitation_token
+        ])
             ->whereNull('accepted_at')
-            ->whereDate('invited_at','>',Carbon::now()->subDays(30))
+            ->whereDate('invited_at', '>', Carbon::now()->subDays(30))
             ->first();
+
+        if (!$invitation) {
+            return response()->json(['error' => 'Invitation Expired']);
+        }
+
         $invitation->accepted_at = Carbon::now();
         $invitation->save();
 
@@ -67,6 +71,6 @@ class InvitationController extends Controller
             ]
         );
 
-        return response()->json(['success'=>'Invitation Accepted!']);
+        return response()->json(['success' => 'Invitation Accepted!']);
     }
 }
