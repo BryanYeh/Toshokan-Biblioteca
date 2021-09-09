@@ -23,7 +23,6 @@ class BooksController extends Controller
 
             $books = Books::with('subjects')
                         ->with(['locations.copies.lent' => function($query) {
-                            // user_id is required here*
                             $query->select(['id','book_id', 'lend_date']);
                         }])
                         ->orderBy($column, $direction)->paginate(env('PER_PAGE'))->withQueryString();
@@ -33,12 +32,29 @@ class BooksController extends Controller
 
         $books = Books::with('subjects')
                     ->with(['locations.copies.lent' => function($query) {
-                        // user_id is required here*
                         $query->select(['id','book_id', 'lend_date']);
                     }])
                     ->paginate(env('PER_PAGE'));
 
         return response()->json($books);
+    }
+
+    public function show(Request $request)
+    {
+        $slug = Str::slug($request->slug, '_');
+
+        $book = Books::where('slug', $slug)
+                    ->with('subjects')
+                    ->with(['locations.copies.lent' => function($query) {
+                        $query->select(['id','book_id', 'lend_date']);
+                    }])
+                    ->first();
+
+        if(!$book) {
+            return response()->json(['error' => 'Book not found'], 404);
+        }
+
+        return $book;
     }
 
     public function search(Request $request)

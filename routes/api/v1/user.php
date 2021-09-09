@@ -6,7 +6,7 @@ use App\Http\Controllers\Admin\InvitationController;
 
 Route::group(['prefix' => 'books'], function () {
     Route::get('/', BooksController::class);
-    Route::get('{id}', [BooksController::class,'show']);
+    Route::get('{slug}', [BooksController::class,'show']);
 });
 
 Route::group(['prefix' => 'invitations'], function () {
