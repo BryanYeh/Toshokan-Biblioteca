@@ -1,12 +1,12 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\BookController;
+use App\Http\Controllers\BooksController;
 use App\Http\Controllers\Admin\InvitationController;
 
 Route::group(['prefix' => 'books'], function () {
-    Route::get('/', BookController::class);
-    Route::get('{hashid}', [BookController::class,'show']);
+    Route::get('/', BooksController::class);
+    Route::get('{id}', [BooksController::class,'show']);
 });
 
 Route::group(['prefix' => 'invitations'], function () {

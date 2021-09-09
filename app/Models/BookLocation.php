@@ -33,8 +33,8 @@ class BookLocation extends Pivot
         return $this->belongsTo(Books::class,'book_id','id');
     }
 
-    public function isLent()
+    public function lent()
     {
-        return $this->hasMany(Lend::class, 'book_id','id')->whereNull('returned_date');
+        return $this->hasOne(Lend::class, 'book_id','id')->whereNull('returned_date');
     }
 }
