@@ -9,6 +9,8 @@ Route::group(['prefix' => 'books'], function () {
     Route::get('{slug}', [BooksController::class,'show']);
 });
 
+Route::get('search', [BooksController::class, 'search']);
+
 Route::group(['prefix' => 'invitations'], function () {
     Route::get('{code}/email/{email}', InvitationController::class)
         ->whereAlphaNumeric('code')

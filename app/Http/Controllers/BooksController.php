@@ -64,10 +64,11 @@ class BooksController extends Controller
         }
 
         $books = Books::where('title', 'like', "%{$request->q}%")
-            ->with(['locations' => function ($query) {
-                $query->withCount('isLent');
-            }])
-            ->paginate(25);
+                    ->with('subjects')
+                    ->with(['locations.copies.lent' => function($query) {
+                        $query->select(['id','book_id', 'lend_date']);
+                    }])
+                    ->paginate(env('PER_PAGE'));
 
         return response()->json($books);
     }
