@@ -22,10 +22,10 @@ class RevokeOldTokens
     /**
      * Handle the event.
      *
-     * @param  AccessTokenCreated  $event
+     * @param  $event
      * @return void
      */
-    public function handle(AccessTokenCreated $event)
+    public function handle($event)
     {
         DB::table('oauth_access_tokens')
         ->where('id', '<>', $event->tokenId)
