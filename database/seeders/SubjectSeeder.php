@@ -17,49 +17,27 @@ class SubjectSeeder extends Seeder
     {
         $faker = Factory::create();
 
-        // subjects from barnes and nobles
+        // small selection of subjects from Barnes and Nobles
+        // https://www.barnesandnoble.com/h/books/browse
         $subjects = [
-            'Generic Fiction',
-            'Graphic Novels',
-            'Comics',
-            'Historical Fiction',
-            'Horror',
-            'Literary Fiction',
-            'Literature',
-            'Mystery',
-            'Crime & Crime',
-            'Poetry',
-            'Romance',
-            'Science Fiction & Fantasy',
-            'Thrillers',
-            'Western',
-            'Kids',
-            'Teens',
-            'Young Adult',
-            'Activities & Games',
-            'Art',
-            'Astrology',
-            'Biography',
-            'Business',
-            'Computers',
-            'Cookbook & Food',
-            'Crafts & Hobbies',
-            'Politics',
-            'Diet, Health & Fitness',
-            'Education',
-            'Engineering',
-            'Foreign Languages',
-            'History',
-            'Home & Garden',
-            'Law',
-            'Medicine',
-            'Music & Film',
-            'Nature',
-            'Nonfiction',
-            'Parenting & Family',
-            'Pets',
-            'Philosophy',
-            'Religion'
+            'Generic Fiction',              // 1
+            'Graphic Novels',               // 2
+            'Horror',                       // 3
+            'Literary Fiction',             // 4
+            'Mystery & Crime',              // 5
+            'Romance',                      // 6
+            'Science Fiction & Fantasy',    // 7
+
+            'Kids',                         // 8
+            'Teens & Young Adult',          // 9
+
+            'Art',                          // 10
+            'Computers',                    // 11
+            'Education',                    // 12
+            'Foreign Languages',            // 13
+            'History',                      // 14
+            'Nature',                       // 15
+            'Philosophy'                    // 16
         ];
 
         foreach($subjects as $subject){
