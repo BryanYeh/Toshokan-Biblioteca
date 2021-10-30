@@ -31,7 +31,7 @@ class UserSeeder extends Seeder
             'last_name' => $faker->lastName()
         ]);
 
-        for ($i = 0; $i < 500; $i++) {
+        for ($i = 0; $i < 100; $i++) {
             $user_type = $faker->randomElement(['librarian','patron','visitor']);
 
             DB::table('users')->insert([

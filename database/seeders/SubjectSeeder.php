@@ -4,7 +4,7 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
-use Faker\Factory;
+use Carbon\Carbon;
 
 class SubjectSeeder extends Seeder
 {
@@ -15,8 +15,6 @@ class SubjectSeeder extends Seeder
      */
     public function run()
     {
-        $faker = Factory::create();
-
         // small selection of subjects from Barnes and Nobles
         // https://www.barnesandnoble.com/h/books/browse
         $subjects = [
@@ -42,7 +40,9 @@ class SubjectSeeder extends Seeder
 
         foreach($subjects as $subject){
             DB::table('subjects')->insert([
-                'subject' => $subject
+                'name' => $subject,
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now()
             ]);
         }
 

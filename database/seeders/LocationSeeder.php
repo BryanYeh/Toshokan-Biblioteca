@@ -5,6 +5,7 @@ namespace Database\Seeders;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 use Faker\Factory;
+use Carbon\Carbon;
 
 class LocationSeeder extends Seeder
 {
@@ -27,6 +28,8 @@ class LocationSeeder extends Seeder
                 'postal_code' => $faker->postcode(),
                 'country' => $faker->country(),
                 'phone' => $faker->phoneNumber(),
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now()
             ]);
         }
     }
