@@ -7,6 +7,7 @@ use App\Http\Controllers\AuthController;
 
 Route::group(['prefix' => 'books'], function () {
     Route::get('/', BooksController::class);
+    Route::get('random/{number}', [BooksController::class, 'randomBooks']);
     Route::get('{slug}', [BooksController::class,'show']);
 });
 

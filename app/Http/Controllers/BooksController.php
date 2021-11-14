@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Books;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\Log;
 
 class BooksController extends Controller
 {
@@ -37,6 +39,16 @@ class BooksController extends Controller
                     ->paginate(env('PER_PAGE'));
 
         return response()->json($books);
+    }
+
+    public function randomBooks(Request $request)
+    {
+        $number = $request->number;
+        return Cache::remember('randomBooks', 604800, function () use ($number) {
+            return Books::inRandomOrder()
+                ->limit((int) $number)
+                ->get();
+        });
     }
 
     public function show(Request $request)
