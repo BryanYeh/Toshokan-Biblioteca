@@ -1,0 +1,67 @@
+#!/bin/bash
+
+# All these variables are required
+NETWORKS="library"
+
+APP_USER=user
+
+DB_HOST="db"
+DB_CONTAINER_NAME="library_db"
+DB_CONTAINER_PORT=3306
+
+NGINX_CONTAINER_NAME="library_nginx"
+NGINX_CONTAINER_PORT=80
+
+REDIS_HOST="redis"
+REDIS_CONTAINER_NAME="library_redis"
+REDIS_CONTAINER_PORT=6937
+
+NPM_CONTAINER_NAME="library_npm"
+
+
+# make a copy of .env.example to .env
+[ ! -f ".env" ] && cp .env.example .env
+
+
+# update .env DB_HOST and REDIS_HOST to docker-compose.yml service names
+find .env -type f -exec sed -i '' -e "/^DB_HOST=/s/=.*/=\"$DB_HOST\"/" {} \;
+find .env -type f -exec sed -i '' -e "/^REDIS_HOST=/s/=.*/=\"$REDIS_HOST\"/" {} \;
+
+# update .env APP_URL with nginx port
+find .env -type f -exec sed -i '' -e "/^APP_URL=/s/=.*/=http\:\/\/localhost\:$NGINX_CONTAINER_PORT/" {} \;
+
+# add to end of .env
+echo "NETWORKS=$NETWORKS" >> .env
+echo "" >> .env
+echo "APP_USER=$APP_USER" >> .env
+echo "" >> .env
+echo "NGINX_CONTAINER_NAME=$NGINX_CONTAINER_NAME" >> .env
+echo "NGINX_CONTAINER_PORT=$NGINX_CONTAINER_PORT" >> .env
+echo "" >> .env
+echo "DB_CONTAINER_NAME=$DB_CONTAINER_NAME" >> .env
+echo "DB_CONTAINER_PORT=$DB_CONTAINER_PORT" >> .env
+echo "" >> .env
+echo "REDIS_CONTAINER_NAME=$REDIS_CONTAINER_NAME" >> .env
+echo "REDIS_CONTAINER_PORT=$REDIS_CONTAINER_PORT" >> .env
+echo "" >> .env
+echo "NPM_CONTAINER_NAME=$NPM_CONTAINER_NAME" >> .env
+
+# update REPLACE_NETWORKS in docker-compose.yml
+sed -i '' "s/REPLACE_NETWORKS/$NETWORKS/" docker-compose.yml
+
+# add to end of .gitignore
+echo "" >> .gitignore
+echo "**/.DS_Store" >> .gitignore
+echo "/docker-volumes/database/*" >> .gitignore
+echo "/docker-volumes/nginx/*" >> .gitignore
+echo "/docker-volumes/redis/*" >> .gitignore
+echo "!/docker-volumes/database/.gitkeep" >> .gitignore
+echo "!/docker-volumes/nginx/app.conf" >> .gitignore
+echo "!/docker-volumes/redis/.gitkeep" >> .gitignore
+echo "" >> .gitignore
+
+# remove all .DS_Store
+find . -name .DS_Store -print0 | xargs -0 git rm -f --ignore-unmatch
+
+# delete itself
+# rm ./init

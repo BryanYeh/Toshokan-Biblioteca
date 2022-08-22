@@ -12,3 +12,12 @@ Homestead.yaml
 npm-debug.log
 yarn-error.log
 .rnd
+
+**/.DS_Store
+/docker-volumes/database/*
+/docker-volumes/nginx/*
+/docker-volumes/redis/*
+!/docker-volumes/database/.gitkeep
+!/docker-volumes/nginx/app.conf
+!/docker-volumes/redis/.gitkeep
+

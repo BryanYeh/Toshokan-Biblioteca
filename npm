@@ -1,0 +1,6 @@
+#!/bin/bash
+
+path=$(printf '%s\n' "${PWD##*/}")
+command="docker-compose run npm "$@""
+echo "Running npm on docker npm: "
+$command
